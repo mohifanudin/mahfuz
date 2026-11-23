@@ -2,6 +2,11 @@
   "name": "mahfuz",
   "private": true,
   "packageManager": "pnpm@9.15.4",
+  "pnpm": {
+    "overrides": {
+      "@tanstack/solid-start": "1.168.57"
+    }
+  },
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
