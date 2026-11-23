@@ -47,8 +47,8 @@
   --mu-shadow-sm: 0 3px 14px rgba(33,59,76,.07);
   --mu-shadow-md: 0 10px 30px rgba(33,59,76,.10);
 
-  --mu-ff-display: 'Inter', system-ui, sans-serif;
-  --mu-ff-ui: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --mu-ff-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mu-ff-ui: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --mu-ff-ar: 'KFGQPCUthmanicScriptHAFS', 'Scheherazade New', 'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', serif;
   --mu-ff-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
@@ -6757,10 +6757,15 @@ a:has(> .mu-roadmap-node):hover .mu-roadmap-node-content {
   }
 
   .mu-reader {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     padding: 0 20px 64px;
     gap: 0;
   }
+  .mu-reader > * { min-width: 0; max-width: 100%; }
+  .mu-bismillah { font-size: clamp(23px, 7.5vw, 38px); line-height: 1.6; white-space: normal; }
+  .mu-v-ar { white-space: normal; overflow-wrap: normal; word-break: normal; }
+  .mu-chap-nav { display: grid; grid-template-columns: minmax(0, 1fr); width: min(100%, 360px); }
+  .mu-chap-nav .mu-btn { width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; justify-content: center; }
 
   .mu-reader-topbar {
     padding-left: 20px;
@@ -7323,7 +7328,7 @@ a:has(> .mu-roadmap-node):hover .mu-roadmap-node-content {
 .home-tile-copy small { color:#687c8d; font-size:10px; line-height:1.2; }
 .home-tile-arrow { color:var(--shelf-color); flex-shrink:0; opacity:.6; }
 .home-tile-arrow svg { width:12px; height:12px; }
-@media (max-width:380px) { .home-shelf { padding:13px; } .home-tile { padding:10px 7px; gap:6px; } .home-tile-arrow { display:none; } .home-tile-copy strong { font-size:11px; } }
+@media (max-width:480px) { .home-shelf { padding:13px; } .home-tile { padding:10px 7px; gap:6px; } .home-tile-arrow { display:none; } .home-tile-copy strong { font-size:13px; } .home-tile-copy small{font-size:11px;} }
 @media (min-width:700px) { .home-shelf-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } .home-tile-copy strong { font-size:13px; } }
 
 /* Sign-in: compact, balanced and mobile-first, including 320px screens. */
