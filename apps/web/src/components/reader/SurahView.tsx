@@ -253,7 +253,7 @@ export function SurahView({ surahId, highlightAyah }: SurahViewProps) {
                 onClick={handleTopbarPlay}
                 disabled={audioLoading}
                 className="mu-topbar-play"
-                aria-label={isPlaying ? "Pause" : "Play"}
+                aria-label={isPlaying ? t.a11y.pause : t.a11y.play}
               >
                 {audioLoading ? (
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="mu-spin">
@@ -497,12 +497,12 @@ function ViewModeMenu({
   const labels: Record<ReadingMode, string> = {
     verse: t.settings.modeVerse,
     wbw: t.settings.modeWbw,
-    mushaf: "Mushaf",
-    meal: "Meal",
+    mushaf: t.settings.modeMushaf,
+    meal: t.settings.mealOnly,
   };
 
   const groups: { heading: string; items: { mode: ReadingMode; label: string }[] }[] = [
-    { heading: "Ayet", items: [
+    { heading: t.common.verse, items: [
       { mode: "verse", label: labels.verse },
       { mode: "wbw", label: labels.wbw },
     ]},
@@ -566,6 +566,7 @@ function ViewModeMenu({
 // -- Verse side actions (number + bookmark + play + copy) --
 
 function VerseActions({ surahId, ayahNumber, pageNumber }: { surahId: number; ayahNumber: number; pageNumber: number }) {
+  const { t, locale } = useTranslation();
   const isBookmarked = useBookmarksStore((s) => s.isBookmarked(surahId, ayahNumber));
   const toggleBookmark = useBookmarksStore((s) => s.toggleBookmark);
   const { playSurah, currentChapterId, engine } = useAudioStore(
@@ -581,9 +582,9 @@ function VerseActions({ surahId, ayahNumber, pageNumber }: { surahId: number; ay
     }
     const audioData = await fetchChapterAudioForSlug(reciterSlug, surahId);
     if (audioData) {
-      playSurah(surahId, SURAH_NAMES_TR[surahId] ?? `Sure ${surahId}`, audioData, verseKey);
+      playSurah(surahId, getSurahName(surahId, locale) || `${t.common.surah} ${surahId}`, audioData, verseKey);
     }
-  }, [surahId, ayahNumber, currentChapterId, engine, reciterSlug, playSurah]);
+  }, [surahId, ayahNumber, currentChapterId, engine, reciterSlug, playSurah, locale, t.common.surah]);
 
   return (
     <div className="mu-v-side">
@@ -594,20 +595,20 @@ function VerseActions({ surahId, ayahNumber, pageNumber }: { surahId: number; ay
         <button
           className={`mu-v-act-btn${isBookmarked ? " on" : ""}`}
           onClick={() => toggleBookmark({ surahId, ayahNumber, pageNumber })}
-          aria-label="Bookmark"
+          aria-label={isBookmarked ? t.reader.removeBookmark : t.reader.bookmark}
         >
           <svg viewBox="0 0 24 24" fill={isBookmarked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M7 4h10v17l-5-3.5L7 21z" />
           </svg>
         </button>
-        <button className="mu-v-act-btn" onClick={handlePlay} aria-label="Play">
+        <button className="mu-v-act-btn" onClick={handlePlay} aria-label={t.a11y.play}>
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M8 5v14l11-7z" />
           </svg>
         </button>
         <button
           className="mu-v-act-btn"
-          aria-label="Copy"
+          aria-label={t.khatm.copy}
           onClick={() => {
             const el = document.querySelector(`[data-ayah="${ayahNumber}"]`);
             const text = el?.textContent ?? "";
@@ -747,7 +748,7 @@ function TocSearchList({
                   <span className="mu-rside-toc-text">
                     {ayah.translation
                       ? ayah.translation.slice(0, 60) + (ayah.translation.length > 60 ? "..." : "")
-                      : `Ayet ${ayah.ayahNumber}`}
+                      : `${t.common.verse} ${ayah.ayahNumber}`}
                   </span>
                 </button>
               </li>
@@ -825,7 +826,7 @@ function SurahSidebar({ ayahList, activeAyah, surahId, ayahRefs }: SurahSidebarP
                     {(() => {
                       const ayah = ayahList.find((a) => a.ayahNumber === b.ayahNumber);
                       const tr = ayah?.translation;
-                      return tr ? tr.slice(0, 60) + (tr.length > 60 ? "..." : "") : `Ayet ${b.ayahNumber}`;
+                      return tr ? tr.slice(0, 60) + (tr.length > 60 ? "..." : "") : `${t.common.verse} ${b.ayahNumber}`;
                     })()}
                   </span>
                 </button>

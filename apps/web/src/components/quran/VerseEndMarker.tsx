@@ -4,6 +4,7 @@
  */
 
 import { scallopedPath, toArabicIndic } from "~/lib/svg-helpers";
+import { useTranslation } from "~/hooks/useTranslation";
 
 interface VerseEndMarkerProps {
   ayahNumber: number;
@@ -20,6 +21,7 @@ export function VerseEndMarker({
   variant = "inline",
   size: sizeProp,
 }: VerseEndMarkerProps) {
+  const { t } = useTranslation();
   const size = sizeProp ?? (variant === "block" ? 32 : 28);
   const mid = size / 2;
 
@@ -41,7 +43,7 @@ export function VerseEndMarker({
           : "flex"
       } items-center justify-center cursor-pointer group/marker shrink-0`}
       style={{ width: size, height: size }}
-      aria-label={`Ayet ${ayahNumber}`}
+      aria-label={`${t.common.verse} ${ayahNumber}`}
     >
       <svg
         width={size}
