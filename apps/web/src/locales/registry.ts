@@ -1,4 +1,5 @@
 import { tr } from "./tr";
+import { id } from "./id";
 import { deepMerge } from "./merge";
 import type { LocaleConfig, Messages, PartialMessages } from "./types";
 
@@ -13,6 +14,7 @@ const localeLoaders: Record<string, () => Promise<Messages | PartialMessages>> =
 };
 
 const registry = {
+  id: { messages: id, displayName: "Bahasa Indonesia", dir: "ltr", bcp47: "id-ID" },
   tr: { messages: tr, displayName: "Türkçe", dir: "ltr", bcp47: "tr" },
   en: { messages: {} as Messages, displayName: "English", dir: "ltr", bcp47: "en" },
   es: { messages: {} as Messages, displayName: "Español", dir: "ltr", bcp47: "es" },
@@ -26,7 +28,7 @@ const registry = {
 export type Locale = keyof typeof registry;
 
 /** Default locale. */
-export const DEFAULT_LOCALE: Locale = "tr";
+export const DEFAULT_LOCALE: Locale = "id";
 
 /** All locale codes. */
 export const LOCALE_CODES = Object.keys(registry) as Locale[];
@@ -45,7 +47,7 @@ export function getAllLocaleConfigs(): { code: Locale; config: LocaleConfig }[] 
 export async function loadLocaleMessages(locale: Locale): Promise<Messages> {
   const config = registry[locale];
 
-  if (locale === "tr") return config.messages as Messages;
+  if (locale === "tr" || locale === "id") return config.messages as Messages;
 
   // Already loaded
   if (Object.keys(config.messages).length > 0) return config.messages as Messages;

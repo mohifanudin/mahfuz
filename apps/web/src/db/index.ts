@@ -1,5 +1,4 @@
-import { drizzle } from "drizzle-orm/libsql";
-import { createClient } from "@libsql/client";
+import { drizzle } from "drizzle-orm/libsql/web";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as authSchema from "./schema";
@@ -16,8 +15,10 @@ function resolveDbUrl(): string {
   return `file:${resolve(__dirname, "../..", dbPath)}`;
 }
 
+const dbUrl = resolveDbUrl();
+const { createClient } = dbUrl.startsWith("file:") ? await import("@libsql/client") : await import("@libsql/client/web");
 const client = createClient({
-  url: resolveDbUrl(),
+  url: dbUrl,
   authToken: process.env.TURSO_AUTH_TOKEN,
 });
 

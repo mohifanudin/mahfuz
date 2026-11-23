@@ -142,6 +142,7 @@ function WordMatchPage() {
   // easy → emoji oyunundaki gibi seçili tahmin edilebilir kelimeler (taş, su, kitap...)
   // hard → quran-word-pool zor bucket'ı (nadir / çekimli formlar)
   const wordsFor = useCallback((diff: Difficulty): QuranWord[] => {
+    if (locale === "id") return pool ? (diff === "easy" ? pool.normal : pool.zor) : [];
     if (diff === "easy") {
       return EMOJI_WORDS.map((e) => ({ arabic: e.arabic, meaning: locale === "en" ? e.en : e.tr }));
     }

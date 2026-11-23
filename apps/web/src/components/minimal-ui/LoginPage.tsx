@@ -32,20 +32,20 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
       if (mode === "signup") {
         const result = await signUp.email({ name: name || email.split("@")[0], email, password });
         if (result.error) {
-          setError(result.error.message || "Kayit basarisiz");
+          setError(t.auth.registerFailed);
           return;
         }
       } else {
         const result = await signIn.email({ email, password });
         if (result.error) {
-          setError(result.error.message || "Giriş başarısız");
+          setError(t.auth.loginFailed);
           return;
         }
       }
       await router.invalidate();
       router.navigate({ to: redirect || "/" });
     } catch {
-      setError("Bir hata olustu");
+      setError(t.auth.genericError);
     } finally {
       setLoading(false);
     }
@@ -56,10 +56,10 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
     try {
       const result = await signIn.social({ provider: "google", callbackURL: redirect || "/" });
       if (result?.error) {
-        setError(result.error.message || "Google girisi basarisiz");
+        setError(t.auth.googleFailed);
       }
     } catch {
-      setError("Google girisi basarisiz");
+      setError(t.auth.googleFailed);
     }
   };
 
@@ -70,11 +70,11 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
           <div style={{ marginBottom: 16 }}>
             <LogoMeem size={52} />
           </div>
-          <h2>{mode === "signin" ? "Tekrar hoş geldin" : "Mahfuz'a katıl"}</h2>
+          <h2>{mode === "signin" ? "Selamat datang kembali!" : "Bergabung dengan Mahfuz"}</h2>
           <p className="mu-muted" style={{ fontSize: 14, margin: 0, maxWidth: "34ch", marginLeft: "auto", marginRight: "auto" }}>
             {mode === "signin"
-              ? "Yer imlerin, ilerlemen ve notların senin hesabına bağlı."
-              : "Bir hesap aç; okuduğun her ayet seninle kalsın."}
+              ? "Simpan hafalan dan catatan belajarmu."
+              : "Buat akun bersama ayah, bunda, atau pendampingmu."}
           </p>
         </div>
 
@@ -84,44 +84,38 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
           </p>
         )}
 
-        <div className="mu-signin-oauth">
+        {import.meta.env.VITE_GOOGLE_LOGIN_ENABLED === "true" && <div className="mu-signin-oauth">
           <button type="button" className="mu-oauth" onClick={handleGoogle}>
             {MuIcons.google}
-            <span>Google ile devam et</span>
+            <span>{t.auth.continueWithGoogle}</span>
           </button>
-          <button type="button" className="mu-oauth" style={{ color: "var(--mu-ink)" }}>
-            {MuIcons.apple}
-            <span>Apple ile devam et</span>
-          </button>
-        </div>
+        </div>}
 
-        <div className="mu-signin-or">
-          <span>veya e-posta ile</span>
-        </div>
+        {import.meta.env.VITE_GOOGLE_LOGIN_ENABLED === "true" && <div className="mu-signin-or"><span>atau dengan email</span></div>}
 
         <form className="mu-signin-form" onSubmit={handleSubmit}>
           {mode === "signup" && (
             <label className="mu-field">
-              <span>Ad</span>
+              <span>{t.auth.namePlaceholder}</span>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Ahmet Yilmaz"
+                placeholder="Nama panggilan"
               />
             </label>
           )}
           <label className="mu-field">
-            <span>E-posta</span>
+            <span>{t.auth.emailPlaceholder}</span>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="sen@ornek.com"
+              placeholder="nama@contoh.id"
               required
             />
           </label>
           <label className="mu-field">
-            <span>Parola</span>
+            <span>{t.auth.passwordPlaceholder}</span>
             <input
               type="password"
               value={password}
@@ -136,20 +130,21 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
             style={{ justifyContent: "center", marginTop: 8, width: "100%" }}
             disabled={loading}
           >
-            {loading ? "..." : mode === "signin" ? "Giriş yap" : "Hesap oluştur"}
+            {loading ? t.common.loading : mode === "signin" ? t.auth.login : t.auth.createAccount}
             {MuIcons.arrowRight}
           </button>
         </form>
 
         <p className="mu-signin-alt">
-          {mode === "signin" ? "Hesabin yok mu?" : "Zaten bir hesabin var mi?"}
+          {mode === "signin" ? t.auth.noAccount : t.auth.hasAccount}
           <button
             type="button"
             onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
           >
-            {mode === "signin" ? "Kayıt ol" : "Giriş yap"}
+            {mode === "signin" ? t.auth.register : t.auth.login}
           </button>
         </p>
+        <Link to="/" className="mu-btn ghost" style={{ justifyContent: "center", width: "100%" }}>Belajar tanpa akun</Link>
       </div>
     </div>
   );

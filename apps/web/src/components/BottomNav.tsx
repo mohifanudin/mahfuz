@@ -87,6 +87,17 @@ export function BottomNav() {
         </svg>
       ),
     },
+    {
+      id: "games",
+      label: t.nav.games,
+      to: "/games",
+      isActive: pathname.startsWith("/games"),
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="6" width="18" height="13" rx="5"/><path d="M7 12h4M9 10v4M16 11h.01M18 14h.01"/>
+        </svg>
+      ),
+    },
   ];
 
   return (
@@ -95,21 +106,22 @@ export function BottomNav() {
 
       <nav
         aria-label="Mahfuz"
-        className="md:hidden fixed bottom-0 inset-x-0 z-50 border-t border-[var(--color-border)] bg-[var(--color-bg)]"
+        className="kid-bottom-nav md:hidden fixed bottom-0 inset-x-0 z-50 border-t border-[var(--color-border)] bg-[var(--color-bg)]"
         style={{ paddingBottom: "max(env(safe-area-inset-bottom), 4px)" }}
       >
-        <div className="flex items-center justify-around h-12 max-w-lg mx-auto">
+        <div className="flex items-center justify-around max-w-lg mx-auto kid-nav-items">
           {tabs.map((tab) => (
             <Link
               key={tab.id}
               to={tab.to as "/"}
-              className={`flex flex-col items-center gap-0.5 py-1 px-3 transition-colors ${
+              aria-current={tab.isActive ? "page" : undefined}
+              className={`kid-nav-tab flex flex-col items-center gap-0.5 py-1 px-2 transition-colors ${
                 tab.isActive
                   ? "text-[var(--color-accent)]"
                   : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
               }`}
             >
-              {tab.icon}
+              <span className="kid-nav-icon">{tab.icon}</span>
               <span className="text-[10px] font-medium">{tab.label}</span>
             </Link>
           ))}
@@ -117,7 +129,7 @@ export function BottomNav() {
           {/* Ayarlar tab -- buton, Link degil */}
           <button
             onClick={openSettings}
-            className={`flex flex-col items-center gap-0.5 py-1 px-3 transition-colors ${
+            className={`kid-nav-tab flex flex-col items-center gap-0.5 py-1 px-2 transition-colors ${
               settingsOpen
                 ? "text-[var(--color-accent)]"
                 : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"

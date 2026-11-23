@@ -22,8 +22,36 @@ import { MuIcons } from "./icons";
 import { HomeShelves } from "./HomeShelves";
 
 export function HomeHero() {
+  const { t } = useTranslation();
   return (
     <>
+      <section className="kid-welcome" aria-labelledby="kid-welcome-title">
+        <div className="kid-welcome-copy">
+          <span className="kid-kicker">✦ Bismillah</span>
+          <h1 id="kid-welcome-title">{t.home.heroTitle} <span>{t.home.heroAccent}</span></h1>
+          <p>{t.home.heroDesc}</p>
+          <Link to="/games/verse-chain" className="kid-welcome-cta">{t.gamesHub.verseChainTitle} <span aria-hidden="true">→</span></Link>
+        </div>
+        <div className="kid-welcome-art" aria-hidden="true">
+          <svg className="kid-book-illustration" viewBox="0 0 160 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="80" cy="126" rx="58" ry="9" fill="#1C7595" fillOpacity=".12"/>
+            <path d="M35 48C51 41 67 43 80 54C93 43 109 41 125 48L130 101C110 97 93 107 80 114C67 107 50 97 30 101L35 48Z" fill="#087E88"/>
+            <path d="M40 41C54 37 69 40 80 50V105C66 95 49 92 34 96L40 41Z" fill="#FFFFFF" stroke="#C2E4E5" strokeWidth="2"/>
+            <path d="M120 41C106 37 91 40 80 50V105C94 95 111 92 126 96L120 41Z" fill="#FFF7DD" stroke="#E8DCB3" strokeWidth="2"/>
+            <path d="M80 51V105" stroke="#0B7C82" strokeWidth="2.5" strokeLinecap="round"/>
+            <path d="M45 57C55 54 66 57 72 60M45 68C55 65 65 68 72 71M43 79C53 76 64 78 72 81M88 60C96 55 105 54 115 57M88 71C96 67 107 65 115 68M88 81C98 76 107 76 117 79" stroke="#9CBCC8" strokeWidth="3" strokeLinecap="round"/>
+            <path d="M58 100L48 123H112L102 100M66 114H94" stroke="#D59B50" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M23 18L26 28L36 31L26 34L23 44L20 34L10 31L20 28L23 18ZM135 10L138 20L148 23L138 26L135 36L132 26L122 23L132 20L135 10Z" fill="#F2B95F"/>
+            <circle cx="130" cy="68" r="4" fill="#B38CE9"/><circle cx="40" cy="24" r="3" fill="#71CDB9"/>
+          </svg>
+        </div>
+      </section>
+      <section className="kid-quick-grid" aria-label={t.profile.quickAccess}>
+        <Link to="/fihrist" className="kid-quick kid-quick-read"><span className="kid-quick-icon" aria-hidden="true">{MuIcons.book}</span><strong>{t.nav.read}</strong><small>{t.home.chips.surahList}</small></Link>
+        <Link to="/alifba" className="kid-quick kid-quick-learn"><span className="kid-quick-icon" aria-hidden="true">{MuIcons.alif}</span><strong>{t.hub.featLearn}</strong><small>{t.hub.alifba}</small></Link>
+        <Link to="/hifz" className="kid-quick kid-quick-hifz"><span className="kid-quick-icon" aria-hidden="true">{MuIcons.star}</span><strong>{t.hub.featMemorize}</strong><small>{t.hub.hifz}</small></Link>
+        <Link to="/games" className="kid-quick kid-quick-play"><span className="kid-quick-icon" aria-hidden="true">{MuIcons.gameController}</span><strong>{t.nav.games}</strong><small>{t.gamesHub.verseChainTitle}</small></Link>
+      </section>
       <FeaturedSurah />
 
       <div className="mu-rule">
@@ -77,7 +105,7 @@ function FeaturedSurah() {
 
   const surah = lastPosition
     ? surahs.find((s) => s.id === lastPosition.surahId)
-    : surahs.find((s) => s.id === 67); // default: Mulk
+    : surahs.find((s) => s.id === 1);
 
   if (!surah) return null;
 
@@ -100,7 +128,7 @@ function FeaturedSurah() {
         <span className="mu-muted"> — {getSurahMeaning(surah.id, locale)}</span>
       </h2>
       <p className="mu-feat-meta">
-        {surah.ayahCount} {t.surahList?.verses ?? "ayet"} · {surah.revelation === "makkah" ? "Mekki" : "Medeni"}
+        {surah.ayahCount} {t.surahList.verses} · {surah.revelation === "makkah" ? t.surahList.filterMakki : t.surahList.filterMadani}
       </p>
       {lastPosition && (
         <div className="mu-feat-pbar" aria-label={`%${pct}`}>

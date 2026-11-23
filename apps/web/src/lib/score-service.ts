@@ -145,7 +145,7 @@ export const submitScore = createServerFn({ method: "POST" })
       const initialLeague = computeLeague(totalRow?.total ?? 0);
       await db
         .insert(userSettings)
-        .values({ userId, currentLeague: initialLeague, updatedAt: new Date() })
+        .values({ userId, displayNameMode: "anonymous", currentLeague: initialLeague, updatedAt: new Date() })
         .onConflictDoNothing();
     }
 

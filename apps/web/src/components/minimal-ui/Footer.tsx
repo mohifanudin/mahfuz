@@ -4,6 +4,7 @@ import { LOCALE_CODES, type Locale } from "~/locales/registry";
 import { LogoMeem } from "./LogoMeem";
 
 const LOCALE_LABELS: Record<Locale, string> = {
+  id: "ID",
   tr: "TR",
   en: "EN",
   es: "ES",
@@ -28,7 +29,7 @@ export function Footer() {
           <Link
             to="/mahfuz"
             style={{ all: "unset", cursor: "pointer" }}
-            aria-label="Mahfuz: Kuran'ın korunması"
+            aria-label="Mahfuz: penjagaan Al-Qur'an"
           >
             15:9
           </Link>

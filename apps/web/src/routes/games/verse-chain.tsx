@@ -39,7 +39,7 @@ export const Route = createFileRoute("/games/verse-chain")({
 const THEME = GAME_THEMES["verse-chain"];
 const P = THEME.primary;
 
-type GameState = "loading" | "playing" | "correct" | "wrong" | "gameover";
+type GameState = "loading" | "playing" | "correct" | "wrong" | "gameover" | "error";
 type Screen = "setup" | "game";
 
 /** Shuffle array in place (Fisher-Yates) */
@@ -122,9 +122,9 @@ function VerseChainGame({
         setOptions(buildOptions(data[0], optCount));
         setState("playing");
         questionStart.current = Date.now();
-      }
+      } else setState("error");
     } catch {
-      setTimeout(() => loadRounds(), 1000);
+      setState("error");
     }
   }, [surahIds, optCount]);
 
@@ -269,6 +269,16 @@ function VerseChainGame({
     );
   }
 
+  if (state === "error") {
+    return <div className="min-h-dvh flex items-center justify-center game-bg px-5" style={gameBgStyle(THEME, "verse-chain")}>
+      <div className="rounded-3xl bg-white p-6 text-center shadow-sm max-w-xs">
+        <h2 className="font-bold text-lg mb-2">{t.error.generic}</h2><p className="mb-5 text-sm">{t.error.genericDesc}</p>
+        <button className="mu-btn primary" onClick={loadRounds}>{t.error.retry}</button>
+        <button className="mu-btn ghost mt-2" onClick={onSetup}>{t.gameScoring.changeSurah}</button>
+      </div>
+    </div>;
+  }
+
   if (state === "loading" || !currentRound) {
     return (
       <div
@@ -409,7 +419,7 @@ function VerseChainGame({
               >
                 <div className="flex items-center justify-between gap-3 mb-1">
                   <span className="text-[10px] text-[var(--color-text-secondary)]">
-                    {isUnlocked ? `${getSurahName(opt.surahId, locale) || opt.surahName} - ${opt.ayahNumber}. Ayet` : ""}
+                    {isUnlocked ? `${getSurahName(opt.surahId, locale) || opt.surahName} · ${t.common.verse} ${opt.ayahNumber}` : ""}
                   </span>
                   {isSelected && state === "correct" && (
                     <span className="text-xs font-bold" style={{ color: P }}>

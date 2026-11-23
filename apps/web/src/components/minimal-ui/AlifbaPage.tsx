@@ -76,6 +76,19 @@ const QUOTES = [
   },
 ];
 
+const ID_EXAMPLES: typeof STEP_EXAMPLES = {
+  1: { words: [["ا","alif"], ["ب","ba"], ["ت","ta"], ["م","mim"]], desc: "Kenali 28 huruf hijaiyah satu demi satu." },
+  2: { words: [["مَ","ma"], ["مِ","mi"], ["مُ","mu"]], desc: "Tambahkan fathah, kasrah, dan dammah." },
+  3: { words: [["مَكْ","mak"], ["رَبْ","rab"]], desc: "Baca huruf mati dengan tanda sukun." },
+  4: { words: [["كِتَابًا","kitaban"], ["عِلْمٍ","ilmin"]], desc: "Tanwin menambah bunyi an, in, atau un." },
+  5: { words: [["رَبَّ","rabba"], ["اللَّه","Allah"]], desc: "Tasydid membuat huruf dibaca ganda." },
+  6: { words: [["قَالَ","qaala"], ["يَقُولُ","yaquulu"]], desc: "Huruf mad membuat bacaan lebih panjang." },
+  7: { words: [["بِسْمِ","bismi"]], desc: "Kenali bentuk huruf di awal, tengah, dan akhir." },
+  8: { words: [["اللّٰهِ","Allahi"], ["الرَّحْمٰنِ","ar-rahmani"]], desc: "Gabungkan huruf menjadi kata pendek." },
+  9: { words: [["اَلْفَاتِحَة","Al-Fatihah"]], desc: "Baca surah pertama Al-Qur'an sampai selesai." },
+  10: { words: [["تَجْوِيد","tajwid"]], desc: "Baca huruf dengan makhraj dan tajwid yang tepat." },
+};
+
 /* ── Timeline Step ─────────────────────────────────── */
 
 function TimelineStep({
@@ -91,12 +104,12 @@ function TimelineStep({
   isLast: boolean;
   completedLessons: Set<string>;
 }) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const rowRef = useRef<HTMLDivElement>(null);
 
   const lessonLink = getLessonLinkForStep(step.id, completedLessons);
   const titleText = (t.hub as unknown as Record<string, string>)?.[step.titleKey] ?? step.titleKey;
-  const example = STEP_EXAMPLES[step.id];
+  const example = (locale === "id" ? ID_EXAMPLES : STEP_EXAMPLES)[step.id];
 
   const stepLink = step.id === 1
     ? "/alifba/letters"
@@ -160,21 +173,23 @@ function TimelineStep({
 /* ── Quote Card ────────────────────────────────────── */
 
 function QuoteCard({ quote }: { quote: typeof QUOTES[number] }) {
+  const { locale } = useTranslation();
+  const quoteId = QUOTES.indexOf(quote);
   return (
     <blockquote className="mu-tl-quote">
       <div className="mu-tl-quote-wbw" dir="rtl">
         {quote.words.map(([ar, lat], i) => (
           <div key={i} className="mu-tl-quote-word">
             <span className="mu-tl-quote-word-ar">{ar}</span>
-            <span className="mu-tl-quote-word-lat">{lat}</span>
+            {locale !== "id" && <span className="mu-tl-quote-word-lat">{lat}</span>}
           </div>
         ))}
       </div>
-      <p className="mu-tl-quote-tr">{quote.tr}</p>
+      <p className="mu-tl-quote-tr">{locale === "id" ? (quoteId === 0 ? "Sebaik-baik kalian adalah orang yang belajar Al-Qur'an dan mengajarkannya." : "Orang yang membaca Al-Qur'an dengan terbata-bata dan merasa sulit mendapat dua pahala.") : quote.tr}</p>
       <footer className="mu-tl-quote-src">
-        <span className="mu-tl-quote-label">Ravi:</span> {quote.ravi}
+        <span className="mu-tl-quote-label">{locale === "id" ? "Perawi:" : "Ravi:"}</span> {quote.ravi}
         <br />
-        <span className="mu-tl-quote-label">Kaynak:</span> {quote.kaynak}, {quote.senet}
+        <span className="mu-tl-quote-label">{locale === "id" ? "Sumber:" : "Kaynak:"}</span> {locale === "id" ? (quoteId === 0 ? "HR. Bukhari" : "HR. Muslim") : `${quote.kaynak}, ${quote.senet}`}
       </footer>
     </blockquote>
   );
@@ -183,7 +198,7 @@ function QuoteCard({ quote }: { quote: typeof QUOTES[number] }) {
 /* ── Main Page ──────────────────────────────────────── */
 
 export function AlifbaPage() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const statuses = useStepStatuses();
   const lessonProgress = useQaidaStore((s) => s.lessonProgress);
   const completedLessons = useMemo(() => new Set(Object.keys(lessonProgress)), [lessonProgress]);
@@ -198,9 +213,7 @@ export function AlifbaPage() {
           {t.hub?.roadmapTitle ?? "Kur'an Okuma Yolculuğun"}
         </h1>
         <p className="mu-tl-hero-sub">
-          10 kısa adımda, sıfırdan Fatiha okumaya.
-          {" "}Her adım bir öncekinin üstüne biner.
-          {" "}Düşündüğünden çok daha kolay.
+          {t.hub.roadmapSubtitle}
         </p>
       </div>
 
@@ -226,8 +239,7 @@ export function AlifbaPage() {
 
       {/* Closing encouragement */}
       <p className="mu-tl-closing">
-        Burada olman bile büyük bir adım.
-        Kur'an'ı öğrenmeye niyet eden, yolun yarısını geçmiştir.
+        {locale === "id" ? "Masya Allah! Kamu sudah memulai langkah yang hebat. Yuk, belajar sedikit demi sedikit setiap hari." : t.hub.roadmapSubtitle}
       </p>
     </div>
   );

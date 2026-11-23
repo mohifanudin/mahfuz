@@ -170,6 +170,7 @@ export const Route = createFileRoute("/api/v1/sync")({
           } else {
             await db.insert(userSettings).values({
               userId,
+              displayNameMode: "anonymous",
               data: JSON.stringify(merged),
               updatedAt: new Date(),
             });

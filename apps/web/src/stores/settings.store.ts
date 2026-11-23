@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { DEFAULT_TRANSLATION_SLUG } from "@mahfuz/shared";
+const DEFAULT_TRANSLATION_SLUG = "kfqpc-id-v2";
 
 export type Theme = "light" | "sepia" | "dark" | "sakura";
 export type TextStyle = "uthmani" | "basic";
@@ -14,14 +14,14 @@ export type HomeView = "welcome" | "fihrist";
 
 export const ACCENT_COLORS: Record<AccentColorId, { light: { accent: string; soft: string; ink: string }; dark: { accent: string; soft: string; ink: string }; swatch: string }> = {
   default: {
-    light: { accent: "oklch(0.45 0.18 14)", soft: "oklch(0.93 0.04 14)", ink: "oklch(0.30 0.13 14)" },
+    light: { accent: "#087e88", soft: "#d9f7f2", ink: "#075e66" },
     dark:  { accent: "oklch(0.62 0.18 14)", soft: "oklch(0.26 0.07 14)", ink: "oklch(0.88 0.12 14)" },
-    swatch: "#a01e3f",
+    swatch: "#087e88",
   },
   stone: {
-    light: { accent: "oklch(0.50 0.03 75)",  soft: "oklch(0.92 0.02 75)",  ink: "oklch(0.30 0.02 75)" },
+    light: { accent: "#b36500", soft: "#fff2cd", ink: "#784300" },
     dark:  { accent: "oklch(0.68 0.03 75)",  soft: "oklch(0.28 0.02 75)",  ink: "oklch(0.88 0.02 75)" },
-    swatch: "#7c715a",
+    swatch: "#e8a23a",
   },
   petrol: {
     light: { accent: "oklch(0.50 0.11 230)", soft: "oklch(0.92 0.04 230)", ink: "oklch(0.30 0.08 230)" },
@@ -137,20 +137,21 @@ export const useSettingsStore = create<SettingsState & SettingsActions>()(
       readingMode: "verse" as ReadingMode,
       surahListFilter: "all" as SurahListFilter,
       reciterSlug: "yasser-ad-dossari",
-      arabicFontSize: 1.8,
-      translationFontSize: 0.95,
+      arabicFontSize: 2.1,
+      translationFontSize: 1.05,
       colorizeWords: false,
       colorPaletteId: "earth" as ColorPaletteId,
       labsEnabled: false,
       mushafSizeMode: "standard" as MushafSizeMode,
       accentColor: "default" as AccentColorId,
       autoPlayNextSurah: false,
-      homeView: "fihrist" as HomeView,
+      homeView: "welcome" as HomeView,
 
       // Actions
       setTheme: (theme) => {
+        if (theme === "dark") theme = "light";
         document.documentElement.setAttribute("data-theme", theme);
-        applyAccentToDOM(get().accentColor, theme === "dark");
+        applyAccentToDOM(get().accentColor, false);
         set({ theme });
       },
       toggleTranslationSlug: (slug) =>
@@ -207,24 +208,24 @@ export const useSettingsStore = create<SettingsState & SettingsActions>()(
           readingMode: "verse",
           surahListFilter: "all",
           reciterSlug: "yasser-ad-dossari",
-          arabicFontSize: 1.8,
-          translationFontSize: 0.95,
+          arabicFontSize: 2.1,
+          translationFontSize: 1.05,
           colorizeWords: false,
           colorPaletteId: "earth",
           labsEnabled: false,
           accentColor: "default",
           autoPlayNextSurah: false,
-          homeView: "fihrist",
+          homeView: "welcome",
         });
       },
     }),
     {
       name: "mahfuz-core-settings",
       version: 10,
-      merge: (persisted, current) => ({
-        ...current,
-        ...(persisted as object),
-      }),
+      merge: (persisted, current) => {
+        const merged = { ...current, ...(persisted as Partial<SettingsState>) };
+        return { ...merged, theme: merged.theme === "dark" ? "light" : merged.theme };
+      },
       migrate: (persisted: any, version: number) => {
         if (version === 0) {
           if (persisted.translationSlug && !persisted.translationSlugs) {

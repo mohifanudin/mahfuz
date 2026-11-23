@@ -14,11 +14,11 @@
  */
 
 import { surahIdFromSlug } from "./surah-slugs";
-import { SURAH_NAMES_TR } from "./surah-names-tr";
+import { getSurahName } from "./surah-names-i18n";
 
 const SITE = "Mahfuz";
 const SEP = " · ";
-const DEFAULT_DESC = "Sadece Kuran. Minimal, dikkat dağıtmayan Kuran yoldaşı.";
+const DEFAULT_DESC = "Teman mengaji, hafalan, dan permainan Al-Qur'an untuk anak-anak.";
 
 interface HeadMeta {
   title: string;
@@ -92,7 +92,8 @@ const STATIC: Record<string, HeadMeta> = {
 };
 
 export function staticHead(key: keyof typeof STATIC) {
-  return buildMeta(STATIC[key]);
+  const titles: Record<string, string> = { home: "Beranda", fihrist: "Daftar surah", about: "Tentang", bookmarks: "Ayat tersimpan", changelog: "Apa yang baru?", discover: "Belajar", hifz: "Hafalanku", notes: "Catatanku", premium: "Dukungan", profile: "Profilku", "profile-privacy": "Privasi", promo: "Mahfuz", recite: "Baca bersuara", search: "Cari", stats: "Perkembangan", tajweed: "Belajar tajwid", mahfuz: "Penjagaan Al-Qur'an", games: "Bermain", "games-scoreboard": "Papan skor", "games-ayah-2048": "Surah 2048", "games-fill-blank": "Lengkapi ayat", "games-hexagon": "Susun huruf", "games-kelime-tahmini": "Tebak kata", "games-surah-guess": "Tebak surah", "games-verse-chain": "Sambung Ayat", "games-word-match": "Cocokkan kata", "games-word-meaning": "Arti kata", meclis: "Main bersama", khatm: "Khatam bersama", alifba: "Huruf hijaiyah", "alifba-letters": "Kenali huruf", "alifba-exam": "Kuis hijaiyah", "alifba-exam-index": "Kuis", "alifba-games": "Permainan hijaiyah", "alifba-games-fill": "Cari huruf", "alifba-games-memory": "Pasangan huruf", "alifba-games-speed": "Huruf kilat", "alifba-games-word": "Cari kata", "alifba-quiz-forms": "Bentuk huruf", "alifba-quiz-voice": "Kuis suara", "auth-login": "Masuk", "auth-callback": "Sedang masuk", "not-found": "Halaman tidak ditemukan" };
+  return buildMeta({ title: titles[key] ?? SITE });
 }
 
 // ── Dinamik route yardımcıları ──────────────────────────
@@ -101,88 +102,88 @@ function surahNameFromSlug(slug: string | undefined): string | null {
   if (!slug) return null;
   const id = surahIdFromSlug(slug);
   if (!id) return null;
-  return SURAH_NAMES_TR[id] ?? null;
+  return getSurahName(id, "id") || null;
 }
 
 export function surahHead(slug: string | undefined) {
   const name = surahNameFromSlug(slug);
-  if (!name) return buildMeta({ title: "Sûre", description: "Kuran'da bir sure oku." });
+  if (!name) return buildMeta({ title: "Surah", description: "Baca surah Al-Qur'an." });
   return buildMeta({
-    title: `${name} Suresi`,
-    description: `${name} suresinin Arapça metni, Türkçe meali ve sesli tilaveti.`,
+    title: `Surah ${name}`,
+    description: `Baca dan dengarkan surah ${name} beserta terjemahan Bahasa Indonesia.`,
   });
 }
 
 export function pageHead(pageNumber: string | number | undefined) {
   const n = Number(pageNumber);
-  if (!n || n < 1 || n > 604) return buildMeta({ title: "Mushaf Sayfası" });
+  if (!n || n < 1 || n > 604) return buildMeta({ title: "Halaman mushaf" });
   return buildMeta({
-    title: `Mushaf Sayfa ${n}`,
-    description: `Mushaf-ı Şerif ${n}. sayfası — Medine baskısı düzeniyle.`,
+    title: `Halaman mushaf ${n}`,
+    description: `Baca halaman ${n} dalam mushaf Madinah.`,
   });
 }
 
 export function juzHead(juzId: string | number | undefined) {
   const n = Number(juzId);
-  if (!n || n < 1 || n > 30) return buildMeta({ title: "Cüz" });
+  if (!n || n < 1 || n > 30) return buildMeta({ title: "Juz" });
   return buildMeta({
-    title: `${n}. Cüz`,
-    description: `Kuran'ın ${n}. cüzü — kapsadığı sureler ve sayfa sırasıyla.`,
+    title: `Juz ${n}`,
+    description: `Baca juz ${n} Al-Qur'an.`,
   });
 }
 
 export function analyseHead(verseKey: string | undefined) {
-  if (!verseKey || !/^\d+:\d+$/.test(verseKey)) return buildMeta({ title: "Ayet Tahlili" });
+  if (!verseKey || !/^\d+:\d+$/.test(verseKey)) return buildMeta({ title: "Pelajari ayat" });
   const [s, a] = verseKey.split(":").map(Number);
-  const name = SURAH_NAMES_TR[s] ?? `Sure ${s}`;
+  const name = getSurahName(s, "id") || `Surah ${s}`;
   return buildMeta({
-    title: `${name} ${a} · Tahlil`,
-    description: `${name} suresi ${a}. ayetinin mealleri, kelime kelime morfoloji ve benzer ayetler.`,
+    title: `${name} ${a} · Pelajari ayat`,
+    description: `Terjemahan dan penjelasan ayat ${a} surah ${name}.`,
   });
 }
 
 export function tafsirHead(verseKey: string | undefined) {
-  if (!verseKey || !/^\d+:\d+$/.test(verseKey)) return buildMeta({ title: "Tefsir" });
+  if (!verseKey || !/^\d+:\d+$/.test(verseKey)) return buildMeta({ title: "Tafsir" });
   const [s, a] = verseKey.split(":").map(Number);
-  const name = SURAH_NAMES_TR[s] ?? `Sure ${s}`;
+  const name = getSurahName(s, "id") || `Surah ${s}`;
   return buildMeta({
-    title: `${name} ${a} · Tefsir`,
-    description: `${name} suresi ${a}. ayetinin Kur'an Yolu tefsiri (Diyanet İşleri Başkanlığı).`,
+    title: `${name} ${a} · Tafsir`,
+    description: `Tafsir ayat ${a} surah ${name}.`,
   });
 }
 
 export function meclisCodeHead(code: string | undefined) {
-  if (!code) return buildMeta({ title: "Meclis" });
+  if (!code) return buildMeta({ title: "Main bersama" });
   return buildMeta({
-    title: `Meclis ${code.toUpperCase()}`,
-    description: "Canlı meclise katıl — Mahfuz parti modu.",
+    title: `Main bersama ${code.toUpperCase()}`,
+    description: "Bergabung dalam permainan bersama teman.",
   });
 }
 
 export function khatmGroupHead(groupId: string | undefined) {
   return buildMeta({
-    title: "Hatim Grubu",
-    description: "Grup üyeleri, ilerleme ve katkıların tek ekranda.",
+    title: "Khatam bersama",
+    description: "Pantau kegiatan khatam bersama.",
   });
 }
 
 export function alifbaLetterHead(letterId: string | undefined) {
   return buildMeta({
-    title: letterId ? `${letterId.toUpperCase()} · Harf` : "Harf",
-    description: "Harfin sesleri, formları ve yazımı.",
+    title: letterId ? `${letterId.toUpperCase()} · Huruf` : "Huruf",
+    description: "Pelajari suara, bentuk, dan cara menulis huruf.",
   });
 }
 
 export function alifbaStepHead(stepId: string | undefined) {
   return buildMeta({
-    title: stepId ? `Adım ${stepId}` : "Elifba Adımı",
-    description: "Elifba müfredatında bir adım — alıştırmalar ve mini sınav.",
+    title: stepId ? `Langkah ${stepId}` : "Belajar mengaji",
+    description: "Latihan dan kuis dalam perjalanan belajar mengaji.",
   });
 }
 
 export function alifbaExamHead(stepId: string | undefined) {
   return buildMeta({
-    title: stepId ? `Adım ${stepId} Sınavı` : "Elifba Sınavı",
-    description: "Adımın bitiminde küçük bir ölçme.",
+    title: stepId ? `Kuis langkah ${stepId}` : "Kuis hijaiyah",
+    description: "Uji pemahaman setelah menyelesaikan pelajaran.",
   });
 }

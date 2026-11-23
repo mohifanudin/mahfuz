@@ -5,14 +5,11 @@
  * Audio URL pattern: QDC (api.qurancdn.com) → chapter recitations endpoint
  */
 
-import { createClient } from "@libsql/client";
-import { drizzle } from "drizzle-orm/libsql";
+import { openSeedClient } from "./remote-db";
+import { drizzle } from "drizzle-orm/libsql/web";
 import { reciters } from "../src/db/quran-schema";
 
-const client = createClient({
-  url: process.env.TURSO_DATABASE_URL || "file:./local.db",
-  authToken: process.env.TURSO_AUTH_TOKEN,
-});
+const client = await openSeedClient();
 const db = drizzle(client);
 
 // ── QDC ses URL pattern ────────────────────────────────

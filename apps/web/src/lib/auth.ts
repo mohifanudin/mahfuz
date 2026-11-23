@@ -32,7 +32,7 @@ export const auth = betterAuth({
       maxAge: 5 * 60,
     },
   },
-  trustedOrigins: ["http://localhost:3001", "mahfuz://"],
+  trustedOrigins: ["http://localhost:3001", "mahfuz://", "https://murojaah.imtiyaz.web.id", ...(process.env.BETTER_AUTH_URL ? [process.env.BETTER_AUTH_URL] : []), ...(process.env.VERCEL_PROJECT_PRODUCTION_URL ? [`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`] : [])],
   plugins: [tanstackStartCookies(), bearer()],
 });
 

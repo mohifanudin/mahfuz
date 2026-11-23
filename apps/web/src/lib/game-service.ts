@@ -5,7 +5,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { db } from "~/db";
 import { ayahs, surahs } from "~/db/quran-schema";
-import { sql, eq, inArray, and, or } from "drizzle-orm";
+import { sql, eq, inArray, notInArray, and, or } from "drizzle-orm";
 import { splitWords } from "~/lib/split-words";
 
 export type VerseFilter = { surahId: number; verseNums: number[] }[];
@@ -44,7 +44,7 @@ export const getRandomVerseForGame = createServerFn({ method: "POST" })
     // Daha once gosterilen ayetleri disla
     if (data.excludeAyahIds && data.excludeAyahIds.length > 0) {
       conditions.push(
-        sql`${ayahs.id} NOT IN (${sql.raw(data.excludeAyahIds.join(","))})`,
+        notInArray(ayahs.id, data.excludeAyahIds.filter(Number.isInteger)) as ReturnType<typeof sql>,
       );
     }
 
@@ -139,7 +139,7 @@ export const getWordConstructionQuestion = createServerFn({ method: "POST" })
 
     if (data.excludeAyahIds && data.excludeAyahIds.length > 0) {
       conditions.push(
-        sql`${ayahs.id} NOT IN (${sql.raw(data.excludeAyahIds.join(","))})`,
+        notInArray(ayahs.id, data.excludeAyahIds.filter(Number.isInteger)) as ReturnType<typeof sql>,
       );
     }
 
@@ -214,7 +214,7 @@ export const getVerseGuessQuestion = createServerFn({ method: "POST" })
 
     if (data.excludeAyahIds && data.excludeAyahIds.length > 0) {
       conditions.push(
-        sql`${ayahs.id} NOT IN (${sql.raw(data.excludeAyahIds.join(","))})`,
+        notInArray(ayahs.id, data.excludeAyahIds.filter(Number.isInteger)) as ReturnType<typeof sql>,
       );
     }
 

@@ -1,11 +1,11 @@
 {
-  "name": "Mahfuz — Kuran-ı Kerim",
-  "short_name": "Mahfuz",
-  "description": "Kuran-ı Kerim okuma, dinleme ve hıfz uygulaması",
+  "name": "Murojaah — Teman Mengaji Mahfuz",
+  "short_name": "Murojaah",
+  "description": "Baca, dengar, belajar, bermain, dan hafalkan Al-Qur'an dengan gembira.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F7F0DD",
-  "theme_color": "#F7F0DD",
+  "background_color": "#F8FBFF",
+  "theme_color": "#F8FBFF",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -31,6 +31,6 @@
     }
   ],
   "categories": ["education", "lifestyle"],
-  "lang": "tr",
+  "lang": "id-ID",
   "dir": "ltr"
 }

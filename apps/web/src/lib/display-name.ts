@@ -17,7 +17,7 @@ export type DisplayNameMode = "full" | "initials" | "anonymous";
 
 export const DISPLAY_NAME_MODES: DisplayNameMode[] = ["full", "initials", "anonymous"];
 
-const ANON_LABEL = "Mahfuz Kullanıcısı";
+const ANON_LABEL = "Teman Mahfuz";
 
 /** userId'den deterministik 4 karakterlik suffix üretir (anonim modda ayırt etmek için). */
 function anonSuffix(userId: string): string {
@@ -35,7 +35,7 @@ export function formatDisplayName(
   mode: DisplayNameMode | string | null | undefined,
   userId: string,
 ): string {
-  const safeMode: DisplayNameMode = mode === "initials" || mode === "anonymous" ? mode : "full";
+  const safeMode: DisplayNameMode = mode === "full" || mode === "initials" ? mode : "anonymous";
   const trimmed = (fullName ?? "").trim();
 
   if (safeMode === "anonymous" || !trimmed) {
@@ -65,7 +65,7 @@ function isMode(v: unknown): v is DisplayNameMode {
 export const getMyDisplayNameMode = createServerFn({ method: "GET" })
   .handler(async (): Promise<DisplayNameMode> => {
     const session = await auth.api.getSession({ headers: getRequestHeaders() });
-    if (!session?.user?.id) return "full";
+    if (!session?.user?.id) return "anonymous";
 
     const [row] = await db
       .select({ mode: userSettings.displayNameMode })
@@ -73,7 +73,7 @@ export const getMyDisplayNameMode = createServerFn({ method: "GET" })
       .where(eq(userSettings.userId, session.user.id))
       .limit(1);
 
-    return isMode(row?.mode) ? row.mode : "full";
+    return isMode(row?.mode) ? row.mode : "anonymous";
   });
 
 /** Modu günceller (upsert). */

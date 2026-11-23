@@ -161,7 +161,38 @@ const NL: Record<number, string> = {
   111: "De Palmvezels", 112: "De Oprechtheid", 113: "De Dageraad", 114: "De Mensen",
 };
 
+const ID_NAMES: Record<number, string> = Object.fromEntries([
+  "Al-Fatihah", "Al-Baqarah", "Ali 'Imran", "An-Nisa'", "Al-Ma'idah", "Al-An'am", "Al-A'raf", "Al-Anfal", "At-Taubah", "Yunus",
+  "Hud", "Yusuf", "Ar-Ra'd", "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Isra'", "Al-Kahf", "Maryam", "Taha",
+  "Al-Anbiya'", "Al-Hajj", "Al-Mu'minun", "An-Nur", "Al-Furqan", "Asy-Syu'ara'", "An-Naml", "Al-Qasas", "Al-'Ankabut", "Ar-Rum",
+  "Luqman", "As-Sajdah", "Al-Ahzab", "Saba'", "Fatir", "Yasin", "As-Saffat", "Sad", "Az-Zumar", "Gafir",
+  "Fussilat", "Asy-Syura", "Az-Zukhruf", "Ad-Dukhan", "Al-Jasiyah", "Al-Ahqaf", "Muhammad", "Al-Fath", "Al-Hujurat", "Qaf",
+  "Az-Zariyat", "At-Tur", "An-Najm", "Al-Qamar", "Ar-Rahman", "Al-Waqi'ah", "Al-Hadid", "Al-Mujadilah", "Al-Hasyr", "Al-Mumtahanah",
+  "As-Saff", "Al-Jumu'ah", "Al-Munafiqun", "At-Tagabun", "At-Talaq", "At-Tahrim", "Al-Mulk", "Al-Qalam", "Al-Haqqah", "Al-Ma'arij",
+  "Nuh", "Al-Jinn", "Al-Muzzammil", "Al-Muddassir", "Al-Qiyamah", "Al-Insan", "Al-Mursalat", "An-Naba'", "An-Nazi'at", "'Abasa",
+  "At-Takwir", "Al-Infitar", "Al-Mutaffifin", "Al-Insyiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", "Al-Gasyiyah", "Al-Fajr", "Al-Balad",
+  "Asy-Syams", "Al-Lail", "Ad-Duha", "Asy-Syarh", "At-Tin", "Al-'Alaq", "Al-Qadr", "Al-Bayyinah", "Az-Zalzalah", "Al-'Adiyat",
+  "Al-Qari'ah", "At-Takasur", "Al-'Asr", "Al-Humazah", "Al-Fil", "Quraisy", "Al-Ma'un", "Al-Kautsar", "Al-Kafirun", "An-Nasr",
+  "Al-Lahab", "Al-Ikhlas", "Al-Falaq", "An-Nas",
+].map((name, i) => [i + 1, name]));
+
+const ID_MEANINGS: Record<number, string> = Object.fromEntries([
+  "Pembukaan", "Sapi betina", "Keluarga Imran", "Perempuan", "Hidangan", "Hewan ternak", "Tempat tertinggi", "Harta rampasan perang", "Tobat", "Yunus",
+  "Hud", "Yusuf", "Guruh", "Ibrahim", "Al-Hijr", "Lebah", "Perjalanan malam", "Gua", "Maryam", "Taha",
+  "Para nabi", "Haji", "Orang beriman", "Cahaya", "Pembeda", "Para penyair", "Semut", "Kisah-kisah", "Laba-laba", "Bangsa Romawi",
+  "Luqman", "Sujud", "Golongan yang bersekutu", "Saba'", "Pencipta", "Yasin", "Barisan-barisan", "Sad", "Rombongan", "Yang Maha Pengampun",
+  "Yang dijelaskan", "Musyawarah", "Perhiasan", "Kabut", "Yang berlutut", "Bukit pasir", "Muhammad", "Kemenangan", "Kamar-kamar", "Qaf",
+  "Angin yang menerbangkan", "Bukit", "Bintang", "Bulan", "Yang Maha Pengasih", "Hari kiamat", "Besi", "Perempuan yang menggugat", "Pengusiran", "Perempuan yang diuji",
+  "Barisan", "Jumat", "Orang munafik", "Hari ditampakkan kesalahan", "Talak", "Larangan", "Kerajaan", "Pena", "Hari yang pasti", "Tempat naik",
+  "Nuh", "Jin", "Orang yang berselimut", "Orang yang berkemul", "Kiamat", "Manusia", "Malaikat yang diutus", "Berita besar", "Malaikat yang mencabut", "Bermuka masam",
+  "Penggulungan", "Terbelah", "Orang yang curang", "Terpecah", "Gugusan bintang", "Yang datang malam hari", "Yang Mahatinggi", "Hari yang meliputi", "Fajar", "Negeri",
+  "Matahari", "Malam", "Waktu duha", "Kelapangan", "Buah tin", "Segumpal darah", "Kemuliaan", "Bukti nyata", "Guncangan", "Kuda perang",
+  "Hari yang menggetarkan", "Bermegah-megahan", "Masa", "Pengumpat", "Gajah", "Suku Quraisy", "Barang berguna", "Nikmat berlimpah", "Orang kafir", "Pertolongan",
+  "Gejolak api", "Ikhlas", "Waktu subuh", "Manusia",
+].map((name, i) => [i + 1, name]));
+
 const SURAH_NAMES: Record<string, Record<number, string>> = {
+  id: ID_NAMES,
   tr: SURAH_NAMES_TR,
   en: EN,
   fr: FR,
@@ -180,6 +211,7 @@ export function getSurahName(surahId: number, locale: string): string {
 }
 
 const SURAH_MEANINGS: Record<string, Record<number, string>> = {
+  id: ID_MEANINGS,
   tr: SURAH_MEANINGS_TR,
   en: EN,
   fr: FR,

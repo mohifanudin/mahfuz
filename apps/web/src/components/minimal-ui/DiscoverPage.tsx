@@ -252,6 +252,10 @@ export function DiscoverPage() {
   const { data: surahs } = useSurahs();
   const hub = t.hub as unknown as Record<string, string>;
   const [selectedMood, setSelectedMood] = useState<typeof MOODS[number] | null>(null);
+  const moodLabels = [
+    ["Tenang", "Ayat yang menenangkan hati"], ["Sedih", "Ayat yang menguatkan saat sulit"], ["Takut & khawatir", "Memohon perlindungan"], ["Merenung", "Ayat yang mengajak berpikir"], ["Semangat", "Ayat untuk lebih berani melangkah"], ["Berani", "Mengatasi rasa takut"], ["Fokus & ikhlas", "Menjaga niat baik"], ["Sabar & tekun", "Tetap semangat belajar"], ["Kasih sayang", "Ayat yang melembutkan hati"], ["Berbagi", "Indahnya berbuat baik"], ["Bersyukur", "Ingat nikmat Allah"], ["Tawakal", "Percaya kepada Allah"], ["Tobat & maaf", "Mulai kembali dengan baik"], ["Adil", "Bersikap adil dan benar"], ["Keluarga & cinta", "Kedekatan dan kasih sayang"], ["Mengingat akhirat", "Ingat bahwa hidup sementara"], ["Ibadah malam", "Mengenal tahajud"],
+  ];
+  const moodLabel = (m: typeof MOODS[number]) => locale === "id" ? moodLabels[MOODS.indexOf(m)] ?? [m.title, m.sub] : [m.title, m.sub];
 
   useEffect(() => {
     if (!selectedMood) return;
@@ -303,13 +307,13 @@ export function DiscoverPage() {
 
       {/* 3. Mood */}
       <section className="mu-disc-section">
-        <h2 className="mu-disc-section-title">Ruh haline göre</h2>
+        <h2 className="mu-disc-section-title">{locale === "id" ? "Bagaimana perasaanmu hari ini?" : "Ruh haline göre"}</h2>
         <div className="mu-mood-grid">
           {MOODS.map((m) => (
             <button key={m.title} type="button" className="mu-mood-box" onClick={() => setSelectedMood(m)}>
-              <span className="mu-mood-title">{m.title}</span>
-              <span className="mu-mood-sub">{m.sub}</span>
-              <span className="mu-mood-count">{m.items.length} ayet</span>
+              <span className="mu-mood-title">{moodLabel(m)[0]}</span>
+              <span className="mu-mood-sub">{moodLabel(m)[1]}</span>
+              <span className="mu-mood-count">{m.items.length} {t.surahList.verses}</span>
             </button>
           ))}
         </div>
@@ -317,9 +321,9 @@ export function DiscoverPage() {
 
       {/* Hz. Ömer'in tavsiye ettiği sureler */}
       <section className="mu-disc-section">
-        <h2 className="mu-disc-section-title">{"Hz. Ömer'in tavsiye ettiği sureler"}</h2>
+        <h2 className="mu-disc-section-title">{locale === "id" ? "Surah pilihan Umar bin Khattab" : "Hz. Ömer'in tavsiye ettiği sureler"}</h2>
         <p className="mu-muted" style={{ margin: "0 0 14px", fontSize: 13.5, lineHeight: 1.55 }}>
-          {'Hz. Ömer (r.a.) bu surelerin öğrenilmesini tavsiye etmiştir: "Kuşkusuz farzlar o surelerdedir."'}
+          {locale === "id" ? "Kenali beberapa surah yang dianjurkan untuk dipelajari oleh Umar bin Khattab r.a." : 'Hz. Ömer (r.a.) bu surelerin öğrenilmesini tavsiye etmiştir: "Kuşkusuz farzlar o surelerdedir."'}
         </p>
         <div className="flex flex-wrap gap-2">
           {OMER_SURAHS.map((id) => {
@@ -342,9 +346,9 @@ export function DiscoverPage() {
 
       {/* Havâmîm — Hz. Ali'nin Kuran'ın gelinleri dediği sureler */}
       <section className="mu-disc-section">
-        <h2 className="mu-disc-section-title">{"Kuran'ın gelinleri (Havâmîm)"}</h2>
+        <h2 className="mu-disc-section-title">{locale === "id" ? "Surah-surah Hawamim" : "Kuran'ın gelinleri (Havâmîm)"}</h2>
         <p className="mu-muted" style={{ margin: "0 0 14px", fontSize: 13.5, lineHeight: 1.55 }}>
-          {"Hz. Ali (r.a.), حم ile başlayan bu yedi sureye Kuran'ın gelinleri demiştir."}
+          {locale === "id" ? "Tujuh surah yang dimulai dengan حم. Yuk, kenali surah-surah ini!" : "Hz. Ali (r.a.), حم ile başlayan bu yedi sureye Kuran'ın gelinleri demiştir."}
         </p>
         <div className="flex flex-wrap gap-2">
           {HAVAMIM_SURAHS.map((id) => {
@@ -370,17 +374,17 @@ export function DiscoverPage() {
           className="mu-sover"
           role="dialog"
           aria-modal="true"
-          aria-label={selectedMood.title}
+          aria-label={moodLabel(selectedMood)[0]}
           onClick={() => setSelectedMood(null)}
         >
           <div className="mu-sover-box mu-mood-modal" onClick={(e) => e.stopPropagation()}>
             <div className="mu-mood-modal-head">
               <div>
-                <h3>{selectedMood.title}</h3>
-                <p className="mu-muted">{selectedMood.sub}</p>
+                <h3>{moodLabel(selectedMood)[0]}</h3>
+                <p className="mu-muted">{moodLabel(selectedMood)[1]}</p>
               </div>
-              <button className="mu-sover-close" onClick={() => setSelectedMood(null)} aria-label="Kapat">
-                esc
+              <button className="mu-sover-close" onClick={() => setSelectedMood(null)} aria-label={t.common.close}>
+                {t.common.close}
               </button>
             </div>
             <ul className="mu-mood-modal-list">

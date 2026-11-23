@@ -2,6 +2,8 @@
  * Shared Quran word pairs — used by word-meaning and kelime-tahmini games.
  */
 
+import { WORD_GLOSS_ID } from "./indonesian-words";
+
 export interface WordPair {
   arabic: string;
   meaning: string;
@@ -12,6 +14,7 @@ export interface WordPair {
 
 /** Return meaning & wrong answers in the given locale */
 export function getLocalizedPair(pair: WordPair, locale: string) {
+  if (locale === "id") return { meaning: WORD_GLOSS_ID[pair.meaningEn] ?? pair.meaningEn, wrong: pair.wrongEn.map((word) => WORD_GLOSS_ID[word] ?? word) as [string, string, string] };
   if (locale === "en") return { meaning: pair.meaningEn, wrong: pair.wrongEn };
   return { meaning: pair.meaning, wrong: pair.wrong };
 }

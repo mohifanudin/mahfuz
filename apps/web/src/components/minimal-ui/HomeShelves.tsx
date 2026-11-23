@@ -47,7 +47,6 @@ export function HomeShelves() {
         <div className="flex flex-wrap gap-2">
           <Link to="/khatm" className="mu-nav-chip">{c.khatm}</Link>
           <Link to="/games/scoreboard" className="mu-nav-chip">{c.scoreboard}</Link>
-          <Link to="/premium" className="mu-nav-chip">{c.premium}</Link>
         </div>
       </div>
 
@@ -60,6 +59,7 @@ export function HomeShelves() {
           </Link>
         </div>
         <div className="flex flex-wrap gap-2">
+          <Link to="/games/verse-chain" className="mu-nav-chip">{t.gamesHub.verseChainTitle}</Link>
           <Link to="/games/fill-blank" className="mu-nav-chip">{c.fillBlank}</Link>
           <Link to="/games/kelime-tahmini" className="mu-nav-chip">{c.wordGuess}</Link>
           <Link to="/games/ayah-2048" className="mu-nav-chip">{c.ayah2048}</Link>

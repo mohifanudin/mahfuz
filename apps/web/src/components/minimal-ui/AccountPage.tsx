@@ -89,7 +89,7 @@ export function AccountPage({ user }: AccountPageProps) {
           <div className="mu-account-avatar">{initial}</div>
         )}
         <div className="mu-account-headmeta">
-          <h1 className="mu-account-name">{user.name || "Kullanıcı"}</h1>
+          <h1 className="mu-account-name">{user.name || t.nav.guestName}</h1>
           <p className="mu-account-sub">
             <span>{user.email}</span>
             {leagueStatus && (

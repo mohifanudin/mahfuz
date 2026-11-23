@@ -131,6 +131,7 @@ export const pushChanges = createServerFn({ method: "POST" })
         } else {
           await db.insert(userSettings).values({
             userId,
+            displayNameMode: "anonymous",
             data: JSON.stringify(currentData),
             fieldTimestamps: JSON.stringify(currentFieldTs),
             updatedAt: now,
@@ -186,6 +187,7 @@ export const pushChanges = createServerFn({ method: "POST" })
         } else {
           await db.insert(userSettings).values({
             userId,
+            displayNameMode: "anonymous",
             data: JSON.stringify(currentData),
             fieldTimestamps: JSON.stringify(currentFieldTs),
             updatedAt: now,

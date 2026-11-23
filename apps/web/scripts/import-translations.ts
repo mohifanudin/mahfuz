@@ -7,8 +7,8 @@
  * Varsayılan meal: Ömer Çelik
  */
 
-import { createClient } from "@libsql/client";
-import { drizzle } from "drizzle-orm/libsql";
+import { openSeedClient } from "./remote-db";
+import { drizzle } from "drizzle-orm/libsql/web";
 import { readFileSync, readdirSync } from "node:fs";
 import { resolve, basename } from "node:path";
 import { translationSources, translations } from "../src/db/quran-schema";
@@ -18,10 +18,7 @@ const TRANSLATIONS_DIR = resolve(CORE_PUBLIC, "translations");
 
 // ── DB bağlantısı ──────────────────────────────────────
 
-const client = createClient({
-  url: process.env.TURSO_DATABASE_URL || "file:./local.db",
-  authToken: process.env.TURSO_AUTH_TOKEN,
-});
+const client = await openSeedClient();
 const db = drizzle(client);
 
 // ── Meal slug → dil eşleştirmesi ───────────────────────
@@ -81,7 +78,7 @@ const SLUG_TO_LANGUAGE: Record<string, string> = {
   "hilali-khan-en": "en",
 };
 
-const DEFAULT_SLUG = "omer-celik";
+const DEFAULT_SLUG = "kfqpc-id-v2";
 
 // ── Hangi mealleri import edeceğimizi belirle ──────────
 

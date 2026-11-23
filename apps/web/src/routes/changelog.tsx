@@ -279,7 +279,7 @@ function ChangelogPage() {
   const [tagFilter, setTagFilter] = useState<FilterTag>("all");
   const [categoryFilter, setCategoryFilter] = useState<Category | "all">("all");
 
-  const bcp47 = { tr: "tr-TR", en: "en-US", es: "es-ES", fr: "fr-FR", ar: "ar-SA", de: "de-DE", nl: "nl-NL" }[locale] ?? "tr-TR";
+  const bcp47 = { id: "id-ID", tr: "tr-TR", en: "en-US", es: "es-ES", fr: "fr-FR", ar: "ar-SA", de: "de-DE", nl: "nl-NL" }[locale] ?? "id-ID";
 
   // Filter milestones → days → entries
   const filtered = useMemo(() => {

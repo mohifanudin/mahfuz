@@ -8,6 +8,7 @@ import { getAllLocaleConfigs, type Locale } from "~/locales/registry";
 import { MahfuzLogo } from "~/components/icons/MahfuzLogo";
 
 const FLAG: Record<string, string> = {
+  id: "🇮🇩",
   tr: "\uD83C\uDDF9\uD83C\uDDF7",
   en: "\uD83C\uDDEC\uD83C\uDDE7",
   es: "\uD83C\uDDEA\uD83C\uDDF8",
@@ -68,6 +69,7 @@ export function LanguageSelector() {
 
 /** Static confirm labels per locale (no i18n needed). */
 const CONFIRM_LABEL: Record<string, string> = {
+  id: "Lanjut",
   tr: "Devam et",
   en: "Continue",
   es: "Continuar",

@@ -11,43 +11,43 @@ export interface GameTheme {
 export const GAME_THEMES: Record<string, GameTheme> = {
   // Kelime Doldurma - warm parchment/manuscript feel (filling in ancient text)
   "fill-blank": {
-    bg: "#2C1810", primary: "#D4A04C", secondary: "#8B5E3C", surface: "#3D2617",
-    glow: "rgba(212,160,76,0.3)", img: "/images/games/mahfuz-fill-in-the-blank.webp", isDark: true,
+    bg: "#FFF7E5", primary: "#A85D00", secondary: "#E8A23A", surface: "#FFFFFF",
+    glow: "rgba(232,162,58,0.22)", img: "/images/games/mahfuz-fill-in-the-blank.webp", isDark: false,
   },
   // Ayet Zinciri - deep emerald chain links (connecting verses)
   "verse-chain": {
-    bg: "#0A2A1B", primary: "#C9A84C", secondary: "#2D6B52", surface: "#0F3028",
-    glow: "rgba(201,168,76,0.3)", img: "/images/games/mahfuz-verse-chain.webp", isDark: true,
+    bg: "#E0F9F2", primary: "#087C72", secondary: "#24B9A2", surface: "#FFFFFF",
+    glow: "rgba(36,185,162,0.23)", img: "/images/games/mahfuz-verse-chain.webp", isDark: false,
   },
   // Kelime Anlami - calm slate-blue (quiet study feel)
   "word-meaning": {
-    bg: "#24303E", primary: "#7EBAC8", secondary: "#4E8A9C", surface: "#2C3C4A",
-    glow: "rgba(126,186,200,0.18)", img: "/images/games/mahfuz-word-meaning.webp", isDark: true,
+    bg: "#EAF5FF", primary: "#246CB5", secondary: "#74B2EE", surface: "#FFFFFF",
+    glow: "rgba(116,178,238,0.24)", img: "/images/games/mahfuz-word-meaning.webp", isDark: false,
   },
   // Hexagon Harf - deep forest green (honeycomb in nature)
   "hexagon": {
-    bg: "#0B1F14", primary: "#4A9B6A", secondary: "#2D6B4A", surface: "#132E1E",
-    glow: "rgba(74,155,106,0.3)", img: "/images/games/mahfuz-hexagon-letters.webp", isDark: true,
+    bg: "#EFFAE6", primary: "#408329", secondary: "#89C65B", surface: "#FFFFFF",
+    glow: "rgba(137,198,91,0.23)", img: "/images/games/mahfuz-hexagon-letters.webp", isDark: false,
   },
   // Sure Tanima - midnight blue/teal (listening, contemplation)
   "surah-guess": {
-    bg: "#0D1B2A", primary: "#48BFE3", secondary: "#2D6DA8", surface: "#1B2D45",
-    glow: "rgba(72,191,227,0.25)", img: "/images/games/mahfuz-surah-recognition.webp", isDark: true,
+    bg: "#E6F7FF", primary: "#2476AF", secondary: "#70C7ED", surface: "#FFFFFF",
+    glow: "rgba(112,199,237,0.23)", img: "/images/games/mahfuz-surah-recognition.webp", isDark: false,
   },
   // Kelime Tahmini - dark olive/sage (wordle-style, thoughtful)
   "kelime-tahmini": {
-    bg: "#1A2118", primary: "#6B9E5B", secondary: "#4A7A3E", surface: "#232E20",
-    glow: "rgba(107,158,91,0.3)", img: "/images/games/mahfuz-kelime-tahmini.webp", isDark: true,
+    bg: "#EAF8EC", primary: "#377C4B", secondary: "#8CD6A4", surface: "#FFFFFF",
+    glow: "rgba(140,214,164,0.23)", img: "/images/games/mahfuz-kelime-tahmini.webp", isDark: false,
   },
   // Quranic 2048 - deep navy/crimson (arcade energy)
   "ayet-2048": {
-    bg: "#1A1A2E", primary: "#E94560", secondary: "#533483", surface: "#16213E",
-    glow: "rgba(233,69,96,0.3)", img: "/images/games/mahfuz-ayet-2048.webp", isDark: true,
+    bg: "#F7EEFF", primary: "#8751B5", secondary: "#C2A3F6", surface: "#FFFFFF",
+    glow: "rgba(194,163,246,0.23)", img: "/images/games/mahfuz-ayet-2048.webp", isDark: false,
   },
   // Kelime Eslestirme - warm amber/parchment (matching cards aesthetic)
   "word-match": {
-    bg: "#2A1B0E", primary: "#F5A623", secondary: "#D4782F", surface: "#3A2515",
-    glow: "rgba(245,166,35,0.3)", img: "/images/games/mahfuz-word-match.webp", isDark: true,
+    bg: "#FFF0EB", primary: "#B75C34", secondary: "#F5A57C", surface: "#FFFFFF",
+    glow: "rgba(245,165,124,0.23)", img: "/images/games/mahfuz-word-match.webp", isDark: false,
   },
 };
 
@@ -143,6 +143,16 @@ export function gameBgStyle(theme: GameTheme, gameId?: string): React.CSSPropert
       "--game-bg-pattern": pat.pattern,
       "--game-pattern-size": pat.size,
       "--game-pattern-opacity": pat.opacity,
+    }),
+    ...(!theme.isDark && {
+      "--color-surface": theme.surface,
+      "--color-bg": theme.bg,
+      "--color-border": `${theme.primary}25`,
+      "--color-text-primary": "#1D3444",
+      "--color-text-secondary": "#506579",
+      "--color-accent": theme.primary,
+      "--mushaf-bg": "#FFFFFF",
+      "--mushaf-border": `${theme.primary}22`,
     }),
     // Override app-level CSS custom properties for dark game UIs
     ...(theme.isDark && {

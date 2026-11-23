@@ -72,7 +72,7 @@ export function TopBar({ session, onSearch, onSettings }: TopBarProps) {
 
         {/* Right actions */}
         <div className="mu-topright">
-          <button className="mu-icon-btn mu-icon-btn--settings" title="Ayarlar" onClick={onSettings}>
+          <button className="mu-icon-btn mu-icon-btn--settings" title={t.nav.settings} onClick={onSettings}>
             {MuIcons.settings}
           </button>
           {session?.user ? (

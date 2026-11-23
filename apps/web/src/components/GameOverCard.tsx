@@ -81,7 +81,7 @@ export function GameOverCard({
         >
           <MedalLeague league={leagueUp.to} size={32} />
           <div className="text-left flex-1">
-            <p className="text-xs font-bold" style={{ color: P }}>Lig Atladın!</p>
+            <p className="text-xs font-bold" style={{ color: P }}>Hebat! Kamu naik tingkat!</p>
             <p className="text-sm text-[var(--color-text-primary)]">
               {LEAGUE_LABELS[leagueUp.from]} → <strong>{LEAGUE_LABELS[leagueUp.to]}</strong>
             </p>

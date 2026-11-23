@@ -5,20 +5,10 @@ import { useSettingsStore } from "~/stores/settings.store";
 
 /** Default translation slug per locale */
 const LOCALE_DEFAULT_TRANSLATION: Partial<Record<Locale, string>> = {
+  id: "kfqpc-id-v2",
   en: "yusufali-en",
   tr: "omer-celik",
 };
-
-/** Detect best matching locale from browser languages. */
-function detectBrowserLocale(): Locale {
-  if (typeof navigator === "undefined") return DEFAULT_LOCALE;
-  const langs = navigator.languages ?? [navigator.language];
-  for (const lang of langs) {
-    const code = lang.split("-")[0].toLowerCase();
-    if (LOCALE_CODES.includes(code as Locale)) return code as Locale;
-  }
-  return DEFAULT_LOCALE;
-}
 
 interface LocaleState {
   locale: Locale;
@@ -32,7 +22,7 @@ export const useLocaleStore = create<LocaleState>()(
   persist(
     (set) => ({
       locale: DEFAULT_LOCALE,
-      hasChosenLocale: false,
+      hasChosenLocale: true,
       setLocale: (locale) => {
         set({ locale, hasChosenLocale: true });
         const defaultSlug = LOCALE_DEFAULT_TRANSLATION[locale];
@@ -52,9 +42,10 @@ export const useLocaleStore = create<LocaleState>()(
           state.locale = DEFAULT_LOCALE;
         }
 
-        // First visit: detect browser language
+        // This edition always opens in Indonesian; other languages remain optional.
         if (!state.hasChosenLocale) {
-          state.locale = detectBrowserLocale();
+          state.locale = DEFAULT_LOCALE;
+          state.hasChosenLocale = true;
         }
       },
     },

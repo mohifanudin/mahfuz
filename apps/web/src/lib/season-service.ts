@@ -189,7 +189,7 @@ async function applySeasonMovements(startedAt: number, endedAt: number): Promise
     if (updated.length === 0) {
       await db
         .insert(userSettings)
-        .values({ userId: m.userId, currentLeague: m.nextLeague, updatedAt: now })
+        .values({ userId: m.userId, displayNameMode: "anonymous", currentLeague: m.nextLeague, updatedAt: now })
         .onConflictDoUpdate({
           target: userSettings.userId,
           set: { currentLeague: m.nextLeague, updatedAt: now },

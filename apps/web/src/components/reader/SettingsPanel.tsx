@@ -48,14 +48,6 @@ function SepiaIcon({ size = 18 }: { size?: number }) {
   );
 }
 
-function MoonIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-    </svg>
-  );
-}
-
 function SakuraIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
@@ -482,7 +474,6 @@ function GeneralTab({ store, locale, setLocale, t }: {
         {([
           { id: "light" as const, icon: <SunIcon /> },
           { id: "sepia" as const, icon: <SepiaIcon /> },
-          { id: "dark" as const, icon: <MoonIcon /> },
           { id: "sakura" as const, icon: <SakuraIcon /> },
         ]).map((item) => {
           const active = store.theme === item.id;
@@ -490,7 +481,7 @@ function GeneralTab({ store, locale, setLocale, t }: {
             <button
               key={item.id}
               onClick={() => store.setTheme(item.id)}
-              aria-label={item.id}
+              aria-label={t.settings.themes[item.id] ?? item.id}
               style={{
                 display: "grid",
                 placeItems: "center",

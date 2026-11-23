@@ -24,7 +24,7 @@ export type PageLayout = "medine" | "berkenar";
 export const DEFAULT_RECITER_ID = 7;
 
 /** Default translation slug */
-export const DEFAULT_TRANSLATION_SLUG = "omer-celik";
+export const DEFAULT_TRANSLATION_SLUG = "kfqpc-id-v2";
 
 /** Juz → first surah number */
 export const JUZ_FIRST_SURAH: Record<number, number> = {

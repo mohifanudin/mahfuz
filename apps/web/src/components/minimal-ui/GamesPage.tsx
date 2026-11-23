@@ -86,8 +86,19 @@ export function GamesPageMinimal() {
     staleTime: 60_000,
   });
   const [cat, setCat] = useState("all");
+  const labels: Record<string, [string, string, string, string]> = {
+    "verse-chain": [t.gamesHub.verseChainTitle, t.gamesHub.verseChainDesc, "🔗", "#DDF8F0"],
+    "fill-blank": [t.gamesHub.fillBlankTitle, t.gamesHub.fillBlankDesc, "🧩", "#FFECCB"],
+    "surah-guess": [t.gamesHub.surahGuessTitle, t.gamesHub.surahGuessDesc, "⭐", "#E4F2FF"],
+    "word-meaning": [t.gamesHub.wordMeaningTitle, t.gamesHub.wordMeaningDesc, "💡", "#F3E6FF"],
+    "hexagon": [t.gamesHub.hexagonTitle, t.gamesHub.hexagonDesc, "🔤", "#E7F7D9"],
+    "kelime-tahmini": [t.gamesHub.kelimeTahminiTitle, t.gamesHub.kelimeTahminiDesc, "❓", "#FFF4D5"],
+    "ayet-2048": [t.gamesHub.ayet2048Title, t.gamesHub.ayet2048Desc, "🎯", "#FFE5EA"],
+    "word-match": [t.gamesHub.wordMatchTitle, t.gamesHub.wordMatchDesc, "🃏", "#E4F2FF"],
+  };
+  const categoryLabels: Record<string, string> = { all: t.gamesHub.catAll, Elifba: t.gamesHub.catElifba, "Kur'an": t.common.surah, "Sûreler": t.home.chips.surahList, Hifz: t.gamesHub.catHifz, "Arapça": t.settings.arabic, Bulmaca: t.gamesHub.catPuzzle };
   const cats = ["all", "Elifba", "Kur'an", "Sûreler", "Hifz", "Arapça", "Bulmaca"];
-  const list = cat === "all" ? GAMES : GAMES.filter((g) => g.tag === cat);
+  const list = cat === "all" ? [...GAMES].sort((a, b) => Number(b.id === "verse-chain") - Number(a.id === "verse-chain")) : GAMES.filter((g) => g.tag === cat);
 
   return (
     <div className="mu-games">
@@ -99,10 +110,10 @@ export function GamesPageMinimal() {
           <span className="mu-eb-line" />
         </p>
         <h1 className="mu-display">
-          Ayetleri, harfleri,<span className="mu-display-accent"> hafızana nakşet.</span>
+          {t.hub.featPlay} <span className="mu-display-accent">{t.hub.featMemorize}</span>
         </h1>
         <p className="mu-lede">
-          Kısa, odaklı oyunlarla her gün 5 dakika.
+          {t.gamesHub.verseChainDesc} {t.hub.gamesDesc}
         </p>
       </section>
 
@@ -114,7 +125,7 @@ export function GamesPageMinimal() {
             className={`mu-tab ${cat === c ? "on" : ""}`}
             onClick={() => setCat(c)}
           >
-            {c === "all" ? "Tümü" : c}
+            {categoryLabels[c] ?? c}
           </button>
         ))}
       </div>
@@ -124,18 +135,11 @@ export function GamesPageMinimal() {
         {list.map((g) => (
           <li key={g.id}>
             <Link to={g.path as any} className="mu-grow">
-              <img
-                src={g.img}
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-                decoding="async"
-                className="mu-grow-icon"
-              />
+              <span className="kid-game-icon" style={{ background: labels[g.id]?.[3] }} aria-hidden="true">{labels[g.id]?.[2]}</span>
               <span className="mu-grow-meta">
-                <span className="mu-grow-title">{g.t}</span>
-                <span className="mu-grow-desc">{g.s}</span>
-                <span className="mu-grow-tag">{g.tag}</span>
+                <span className="mu-grow-title">{labels[g.id]?.[0] ?? g.t}</span>
+                <span className="mu-grow-desc">{labels[g.id]?.[1] ?? g.s}</span>
+                <span className="mu-grow-tag">{categoryLabels[g.tag] ?? g.tag}</span>
               </span>
               <span className="mu-grow-chev" aria-hidden="true">{MuIcons.chev}</span>
             </Link>
@@ -146,9 +150,9 @@ export function GamesPageMinimal() {
       {/* Leaderboard */}
       <section className="mu-games-lboard">
         <div className="mu-games-lboard-head">
-          <h2 className="mu-h2">Skor Tablosu</h2>
+          <h2 className="mu-h2">{t.gamesHub.scoreboard}</h2>
           <Link to="/games/scoreboard" className="mu-link-arrow">
-            Tümü {MuIcons.arrowRight}
+            {t.gamesHub.seeAll} {MuIcons.arrowRight}
           </Link>
         </div>
         <ol className="mu-lboard-compact" style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -162,8 +166,8 @@ export function GamesPageMinimal() {
                 >
                   <span className="mu-lrank">{entry.rank}</span>
                   <span className="mu-lname">
-                    {entry.userName || "Anonim"}
-                    {isYou && <span className="mu-ybadge">sen</span>}
+                    {entry.userName || t.nav.guestName}
+                    {isYou && <span className="mu-ybadge">{t.nav.profile}</span>}
                   </span>
                   <span className="mu-lxp">{entry.bestScore} XP</span>
                 </li>
@@ -171,12 +175,12 @@ export function GamesPageMinimal() {
             })
           ) : (
             <li className="mu-lrow">
-              <span className="mu-lname mu-muted" style={{ fontSize: 13 }}>Henüz skor yok. İlk sen ol!</span>
+              <span className="mu-lname mu-muted" style={{ fontSize: 13 }}>{t.gamesHub.noScores}</span>
             </li>
           )}
         </ol>
         <div className="mu-games-foot">
-          <Link to="/meclis" className="mu-link-arrow">Meclis {MuIcons.arrowRight}</Link>
+          <Link to="/meclis" className="mu-link-arrow">{t.gamesHub.rivalTitle} {MuIcons.arrowRight}</Link>
         </div>
       </section>
     </div>

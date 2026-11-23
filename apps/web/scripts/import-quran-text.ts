@@ -7,8 +7,8 @@
  * - simple/{1-114}.json → ayahs.textSimple (harekesiz, arama için)
  */
 
-import { createClient } from "@libsql/client";
-import { drizzle } from "drizzle-orm/libsql";
+import { openSeedClient } from "./remote-db";
+import { drizzle } from "drizzle-orm/libsql/web";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { surahs, ayahs } from "../src/db/quran-schema";
@@ -17,10 +17,7 @@ const WEB_PUBLIC = resolve(import.meta.dirname, "../../web/public");
 
 // ── DB bağlantısı ──────────────────────────────────────
 
-const client = createClient({
-  url: process.env.TURSO_DATABASE_URL || "file:./local.db",
-  authToken: process.env.TURSO_AUTH_TOKEN,
-});
+const client = await openSeedClient();
 const db = drizzle(client);
 
 // ── Tipler ─────────────────────────────────────────────

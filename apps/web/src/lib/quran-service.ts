@@ -252,11 +252,11 @@ export const getDailyVerse = createServerFn({ method: "GET" })
   if (!verse) return null;
 
   // Pick translation source matching locale, fallback to default
-  const lang = locale === "en" ? "en" : locale === "ar" ? "ar" : "tr";
+  const lang = locale ?? "id";
   const sources = await db.select().from(translationSources).where(eq(translationSources.language, lang));
   // For English, prefer Yusuf Ali
   const source =
-    (lang === "en" ? sources.find((s) => s.slug === "yusufali-en") : undefined) ??
+    (lang === "en" ? sources.find((s) => s.slug === "yusufali-en") : lang === "id" ? sources.find((s) => s.slug === "kfqpc-id-v2") : undefined) ??
     sources[0] ??
     (await db.select().from(translationSources).where(eq(translationSources.isDefault, true)))[0];
 
@@ -408,11 +408,19 @@ export interface ChainRound {
  * If surahIds is provided, only pick from those surahs.
  */
 export const getVerseChainRounds = createServerFn({ method: "GET" })
-  .inputValidator((input: { surahIds?: number[]; count?: number }) => input)
+  .inputValidator((input: { surahIds?: number[]; count?: number }) => ({
+    count: Math.max(1, Math.min(20, Number.isInteger(input.count) ? input.count! : 15)),
+    surahIds: Array.isArray(input.surahIds) ? [...new Set(input.surahIds.filter((n) => Number.isInteger(n) && n >= 1 && n <= 114))] : undefined,
+  }))
   .handler(async ({ data: { surahIds, count = 15 } }) => {
-    // 1. Pick candidate surahs (need at least 2 ayahs for a chain)
-    const allSurahs = await db.select().from(surahs).orderBy(asc(surahs.id));
+    // Read the corpus once rather than executing three remote queries for every question.
+    const [allSurahs, allAyahs] = await Promise.all([
+      db.select().from(surahs).orderBy(asc(surahs.id)),
+      db.select({ surahId: ayahs.surahId, ayahNumber: ayahs.ayahNumber, textUthmani: ayahs.textUthmani }).from(ayahs),
+    ]);
+    if (allSurahs.length === 0 || allAyahs.length < 4) return [];
     const surahMap = new Map(allSurahs.map((s) => [s.id, s]));
+    const byKey = new Map(allAyahs.map((a) => [`${a.surahId}:${a.ayahNumber}`, a]));
 
     let candidateSurahIds = allSurahs
       .filter((s) => s.ayahCount >= 2)
@@ -423,9 +431,7 @@ export const getVerseChainRounds = createServerFn({ method: "GET" })
       candidateSurahIds = candidateSurahIds.filter((id) => set.has(id));
     }
 
-    if (candidateSurahIds.length === 0) {
-      candidateSurahIds = allSurahs.filter((s) => s.ayahCount >= 2).map((s) => s.id);
-    }
+    if (candidateSurahIds.length === 0) return [];
 
     // 2. Pick random surahs and random starting ayahs
     const rounds: ChainRound[] = [];
@@ -441,35 +447,23 @@ export const getVerseChainRounds = createServerFn({ method: "GET" })
       if (usedKeys.has(key)) continue;
       usedKeys.add(key);
 
-      // Fetch the current and next ayah
-      const [currentAyah] = await db
-        .select()
-        .from(ayahs)
-        .where(and(eq(ayahs.surahId, surahId), eq(ayahs.ayahNumber, ayahNum)));
-
-      const [nextAyah] = await db
-        .select()
-        .from(ayahs)
-        .where(and(eq(ayahs.surahId, surahId), eq(ayahs.ayahNumber, ayahNum + 1)));
+      const currentAyah = byKey.get(key);
+      const nextAyah = byKey.get(`${surahId}:${ayahNum + 1}`);
 
       if (!currentAyah || !nextAyah) continue;
 
-      // 3. Get 3 distractor ayahs from random surahs
-      const distractorAyahs = await db
-        .select({
-          surahId: ayahs.surahId,
-          ayahNumber: ayahs.ayahNumber,
-          textUthmani: ayahs.textUthmani,
-        })
-        .from(ayahs)
-        .where(
-          and(
-            ne(ayahs.surahId, surahId),
-            ne(ayahs.ayahNumber, 1), // skip bismillah-like first ayahs for variety
-          ),
-        )
-        .orderBy(sql`RANDOM()`)
-        .limit(3);
+      // Draw three unique visible answer choices from the real Quran text.
+      const distractorAyahs: typeof allAyahs = [];
+      const prefix = (text: string) => text.trim().split(/\s+/u).slice(0, 4).join(" ");
+      const seen = new Set([prefix(nextAyah.textUthmani)]);
+      for (let i = 0; i < 150 && distractorAyahs.length < 3; i++) {
+        const a = allAyahs[Math.floor(Math.random() * allAyahs.length)];
+        if (a.surahId === surahId || a.ayahNumber === 1) continue;
+        const label = prefix(a.textUthmani);
+        if (seen.has(label)) continue;
+        seen.add(label);
+        distractorAyahs.push(a);
+      }
 
       if (distractorAyahs.length < 3) continue;
 

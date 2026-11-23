@@ -76,6 +76,7 @@ export const saveUserSettings = createServerFn({ method: "POST" })
     } else {
       await db.insert(userSettings).values({
         userId,
+        displayNameMode: "anonymous",
         data: json,
         updatedAt: now,
       });

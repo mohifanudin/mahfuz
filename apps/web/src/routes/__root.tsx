@@ -28,7 +28,6 @@ import { VerseJumpDialog } from "~/components/reader/VerseJumpDialog";
 import { SmartPlayButton } from "~/components/reader/SmartPlayButton";
 import { MahfuzLogo } from "~/components/icons/MahfuzLogo";
 import { LanguageSelector } from "~/components/LanguageSelector";
-import { GoogleAnalyticsScripts, GoogleAnalyticsTracker } from "~/components/GoogleAnalytics";
 import { Link, useNavigate, useRouteContext, useRouterState } from "@tanstack/react-router";
 import { getSession } from "~/lib/auth-session";
 import { useSyncEngine } from "~/hooks/useSyncEngine";
@@ -72,8 +71,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { name: "theme-color", content: "#F7F0DD", media: "(prefers-color-scheme: light)" },
-      { name: "theme-color", content: "#14110C", media: "(prefers-color-scheme: dark)" },
+      { name: "theme-color", content: "#F8FBFF" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
     ],
@@ -517,10 +515,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} suppressHydrationWarning>
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} data-theme={theme} suppressHydrationWarning>
       <head>
         <HeadContent />
-        <GoogleAnalyticsScripts />
         <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add('loading')` }} />
         <style dangerouslySetInnerHTML={{ __html: `.loading{opacity:0}.loaded{opacity:1;transition:opacity .15s ease}` }} />
       </head>
@@ -542,7 +539,6 @@ function RootDocument({ children }: { children: ReactNode }) {
         {!isMushafMode && <RecitationBar />}
         {!isMushafMode && <BottomNav />}
         <LanguageSelector />
-        <GoogleAnalyticsTracker />
         <Scripts />
       </body>
     </html>

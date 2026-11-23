@@ -47,7 +47,7 @@ export function SurahPickerScreen({ gameImg, difficultyOnly, simpleDifficulty, g
   const persistDifficulty = useGamePreferencesStore((s) => s.setDifficulty);
   const [difficulty, setDifficultyState] = useState<Difficulty>(() => {
     const saved = gameId ? useGamePreferencesStore.getState().getDifficulty(gameId) : undefined;
-    return saved ?? (simpleDifficulty ? "easy" : "medium");
+    return saved ?? "easy";
   });
   const setDifficulty = (d: Difficulty) => {
     setDifficultyState(d);
@@ -144,12 +144,9 @@ export function SurahPickerScreen({ gameImg, difficultyOnly, simpleDifficulty, g
     <div className="mu-gamestart max-w-3xl mx-auto px-4 py-6 pb-20">
       {/* Oyun görseli */}
       {gameImg && (
-        <div className="flex justify-center mb-4">
-          <img
-            src={gameImg}
-            alt=""
-            className="w-32 h-32 object-contain rounded-2xl"
-          />
+        <div className="kid-welcome" style={{ width: "100%", padding: "20px", margin: "0 0 18px", gridTemplateColumns: "1fr auto" }}>
+          <div><p className="kid-kicker" style={{ margin: "0 0 8px" }}>{t.nav.games}</p><h2 className="text-xl font-bold">{gameId === "verse-chain" ? t.gamesHub.verseChainTitle : t.gameScoring.difficulty}</h2><p style={{ margin: "6px 0" }}>{gameId === "verse-chain" ? t.gamesHub.verseChainDesc : t.surahPicker.subtitle}</p></div>
+          <span className="kid-game-icon" style={{ background: "#FFFFFFB0" }} aria-hidden="true">{gameId === "verse-chain" ? "🔗" : "🎮"}</span>
         </div>
       )}
 
@@ -158,8 +155,8 @@ export function SurahPickerScreen({ gameImg, difficultyOnly, simpleDifficulty, g
         <div className="flex rounded-lg border border-[var(--color-border)] overflow-hidden bg-[var(--color-surface)]">
           {(simpleDifficulty
             ? ([
-                { d: "easy" as Difficulty, label: "Normal", dotColor: "bg-emerald-500" },
-                { d: "hard" as Difficulty, label: "Zor", dotColor: "bg-red-500" },
+                { d: "easy" as Difficulty, label: t.gameScoring.diffEasy, dotColor: "bg-emerald-500" },
+                { d: "hard" as Difficulty, label: t.gameScoring.diffHard, dotColor: "bg-red-500" },
               ])
             : ([
                 { d: "easy" as Difficulty, label: t.gameScoring.diffEasy, dotColor: "bg-emerald-500" },

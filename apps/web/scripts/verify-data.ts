@@ -2,15 +2,12 @@
  * Import edilen verilerin doğruluğunu kontrol eder.
  */
 
-import { createClient } from "@libsql/client";
-import { drizzle } from "drizzle-orm/libsql";
+import { openSeedClient } from "./remote-db";
+import { drizzle } from "drizzle-orm/libsql/web";
 import { count, eq } from "drizzle-orm";
 import { surahs, ayahs, translations, translationSources, reciters } from "../src/db/quran-schema";
 
-const client = createClient({
-  url: process.env.TURSO_DATABASE_URL || "file:./local.db",
-  authToken: process.env.TURSO_AUTH_TOKEN,
-});
+const client = await openSeedClient();
 const db = drizzle(client);
 
 async function main() {

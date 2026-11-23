@@ -6,6 +6,10 @@
  */
 
 import { useQuery } from "@tanstack/react-query";
+import { useLocaleStore } from "~/stores/locale.store";
+import { EMOJI_WORDS } from "./emoji-words";
+import { WORD_PAIRS } from "./word-pairs";
+import { WORD_GLOSS_ID } from "./indonesian-words";
 
 export interface QuranWord {
   arabic: string;
@@ -28,9 +32,15 @@ async function fetchPool(): Promise<PoolPayload> {
 }
 
 export function useQuranWordPool() {
+  const locale = useLocaleStore((s) => s.locale);
   return useQuery({
-    queryKey: ["quran-word-pool"],
-    queryFn: fetchPool,
+    queryKey: ["quran-word-pool", locale],
+    queryFn: async () => {
+      if (locale !== "id") return fetchPool();
+      const normal = EMOJI_WORDS.filter((e) => WORD_GLOSS_ID[e.en]).map((e) => ({ arabic: e.arabic, meaning: WORD_GLOSS_ID[e.en] }));
+      const zor = WORD_PAIRS.filter((e) => WORD_GLOSS_ID[e.meaningEn]).map((e) => ({ arabic: e.arabic, meaning: WORD_GLOSS_ID[e.meaningEn] }));
+      return { generatedAt: "id", counts: { normal: normal.length, zor: zor.length, total: normal.length + zor.length }, normal, zor };
+    },
     staleTime: Infinity,
   });
 }
