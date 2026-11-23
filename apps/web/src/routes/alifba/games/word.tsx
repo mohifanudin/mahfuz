@@ -4,6 +4,8 @@
  */
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { useRoundCountdown } from "~/hooks/useRoundCountdown";
+import { GameCountdown } from "~/components/GameCountdown";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { playCorrect, playWrong } from "~/lib/quiz-sounds";
 import { speakArabic } from "~/lib/letter-audio";
@@ -52,6 +54,8 @@ function WordGamePage() {
   const [selected, setSelected] = useState<number | null>(null);
   const [correct, setCorrect] = useState(0);
   const [done, setDone] = useState(false);
+  const countdown = useRoundCountdown(90, !done);
+  useEffect(() => { if (countdown.expired && !done) { updateGameHighScore("word", correct); setDone(true); } }, [countdown.expired, done, correct, updateGameHighScore]);
   const [playing, setPlaying] = useState(false);
   const stopRef = useRef<(() => void) | null>(null);
 
@@ -76,7 +80,7 @@ function WordGamePage() {
 
   const handleChoice = useCallback(
     (i: number) => {
-      if (selected !== null || !q) return;
+      if (selected !== null || !q || done || countdown.expired) return;
       setSelected(i);
       const isCorrect = q.choices[i].arabic === q.correct.arabic;
       if (isCorrect) { setCorrect((c) => c + 1); playCorrect(); } else { playWrong(); }
@@ -91,7 +95,7 @@ function WordGamePage() {
         }
       }, isCorrect ? 2500 : 900);
     },
-    [selected, q, index, correct, questions, updateGameHighScore],
+    [selected, q, index, correct, questions, updateGameHighScore, done, countdown.expired],
   );
 
   if (questions.length === 0) {
@@ -112,7 +116,7 @@ function WordGamePage() {
           </svg>
         </div>
         <div className="text-center">
-          <h2 className="text-xl font-semibold mb-1">{t.alifba.quizComplete}</h2>
+          <h2 className="text-xl font-semibold mb-1">{countdown.expired ? "Waktu habis!" : t.alifba.quizComplete}</h2>
           <p className="text-sm text-[var(--color-text-secondary)]">{correct}/{questions.length} · {pct}%</p>
         </div>
         <div className="flex gap-3 mt-2">
@@ -120,7 +124,7 @@ function WordGamePage() {
             {t.nav.back}
           </Link>
           <button
-            onClick={() => { setIndex(0); setSelected(null); setCorrect(0); setDone(false); }}
+            onClick={() => { countdown.reset(); setIndex(0); setSelected(null); setCorrect(0); setDone(false); }}
             className="px-5 py-2.5 rounded bg-[var(--mu-accent-soft)] text-[var(--mu-accent-ink)] text-sm font-medium"
           >
             {t.alifba.tryAgain}
@@ -146,6 +150,7 @@ function WordGamePage() {
       </div>
 
       {/* Progress */}
+      <GameCountdown display={countdown.display} progress={countdown.progress} />
       <div className="w-full h-1 bg-[var(--color-surface)] rounded-full mb-6 overflow-hidden">
         <div
           className="h-full bg-[var(--color-accent)] rounded-full transition-all duration-500"

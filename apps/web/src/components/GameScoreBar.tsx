@@ -31,7 +31,8 @@ export function GameScoreBar({ theme, timerDisplay, timerProgress, score, streak
   return (
     <div className="mb-4">
       {/* Timer bar */}
-      <div className="flex items-center gap-3 mb-2">
+      <div className="flex items-center gap-2 mb-2 rounded-2xl border border-[var(--color-border)] bg-white px-3 py-3" role="timer" aria-label={`Sisa waktu ${timerDisplay}`}>
+        <span className="text-[10px] font-semibold text-[var(--color-text-secondary)]">◷ Waktu</span>
         <span
           className={`text-xs font-bold tabular-nums ${urgent ? "text-red-500" : ""}`}
           style={urgent ? undefined : { color: P }}
@@ -75,7 +76,7 @@ export function GameScoreBar({ theme, timerDisplay, timerProgress, score, streak
             className="game-score-badge"
             style={{ backgroundColor: `${P}15`, color: P }}
           >
-            {score}
+            {score} poin
           </span>
           {lastDelta !== null && lastDelta > 0 && (
             <span className="game-score-fly absolute -top-1 right-0 text-xs font-bold" style={{ color: P }}>

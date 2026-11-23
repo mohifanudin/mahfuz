@@ -5,6 +5,7 @@
  */
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { useRoundCountdown } from "~/hooks/useRoundCountdown";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ARABIC_LETTERS } from "~/lib/kids-constants";
 import { playCorrect, playWrong } from "~/lib/quiz-sounds";
@@ -58,23 +59,15 @@ function MemoryGamePage() {
   const [done, setDone] = useState(false);
   const [locked, setLocked] = useState(false);
   const [lastMatchedPair, setLastMatchedPair] = useState<string | null>(null);
-  const [elapsed, setElapsed] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
-
-  // Timer
-  useEffect(() => {
-    if (!done && moves > 0) {
-      timerRef.current = setInterval(() => setElapsed((e) => e + 1), 1000);
-      return () => clearInterval(timerRef.current);
-    }
-    if (done) clearInterval(timerRef.current);
-  }, [done, moves > 0]);
+  const countdown = useRoundCountdown(120, !done);
+  const elapsed = Math.floor(countdown.elapsedMs / 1000);
+  useEffect(() => { if (countdown.expired && !done) { updateGameHighScore("memory", matched.size * 10); setDone(true); } }, [countdown.expired, done, matched.size, updateGameHighScore]);
 
   const formatTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 
   const handleFlip = useCallback(
     (uid: string) => {
-      if (locked || flipped.includes(uid) || matched.has(uid)) return;
+      if (done || countdown.expired || locked || flipped.includes(uid) || matched.has(uid)) return;
 
       const newFlipped = [...flipped, uid];
       setFlipped(newFlipped);
@@ -107,7 +100,7 @@ function MemoryGamePage() {
         }
       }
     },
-    [locked, flipped, matched, cards, moves, updateGameHighScore],
+    [done, countdown.expired, locked, flipped, matched, cards, moves, updateGameHighScore],
   );
 
   const restart = () => {
@@ -118,15 +111,15 @@ function MemoryGamePage() {
     setDone(false);
     setLocked(false);
     setLastMatchedPair(null);
-    setElapsed(0);
+    countdown.reset();
   };
 
   const pairs = matched.size / 2;
   const totalPairs = cards.length / 2;
 
   if (done) {
-    const score = Math.max(0, 200 - moves * 5);
-    const stars = moves <= 10 ? 3 : moves <= 14 ? 2 : 1;
+    const score = countdown.expired ? matched.size * 10 : Math.max(0, 200 - moves * 5);
+    const stars = countdown.expired ? Math.min(3, Math.floor(matched.size / 6)) : moves <= 10 ? 3 : moves <= 14 ? 2 : 1;
     return (
       <div
         className="min-h-dvh flex flex-col items-center justify-center px-4"
@@ -146,7 +139,7 @@ function MemoryGamePage() {
             ))}
           </div>
 
-          <h2 className="text-xl font-bold text-gray-800 mb-1">{t.alifba.quizComplete}</h2>
+          <h2 className="text-xl font-bold text-gray-800 mb-1">{countdown.expired ? "Waktu habis!" : t.alifba.quizComplete}</h2>
           <p className="text-sm text-gray-500 mb-4">
             {moves} {t.alifba.moves} / {formatTime(elapsed)}
           </p>
@@ -198,7 +191,7 @@ function MemoryGamePage() {
           <div className="flex items-center gap-3">
             {/* Timer */}
             <span className="text-xs font-mono text-gray-400 tabular-nums">
-              {formatTime(elapsed)}
+              {countdown.display}
             </span>
 
             {/* Pairs progress */}

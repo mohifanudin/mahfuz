@@ -9,7 +9,7 @@ import { useTranslation } from "~/hooks/useTranslation";
 import { useSettingsStore } from "~/stores/settings.store";
 
 interface RouteErrorFallbackProps {
-  error: Error;
+  error: unknown;
   reset: () => void;
 }
 
@@ -30,10 +30,10 @@ export function RouteErrorFallback({ error, reset }: RouteErrorFallbackProps) {
     // If translation hook fails, use hardcoded English fallback
     t = {
       error: {
-        generic: "Something went wrong",
-        genericDesc: "An unexpected error occurred while loading the page.",
-        retry: "Try Again",
-        goHome: "Home",
+        generic: "Ada kendala kecil",
+        genericDesc: "Maaf, halaman belum bisa dimuat. Yuk, coba lagi.",
+        retry: "Coba lagi",
+        goHome: "Beranda",
       },
     } as any;
   }

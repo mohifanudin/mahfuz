@@ -18,7 +18,7 @@ import { getSurahName } from "./surah-names-i18n";
 
 const SITE = "Murojaah";
 const SEP = " · ";
-const DEFAULT_DESC = "Teman mengaji, hafalan, dan permainan Al-Qur'an untuk anak-anak.";
+const DEFAULT_DESC = "Belajar Al-Qur'an gratis dalam Bahasa Indonesia: baca Rasm Utsmani, dengarkan murattal, hafalkan surah, dan main Sambung Ayat interaktif bersama Murojaah Imtiyaz.";
 
 interface HeadMeta {
   title: string;
@@ -92,6 +92,7 @@ const STATIC: Record<string, HeadMeta> = {
 };
 
 export function staticHead(key: keyof typeof STATIC) {
+  if (key === "home") return buildMeta({ title: "Belajar Al-Qur'an, Hafalan & Game Anak Gratis" });
   const titles: Record<string, string> = { home: "Beranda", fihrist: "Daftar surah", about: "Tentang", bookmarks: "Ayat tersimpan", changelog: "Apa yang baru?", discover: "Belajar", hifz: "Hafalanku", notes: "Catatanku", premium: "Dukungan", profile: "Profilku", "profile-privacy": "Privasi", promo: "Mahfuz", recite: "Baca bersuara", search: "Cari", stats: "Perkembangan", tajweed: "Belajar tajwid", mahfuz: "Penjagaan Al-Qur'an", games: "Bermain", "games-scoreboard": "Papan skor", "games-ayah-2048": "Surah 2048", "games-fill-blank": "Lengkapi ayat", "games-hexagon": "Susun huruf", "games-kelime-tahmini": "Tebak kata", "games-surah-guess": "Tebak surah", "games-verse-chain": "Sambung Ayat", "games-word-match": "Cocokkan kata", "games-word-meaning": "Arti kata", meclis: "Main bersama", khatm: "Khatam bersama", alifba: "Huruf hijaiyah", "alifba-letters": "Kenali huruf", "alifba-exam": "Kuis hijaiyah", "alifba-exam-index": "Kuis", "alifba-games": "Permainan hijaiyah", "alifba-games-fill": "Cari huruf", "alifba-games-memory": "Pasangan huruf", "alifba-games-speed": "Huruf kilat", "alifba-games-word": "Cari kata", "alifba-quiz-forms": "Bentuk huruf", "alifba-quiz-voice": "Kuis suara", "auth-login": "Masuk", "auth-callback": "Sedang masuk", "not-found": "Halaman tidak ditemukan" };
   return buildMeta({ title: titles[key] ?? SITE });
 }

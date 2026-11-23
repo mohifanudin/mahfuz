@@ -16,7 +16,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SURAHS } from "~/lib/surah-ayah-counts";
 import { surahSlug } from "~/lib/surah-slugs";
 
-const ORIGIN = "https://mahfuz.ilg.az";
+const ORIGIN = "https://murojaah.imtiyaz.web.id";
 
 interface UrlEntry {
   loc: string;
@@ -26,6 +26,7 @@ interface UrlEntry {
 
 const STATIC_URLS: UrlEntry[] = [
   { loc: "/", changefreq: "daily", priority: 1.0 },
+  { loc: "/fihrist", changefreq: "weekly", priority: 0.9 },
   { loc: "/discover", changefreq: "weekly", priority: 0.9 },
   { loc: "/tajweed", changefreq: "monthly", priority: 0.7 },
   { loc: "/search", changefreq: "monthly", priority: 0.6 },
@@ -42,7 +43,6 @@ const STATIC_URLS: UrlEntry[] = [
   { loc: "/alifba/letters", changefreq: "monthly", priority: 0.6 },
   { loc: "/about", changefreq: "monthly", priority: 0.4 },
   { loc: "/changelog", changefreq: "weekly", priority: 0.4 },
-  { loc: "/premium", changefreq: "monthly", priority: 0.5 },
 ];
 
 function escapeXml(s: string): string {

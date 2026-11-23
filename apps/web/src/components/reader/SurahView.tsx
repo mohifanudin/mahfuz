@@ -20,6 +20,7 @@ import { useEffect, useRef, useCallback, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { surahSlug } from "~/lib/surah-slugs";
 import { getSurahName, getSurahMeaning } from "~/lib/surah-names-i18n";
+import { getUthmaniBismillah } from "~/lib/uthmani-text";
 import { useTranslation } from "~/hooks/useTranslation";
 import { Ornament } from "~/components/minimal-ui/Ornament";
 import { MuIcons } from "~/components/minimal-ui/icons";
@@ -360,7 +361,7 @@ export function SurahView({ surahId, highlightAyah }: SurahViewProps) {
               {/* Bismillah */}
               {surah.bismillahPre && (
                 <p className="mu-bismillah" dir="rtl">
-                  بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ
+                  {getUthmaniBismillah(surahId)}
                 </p>
               )}
 

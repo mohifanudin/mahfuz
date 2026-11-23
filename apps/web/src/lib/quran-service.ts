@@ -10,6 +10,26 @@ import { DEFAULT_TRANSLATION_SLUG } from "@mahfuz/shared";
 import { db } from "~/db";
 import { surahs, ayahs, translations, translationSources, reciters } from "~/db/quran-schema";
 import { eq, and, asc, desc, inArray, ne, sql } from "drizzle-orm";
+import { splitWords } from "~/lib/split-words";
+
+/** Cache only invariant public Quran data on a warm server, never user data. */
+function cachePublic<T>(load: () => PromiseLike<T>, ttl = 30 * 60 * 1000) {
+  let value: Promise<T> | undefined;
+  let expiry = 0;
+  return () => {
+    if (!value || Date.now() >= expiry) {
+      expiry = Date.now() + ttl;
+      value = Promise.resolve(load()).catch(error => { value = undefined; throw error; });
+    }
+    return value;
+  };
+}
+const loadPublicSurahs = () => cachePublic(() => db.select().from(surahs).orderBy(asc(surahs.id)));
+const loadPublicAyat = () => cachePublic(() => db.select({ surahId: ayahs.surahId, ayahNumber: ayahs.ayahNumber, textUthmani: ayahs.textUthmani }).from(ayahs));
+let surahsCache: ReturnType<typeof loadPublicSurahs> | undefined;
+let ayatCache: ReturnType<typeof loadPublicAyat> | undefined;
+function publicSurahs() { return (surahsCache ??= loadPublicSurahs())(); }
+function publicAyat() { return (ayatCache ??= loadPublicAyat())(); }
 
 /** Decode HTML entities (Diyanet meali tirnak icin &quot; gonderiyor). */
 function decodeEntities(text: string): string {
@@ -28,7 +48,7 @@ function decodeEntities(text: string): string {
 // ── Sureler ──────────────────────────────────────────────
 
 export const getSurahs = createServerFn({ method: "GET" }).handler(async () => {
-  return db.select().from(surahs).orderBy(asc(surahs.id));
+  return publicSurahs();
 });
 
 export const getSurah = createServerFn({ method: "GET" })
@@ -414,10 +434,7 @@ export const getVerseChainRounds = createServerFn({ method: "GET" })
   }))
   .handler(async ({ data: { surahIds, count = 15 } }) => {
     // Read the corpus once rather than executing three remote queries for every question.
-    const [allSurahs, allAyahs] = await Promise.all([
-      db.select().from(surahs).orderBy(asc(surahs.id)),
-      db.select({ surahId: ayahs.surahId, ayahNumber: ayahs.ayahNumber, textUthmani: ayahs.textUthmani }).from(ayahs),
-    ]);
+    const [allSurahs, allAyahs] = await Promise.all([publicSurahs(), publicAyat()]);
     if (allSurahs.length === 0 || allAyahs.length < 4) return [];
     const surahMap = new Map(allSurahs.map((s) => [s.id, s]));
     const byKey = new Map(allAyahs.map((a) => [`${a.surahId}:${a.ayahNumber}`, a]));
@@ -454,7 +471,7 @@ export const getVerseChainRounds = createServerFn({ method: "GET" })
 
       // Draw three unique visible answer choices from the real Quran text.
       const distractorAyahs: typeof allAyahs = [];
-      const prefix = (text: string) => text.trim().split(/\s+/u).slice(0, 4).join(" ");
+      const prefix = (text: string) => splitWords(text).slice(0, 4).join(" ");
       const seen = new Set([prefix(nextAyah.textUthmani)]);
       for (let i = 0; i < 150 && distractorAyahs.length < 3; i++) {
         const a = allAyahs[Math.floor(Math.random() * allAyahs.length)];

@@ -16,6 +16,7 @@ import { getAllLocaleConfigs, type Locale } from "~/locales/registry";
 import { SearchableSelect } from "~/components/SearchableSelect";
 import { GroupedMultiSelect } from "~/components/GroupedMultiSelect";
 import { ReciterPicker, type ReciterRow, type VoiceTag } from "~/components/reader/ReciterPicker";
+import { getUthmaniBismillah } from "~/lib/uthmani-text";
 
 // ── Constants ────────────────────────────────────────────
 
@@ -301,7 +302,7 @@ function ReadingTab({ store, reciterList, translationList, locale, t, onModeChan
           dir="rtl"
           style={{ fontFamily: "var(--font-arabic)", fontSize: `${store.arabicFontSize}rem` }}
         >
-          بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+          {getUthmaniBismillah()}
         </p>
         <p
           className="mu-settings-preview-tr"

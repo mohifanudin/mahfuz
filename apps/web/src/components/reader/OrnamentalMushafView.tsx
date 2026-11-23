@@ -23,7 +23,7 @@ interface OrnamentalMushafViewProps {
   onAyahRef?: (ayahNumber: number, el: HTMLSpanElement | null) => void;
 }
 
-const BISMILLAH = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ";
+import { getUthmaniBismillah } from "~/lib/uthmani-text";
 
 export const OrnamentalMushafView = memo(function OrnamentalMushafView({
   surahId,
@@ -41,7 +41,7 @@ export const OrnamentalMushafView = memo(function OrnamentalMushafView({
 
       <div className="mu-omv-body" dir="rtl" lang="ar">
         {showBismillah && (
-          <div className="mu-omv-bismillah">{BISMILLAH}</div>
+          <div className="mu-omv-bismillah">{getUthmaniBismillah(surahId)}</div>
         )}
 
         <div className="mu-omv-text">

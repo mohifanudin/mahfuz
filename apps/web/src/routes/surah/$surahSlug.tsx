@@ -33,7 +33,6 @@ export const Route = createFileRoute("/surah/$surahSlug")({
     const id = surahIdFromSlug(slug);
     if (!id) throw redirect({ to: "/" });
   },
-  // @ts-expect-error TanStack 1.163 SSR validator infers `never` for loaders on param routes
   loader: ({ params, context }) => {
     const id = surahIdFromSlug(params.surahSlug)!;
     return context.queryClient.ensureQueryData(surahDataQueryOptions(id));

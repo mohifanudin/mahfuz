@@ -9,147 +9,77 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TajweedRouteImport } from './routes/tajweed'
-import { Route as StatsRouteImport } from './routes/stats'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SearchRouteImport } from './routes/search'
-import { Route as ReciteRouteImport } from './routes/recite'
-import { Route as PromoRouteImport } from './routes/promo'
-import { Route as PremiumRouteImport } from './routes/premium'
-import { Route as NotesRouteImport } from './routes/notes'
-import { Route as MahfuzRouteImport } from './routes/mahfuz'
-import { Route as HifzRouteImport } from './routes/hifz'
-import { Route as GamesRouteImport } from './routes/games'
-import { Route as FihristRouteImport } from './routes/fihrist'
-import { Route as DiscoverRouteImport } from './routes/discover'
-import { Route as ChangelogRouteImport } from './routes/changelog'
-import { Route as BookmarksRouteImport } from './routes/bookmarks'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProfileIndexRouteImport } from './routes/profile/index'
-import { Route as MeclisIndexRouteImport } from './routes/meclis/index'
-import { Route as KhatmIndexRouteImport } from './routes/khatm/index'
-import { Route as GamesIndexRouteImport } from './routes/games/index'
-import { Route as AlifbaIndexRouteImport } from './routes/alifba/index'
-import { Route as TafsirVerseKeyRouteImport } from './routes/tafsir/$verseKey'
-import { Route as SurahSurahSlugRouteImport } from './routes/surah/$surahSlug'
-import { Route as ProfilePrivacyRouteImport } from './routes/profile/privacy'
-import { Route as PagePageNumberRouteImport } from './routes/page/$pageNumber'
-import { Route as MeclisCodeRouteImport } from './routes/meclis/$code'
-import { Route as KhatmGroupIdRouteImport } from './routes/khatm/$groupId'
-import { Route as JuzJuzIdRouteImport } from './routes/juz/$juzId'
-import { Route as GamesWordMeaningRouteImport } from './routes/games/word-meaning'
-import { Route as GamesWordMatchRouteImport } from './routes/games/word-match'
-import { Route as GamesVerseChainRouteImport } from './routes/games/verse-chain'
-import { Route as GamesSurahGuessRouteImport } from './routes/games/surah-guess'
-import { Route as GamesScoreboardRouteImport } from './routes/games/scoreboard'
-import { Route as GamesKelimeTahminiRouteImport } from './routes/games/kelime-tahmini'
-import { Route as GamesHexagonRouteImport } from './routes/games/hexagon'
-import { Route as GamesFillBlankRouteImport } from './routes/games/fill-blank'
-import { Route as GamesAyah2048RouteImport } from './routes/games/ayah-2048'
-import { Route as AuthLoginRouteImport } from './routes/auth/login'
-import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
-import { Route as AnalyseVerseKeyRouteImport } from './routes/analyse/$verseKey'
-import { Route as AlifbaLettersRouteImport } from './routes/alifba/letters'
-import { Route as AlifbaGamesRouteImport } from './routes/alifba/games'
-import { Route as AlifbaExamRouteImport } from './routes/alifba/exam'
-import { Route as AlifbaLetterIdRouteImport } from './routes/alifba/$letterId'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as BookmarksRouteImport } from './routes/bookmarks'
+import { Route as ChangelogRouteImport } from './routes/changelog'
+import { Route as DiscoverRouteImport } from './routes/discover'
+import { Route as FihristRouteImport } from './routes/fihrist'
+import { Route as GamesRouteImport } from './routes/games'
+import { Route as HifzRouteImport } from './routes/hifz'
+import { Route as MahfuzRouteImport } from './routes/mahfuz'
+import { Route as NotesRouteImport } from './routes/notes'
+import { Route as PremiumRouteImport } from './routes/premium'
+import { Route as PromoRouteImport } from './routes/promo'
+import { Route as ReciteRouteImport } from './routes/recite'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as StatsRouteImport } from './routes/stats'
+import { Route as TajweedRouteImport } from './routes/tajweed'
 import { Route as ContextDisabledRouteImport } from './routes/_context.disabled'
-import { Route as AlifbaGamesIndexRouteImport } from './routes/alifba/games/index'
+import { Route as AlifbaIndexRouteImport } from './routes/alifba/index'
+import { Route as AlifbaLetterIdRouteImport } from './routes/alifba/$letterId'
+import { Route as AlifbaExamRouteImport } from './routes/alifba/exam'
+import { Route as AlifbaGamesRouteImport } from './routes/alifba/games'
+import { Route as AlifbaLettersRouteImport } from './routes/alifba/letters'
+import { Route as AnalyseVerseKeyRouteImport } from './routes/analyse/$verseKey'
+import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
+import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as GamesIndexRouteImport } from './routes/games/index'
+import { Route as GamesAyah2048RouteImport } from './routes/games/ayah-2048'
+import { Route as GamesFillBlankRouteImport } from './routes/games/fill-blank'
+import { Route as GamesHexagonRouteImport } from './routes/games/hexagon'
+import { Route as GamesKelimeTahminiRouteImport } from './routes/games/kelime-tahmini'
+import { Route as GamesScoreboardRouteImport } from './routes/games/scoreboard'
+import { Route as GamesSurahGuessRouteImport } from './routes/games/surah-guess'
+import { Route as GamesVerseChainRouteImport } from './routes/games/verse-chain'
+import { Route as GamesWordMatchRouteImport } from './routes/games/word-match'
+import { Route as GamesWordMeaningRouteImport } from './routes/games/word-meaning'
+import { Route as JuzJuzIdRouteImport } from './routes/juz/$juzId'
+import { Route as KhatmIndexRouteImport } from './routes/khatm/index'
+import { Route as KhatmGroupIdRouteImport } from './routes/khatm/$groupId'
+import { Route as MeclisIndexRouteImport } from './routes/meclis/index'
+import { Route as MeclisCodeRouteImport } from './routes/meclis/$code'
+import { Route as PagePageNumberRouteImport } from './routes/page/$pageNumber'
+import { Route as ProfileIndexRouteImport } from './routes/profile/index'
+import { Route as ProfilePrivacyRouteImport } from './routes/profile/privacy'
+import { Route as SurahSurahSlugRouteImport } from './routes/surah/$surahSlug'
+import { Route as TafsirVerseKeyRouteImport } from './routes/tafsir/$verseKey'
 import { Route as AlifbaExamIndexRouteImport } from './routes/alifba/exam/index'
-import { Route as ApiV1TranslationSourcesRouteImport } from './routes/api/v1/translation-sources'
-import { Route as ApiV1SyncRouteImport } from './routes/api/v1/sync'
-import { Route as ApiV1SurahsRouteImport } from './routes/api/v1/surahs'
-import { Route as ApiV1SearchRouteImport } from './routes/api/v1/search'
-import { Route as ApiV1DailyVerseRouteImport } from './routes/api/v1/daily-verse'
-import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
-import { Route as AlifbaStepStepIdRouteImport } from './routes/alifba/step/$stepId'
-import { Route as AlifbaQuizVoiceRouteImport } from './routes/alifba/quiz/voice'
-import { Route as AlifbaQuizFormsRouteImport } from './routes/alifba/quiz/forms'
-import { Route as AlifbaGamesWordRouteImport } from './routes/alifba/games/word'
-import { Route as AlifbaGamesSpeedRouteImport } from './routes/alifba/games/speed'
-import { Route as AlifbaGamesMemoryRouteImport } from './routes/alifba/games/memory'
-import { Route as AlifbaGamesFillRouteImport } from './routes/alifba/games/fill'
 import { Route as AlifbaExamStepIdRouteImport } from './routes/alifba/exam/$stepId'
-import { Route as ApiV1SurahsSurahIdRouteImport } from './routes/api/v1/surahs.$surahId'
-import { Route as ApiV1PagesPageNumberRouteImport } from './routes/api/v1/pages.$pageNumber'
-import { Route as ApiV1GamesScoresRouteImport } from './routes/api/v1/games.scores'
+import { Route as AlifbaGamesIndexRouteImport } from './routes/alifba/games/index'
+import { Route as AlifbaGamesFillRouteImport } from './routes/alifba/games/fill'
+import { Route as AlifbaGamesMemoryRouteImport } from './routes/alifba/games/memory'
+import { Route as AlifbaGamesSpeedRouteImport } from './routes/alifba/games/speed'
+import { Route as AlifbaGamesWordRouteImport } from './routes/alifba/games/word'
+import { Route as AlifbaQuizFormsRouteImport } from './routes/alifba/quiz/forms'
+import { Route as AlifbaQuizVoiceRouteImport } from './routes/alifba/quiz/voice'
+import { Route as AlifbaStepStepIdRouteImport } from './routes/alifba/step/$stepId'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ApiV1DailyVerseRouteImport } from './routes/api/v1/daily-verse'
+import { Route as ApiV1SearchRouteImport } from './routes/api/v1/search'
+import { Route as ApiV1SurahsRouteImport } from './routes/api/v1/surahs'
+import { Route as ApiV1SyncRouteImport } from './routes/api/v1/sync'
+import { Route as ApiV1TranslationSourcesRouteImport } from './routes/api/v1/translation-sources'
 import { Route as ApiV1GamesQuestionRouteImport } from './routes/api/v1/games.question'
+import { Route as ApiV1GamesScoresRouteImport } from './routes/api/v1/games.scores'
+import { Route as ApiV1PagesPageNumberRouteImport } from './routes/api/v1/pages.$pageNumber'
+import { Route as ApiV1SurahsSurahIdRouteImport } from './routes/api/v1/surahs.$surahId'
 import { Route as ApiV1SurahsSurahIdAyahsRouteImport } from './routes/api/v1/surahs.$surahId.ayahs'
 
-const TajweedRoute = TajweedRouteImport.update({
-  id: '/tajweed',
-  path: '/tajweed',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StatsRoute = StatsRouteImport.update({
-  id: '/stats',
-  path: '/stats',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SearchRoute = SearchRouteImport.update({
-  id: '/search',
-  path: '/search',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReciteRoute = ReciteRouteImport.update({
-  id: '/recite',
-  path: '/recite',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PromoRoute = PromoRouteImport.update({
-  id: '/promo',
-  path: '/promo',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PremiumRoute = PremiumRouteImport.update({
-  id: '/premium',
-  path: '/premium',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NotesRoute = NotesRouteImport.update({
-  id: '/notes',
-  path: '/notes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MahfuzRoute = MahfuzRouteImport.update({
-  id: '/mahfuz',
-  path: '/mahfuz',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HifzRoute = HifzRouteImport.update({
-  id: '/hifz',
-  path: '/hifz',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GamesRoute = GamesRouteImport.update({
-  id: '/games',
-  path: '/games',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FihristRoute = FihristRouteImport.update({
-  id: '/fihrist',
-  path: '/fihrist',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DiscoverRoute = DiscoverRouteImport.update({
-  id: '/discover',
-  path: '/discover',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChangelogRoute = ChangelogRouteImport.update({
-  id: '/changelog',
-  path: '/changelog',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BookmarksRoute = BookmarksRouteImport.update({
-  id: '/bookmarks',
-  path: '/bookmarks',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -157,149 +87,79 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const BookmarksRoute = BookmarksRouteImport.update({
+  id: '/bookmarks',
+  path: '/bookmarks',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProfileIndexRoute = ProfileIndexRouteImport.update({
-  id: '/profile/',
-  path: '/profile/',
+const ChangelogRoute = ChangelogRouteImport.update({
+  id: '/changelog',
+  path: '/changelog',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MeclisIndexRoute = MeclisIndexRouteImport.update({
-  id: '/meclis/',
-  path: '/meclis/',
+const DiscoverRoute = DiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
   getParentRoute: () => rootRouteImport,
 } as any)
-const KhatmIndexRoute = KhatmIndexRouteImport.update({
-  id: '/khatm/',
-  path: '/khatm/',
+const FihristRoute = FihristRouteImport.update({
+  id: '/fihrist',
+  path: '/fihrist',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GamesIndexRoute = GamesIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => GamesRoute,
-} as any)
-const AlifbaIndexRoute = AlifbaIndexRouteImport.update({
-  id: '/alifba/',
-  path: '/alifba/',
+const GamesRoute = GamesRouteImport.update({
+  id: '/games',
+  path: '/games',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TafsirVerseKeyRoute = TafsirVerseKeyRouteImport.update({
-  id: '/tafsir/$verseKey',
-  path: '/tafsir/$verseKey',
+const HifzRoute = HifzRouteImport.update({
+  id: '/hifz',
+  path: '/hifz',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SurahSurahSlugRoute = SurahSurahSlugRouteImport.update({
-  id: '/surah/$surahSlug',
-  path: '/surah/$surahSlug',
+const MahfuzRoute = MahfuzRouteImport.update({
+  id: '/mahfuz',
+  path: '/mahfuz',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProfilePrivacyRoute = ProfilePrivacyRouteImport.update({
-  id: '/profile/privacy',
-  path: '/profile/privacy',
+const NotesRoute = NotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PagePageNumberRoute = PagePageNumberRouteImport.update({
-  id: '/page/$pageNumber',
-  path: '/page/$pageNumber',
+const PremiumRoute = PremiumRouteImport.update({
+  id: '/premium',
+  path: '/premium',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MeclisCodeRoute = MeclisCodeRouteImport.update({
-  id: '/meclis/$code',
-  path: '/meclis/$code',
+const PromoRoute = PromoRouteImport.update({
+  id: '/promo',
+  path: '/promo',
   getParentRoute: () => rootRouteImport,
 } as any)
-const KhatmGroupIdRoute = KhatmGroupIdRouteImport.update({
-  id: '/khatm/$groupId',
-  path: '/khatm/$groupId',
+const ReciteRoute = ReciteRouteImport.update({
+  id: '/recite',
+  path: '/recite',
   getParentRoute: () => rootRouteImport,
 } as any)
-const JuzJuzIdRoute = JuzJuzIdRouteImport.update({
-  id: '/juz/$juzId',
-  path: '/juz/$juzId',
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GamesWordMeaningRoute = GamesWordMeaningRouteImport.update({
-  id: '/word-meaning',
-  path: '/word-meaning',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesWordMatchRoute = GamesWordMatchRouteImport.update({
-  id: '/word-match',
-  path: '/word-match',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesVerseChainRoute = GamesVerseChainRouteImport.update({
-  id: '/verse-chain',
-  path: '/verse-chain',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesSurahGuessRoute = GamesSurahGuessRouteImport.update({
-  id: '/surah-guess',
-  path: '/surah-guess',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesScoreboardRoute = GamesScoreboardRouteImport.update({
-  id: '/scoreboard',
-  path: '/scoreboard',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesKelimeTahminiRoute = GamesKelimeTahminiRouteImport.update({
-  id: '/kelime-tahmini',
-  path: '/kelime-tahmini',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesHexagonRoute = GamesHexagonRouteImport.update({
-  id: '/hexagon',
-  path: '/hexagon',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesFillBlankRoute = GamesFillBlankRouteImport.update({
-  id: '/fill-blank',
-  path: '/fill-blank',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesAyah2048Route = GamesAyah2048RouteImport.update({
-  id: '/ayah-2048',
-  path: '/ayah-2048',
-  getParentRoute: () => GamesRoute,
-} as any)
-const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: '/auth/login',
-  path: '/auth/login',
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthCallbackRoute = AuthCallbackRouteImport.update({
-  id: '/auth/callback',
-  path: '/auth/callback',
+const StatsRoute = StatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AnalyseVerseKeyRoute = AnalyseVerseKeyRouteImport.update({
-  id: '/analyse/$verseKey',
-  path: '/analyse/$verseKey',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AlifbaLettersRoute = AlifbaLettersRouteImport.update({
-  id: '/alifba/letters',
-  path: '/alifba/letters',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AlifbaGamesRoute = AlifbaGamesRouteImport.update({
-  id: '/alifba/games',
-  path: '/alifba/games',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AlifbaExamRoute = AlifbaExamRouteImport.update({
-  id: '/alifba/exam',
-  path: '/alifba/exam',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AlifbaLetterIdRoute = AlifbaLetterIdRouteImport.update({
-  id: '/alifba/$letterId',
-  path: '/alifba/$letterId',
+const TajweedRoute = TajweedRouteImport.update({
+  id: '/tajweed',
+  path: '/tajweed',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContextDisabledRoute = ContextDisabledRouteImport.update({
@@ -307,74 +167,159 @@ const ContextDisabledRoute = ContextDisabledRouteImport.update({
   path: '/disabled',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AlifbaGamesIndexRoute = AlifbaGamesIndexRouteImport.update({
+const AlifbaIndexRoute = AlifbaIndexRouteImport.update({
+  id: '/alifba/',
+  path: '/alifba/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlifbaLetterIdRoute = AlifbaLetterIdRouteImport.update({
+  id: '/alifba/$letterId',
+  path: '/alifba/$letterId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlifbaExamRoute = AlifbaExamRouteImport.update({
+  id: '/alifba/exam',
+  path: '/alifba/exam',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlifbaGamesRoute = AlifbaGamesRouteImport.update({
+  id: '/alifba/games',
+  path: '/alifba/games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlifbaLettersRoute = AlifbaLettersRouteImport.update({
+  id: '/alifba/letters',
+  path: '/alifba/letters',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyseVerseKeyRoute = AnalyseVerseKeyRouteImport.update({
+  id: '/analyse/$verseKey',
+  path: '/analyse/$verseKey',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GamesIndexRoute = GamesIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AlifbaGamesRoute,
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesAyah2048Route = GamesAyah2048RouteImport.update({
+  id: '/ayah-2048',
+  path: '/ayah-2048',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesFillBlankRoute = GamesFillBlankRouteImport.update({
+  id: '/fill-blank',
+  path: '/fill-blank',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesHexagonRoute = GamesHexagonRouteImport.update({
+  id: '/hexagon',
+  path: '/hexagon',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesKelimeTahminiRoute = GamesKelimeTahminiRouteImport.update({
+  id: '/kelime-tahmini',
+  path: '/kelime-tahmini',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesScoreboardRoute = GamesScoreboardRouteImport.update({
+  id: '/scoreboard',
+  path: '/scoreboard',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesSurahGuessRoute = GamesSurahGuessRouteImport.update({
+  id: '/surah-guess',
+  path: '/surah-guess',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesVerseChainRoute = GamesVerseChainRouteImport.update({
+  id: '/verse-chain',
+  path: '/verse-chain',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesWordMatchRoute = GamesWordMatchRouteImport.update({
+  id: '/word-match',
+  path: '/word-match',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesWordMeaningRoute = GamesWordMeaningRouteImport.update({
+  id: '/word-meaning',
+  path: '/word-meaning',
+  getParentRoute: () => GamesRoute,
+} as any)
+const JuzJuzIdRoute = JuzJuzIdRouteImport.update({
+  id: '/juz/$juzId',
+  path: '/juz/$juzId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KhatmIndexRoute = KhatmIndexRouteImport.update({
+  id: '/khatm/',
+  path: '/khatm/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KhatmGroupIdRoute = KhatmGroupIdRouteImport.update({
+  id: '/khatm/$groupId',
+  path: '/khatm/$groupId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeclisIndexRoute = MeclisIndexRouteImport.update({
+  id: '/meclis/',
+  path: '/meclis/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeclisCodeRoute = MeclisCodeRouteImport.update({
+  id: '/meclis/$code',
+  path: '/meclis/$code',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagePageNumberRoute = PagePageNumberRouteImport.update({
+  id: '/page/$pageNumber',
+  path: '/page/$pageNumber',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileIndexRoute = ProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfilePrivacyRoute = ProfilePrivacyRouteImport.update({
+  id: '/profile/privacy',
+  path: '/profile/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SurahSurahSlugRoute = SurahSurahSlugRouteImport.update({
+  id: '/surah/$surahSlug',
+  path: '/surah/$surahSlug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TafsirVerseKeyRoute = TafsirVerseKeyRouteImport.update({
+  id: '/tafsir/$verseKey',
+  path: '/tafsir/$verseKey',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AlifbaExamIndexRoute = AlifbaExamIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AlifbaExamRoute,
 } as any)
-const ApiV1TranslationSourcesRoute = ApiV1TranslationSourcesRouteImport.update({
-  id: '/api/v1/translation-sources',
-  path: '/api/v1/translation-sources',
-  getParentRoute: () => rootRouteImport,
+const AlifbaExamStepIdRoute = AlifbaExamStepIdRouteImport.update({
+  id: '/$stepId',
+  path: '/$stepId',
+  getParentRoute: () => AlifbaExamRoute,
 } as any)
-const ApiV1SyncRoute = ApiV1SyncRouteImport.update({
-  id: '/api/v1/sync',
-  path: '/api/v1/sync',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiV1SurahsRoute = ApiV1SurahsRouteImport.update({
-  id: '/api/v1/surahs',
-  path: '/api/v1/surahs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiV1SearchRoute = ApiV1SearchRouteImport.update({
-  id: '/api/v1/search',
-  path: '/api/v1/search',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiV1DailyVerseRoute = ApiV1DailyVerseRouteImport.update({
-  id: '/api/v1/daily-verse',
-  path: '/api/v1/daily-verse',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AlifbaStepStepIdRoute = AlifbaStepStepIdRouteImport.update({
-  id: '/alifba/step/$stepId',
-  path: '/alifba/step/$stepId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AlifbaQuizVoiceRoute = AlifbaQuizVoiceRouteImport.update({
-  id: '/alifba/quiz/voice',
-  path: '/alifba/quiz/voice',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AlifbaQuizFormsRoute = AlifbaQuizFormsRouteImport.update({
-  id: '/alifba/quiz/forms',
-  path: '/alifba/quiz/forms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AlifbaGamesWordRoute = AlifbaGamesWordRouteImport.update({
-  id: '/word',
-  path: '/word',
-  getParentRoute: () => AlifbaGamesRoute,
-} as any)
-const AlifbaGamesSpeedRoute = AlifbaGamesSpeedRouteImport.update({
-  id: '/speed',
-  path: '/speed',
-  getParentRoute: () => AlifbaGamesRoute,
-} as any)
-const AlifbaGamesMemoryRoute = AlifbaGamesMemoryRouteImport.update({
-  id: '/memory',
-  path: '/memory',
+const AlifbaGamesIndexRoute = AlifbaGamesIndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => AlifbaGamesRoute,
 } as any)
 const AlifbaGamesFillRoute = AlifbaGamesFillRouteImport.update({
@@ -382,19 +327,69 @@ const AlifbaGamesFillRoute = AlifbaGamesFillRouteImport.update({
   path: '/fill',
   getParentRoute: () => AlifbaGamesRoute,
 } as any)
-const AlifbaExamStepIdRoute = AlifbaExamStepIdRouteImport.update({
-  id: '/$stepId',
-  path: '/$stepId',
-  getParentRoute: () => AlifbaExamRoute,
+const AlifbaGamesMemoryRoute = AlifbaGamesMemoryRouteImport.update({
+  id: '/memory',
+  path: '/memory',
+  getParentRoute: () => AlifbaGamesRoute,
 } as any)
-const ApiV1SurahsSurahIdRoute = ApiV1SurahsSurahIdRouteImport.update({
-  id: '/$surahId',
-  path: '/$surahId',
-  getParentRoute: () => ApiV1SurahsRoute,
+const AlifbaGamesSpeedRoute = AlifbaGamesSpeedRouteImport.update({
+  id: '/speed',
+  path: '/speed',
+  getParentRoute: () => AlifbaGamesRoute,
 } as any)
-const ApiV1PagesPageNumberRoute = ApiV1PagesPageNumberRouteImport.update({
-  id: '/api/v1/pages/$pageNumber',
-  path: '/api/v1/pages/$pageNumber',
+const AlifbaGamesWordRoute = AlifbaGamesWordRouteImport.update({
+  id: '/word',
+  path: '/word',
+  getParentRoute: () => AlifbaGamesRoute,
+} as any)
+const AlifbaQuizFormsRoute = AlifbaQuizFormsRouteImport.update({
+  id: '/alifba/quiz/forms',
+  path: '/alifba/quiz/forms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlifbaQuizVoiceRoute = AlifbaQuizVoiceRouteImport.update({
+  id: '/alifba/quiz/voice',
+  path: '/alifba/quiz/voice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlifbaStepStepIdRoute = AlifbaStepStepIdRouteImport.update({
+  id: '/alifba/step/$stepId',
+  path: '/alifba/step/$stepId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1DailyVerseRoute = ApiV1DailyVerseRouteImport.update({
+  id: '/api/v1/daily-verse',
+  path: '/api/v1/daily-verse',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1SearchRoute = ApiV1SearchRouteImport.update({
+  id: '/api/v1/search',
+  path: '/api/v1/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1SurahsRoute = ApiV1SurahsRouteImport.update({
+  id: '/api/v1/surahs',
+  path: '/api/v1/surahs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1SyncRoute = ApiV1SyncRouteImport.update({
+  id: '/api/v1/sync',
+  path: '/api/v1/sync',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1TranslationSourcesRoute = ApiV1TranslationSourcesRouteImport.update({
+  id: '/api/v1/translation-sources',
+  path: '/api/v1/translation-sources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1GamesQuestionRoute = ApiV1GamesQuestionRouteImport.update({
+  id: '/api/v1/games/question',
+  path: '/api/v1/games/question',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiV1GamesScoresRoute = ApiV1GamesScoresRouteImport.update({
@@ -402,10 +397,15 @@ const ApiV1GamesScoresRoute = ApiV1GamesScoresRouteImport.update({
   path: '/api/v1/games/scores',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiV1GamesQuestionRoute = ApiV1GamesQuestionRouteImport.update({
-  id: '/api/v1/games/question',
-  path: '/api/v1/games/question',
+const ApiV1PagesPageNumberRoute = ApiV1PagesPageNumberRouteImport.update({
+  id: '/api/v1/pages/$pageNumber',
+  path: '/api/v1/pages/$pageNumber',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1SurahsSurahIdRoute = ApiV1SurahsSurahIdRouteImport.update({
+  id: '/$surahId',
+  path: '/$surahId',
+  getParentRoute: () => ApiV1SurahsRoute,
 } as any)
 const ApiV1SurahsSurahIdAyahsRoute = ApiV1SurahsSurahIdAyahsRouteImport.update({
   id: '/ayahs',
@@ -878,109 +878,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/tajweed': {
-      id: '/tajweed'
-      path: '/tajweed'
-      fullPath: '/tajweed'
-      preLoaderRoute: typeof TajweedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/stats': {
-      id: '/stats'
-      path: '/stats'
-      fullPath: '/stats'
-      preLoaderRoute: typeof StatsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/search': {
-      id: '/search'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof SearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/recite': {
-      id: '/recite'
-      path: '/recite'
-      fullPath: '/recite'
-      preLoaderRoute: typeof ReciteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/promo': {
-      id: '/promo'
-      path: '/promo'
-      fullPath: '/promo'
-      preLoaderRoute: typeof PromoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/premium': {
-      id: '/premium'
-      path: '/premium'
-      fullPath: '/premium'
-      preLoaderRoute: typeof PremiumRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/notes': {
-      id: '/notes'
-      path: '/notes'
-      fullPath: '/notes'
-      preLoaderRoute: typeof NotesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mahfuz': {
-      id: '/mahfuz'
-      path: '/mahfuz'
-      fullPath: '/mahfuz'
-      preLoaderRoute: typeof MahfuzRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hifz': {
-      id: '/hifz'
-      path: '/hifz'
-      fullPath: '/hifz'
-      preLoaderRoute: typeof HifzRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/games': {
-      id: '/games'
-      path: '/games'
-      fullPath: '/games'
-      preLoaderRoute: typeof GamesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/fihrist': {
-      id: '/fihrist'
-      path: '/fihrist'
-      fullPath: '/fihrist'
-      preLoaderRoute: typeof FihristRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/discover': {
-      id: '/discover'
-      path: '/discover'
-      fullPath: '/discover'
-      preLoaderRoute: typeof DiscoverRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/changelog': {
-      id: '/changelog'
-      path: '/changelog'
-      fullPath: '/changelog'
-      preLoaderRoute: typeof ChangelogRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/bookmarks': {
-      id: '/bookmarks'
-      path: '/bookmarks'
-      fullPath: '/bookmarks'
-      preLoaderRoute: typeof BookmarksRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -990,207 +892,109 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/bookmarks': {
+      id: '/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/bookmarks'
+      preLoaderRoute: typeof BookmarksRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/profile/': {
-      id: '/profile/'
-      path: '/profile'
-      fullPath: '/profile/'
-      preLoaderRoute: typeof ProfileIndexRouteImport
+    '/changelog': {
+      id: '/changelog'
+      path: '/changelog'
+      fullPath: '/changelog'
+      preLoaderRoute: typeof ChangelogRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/meclis/': {
-      id: '/meclis/'
-      path: '/meclis'
-      fullPath: '/meclis/'
-      preLoaderRoute: typeof MeclisIndexRouteImport
+    '/discover': {
+      id: '/discover'
+      path: '/discover'
+      fullPath: '/discover'
+      preLoaderRoute: typeof DiscoverRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/khatm/': {
-      id: '/khatm/'
-      path: '/khatm'
-      fullPath: '/khatm/'
-      preLoaderRoute: typeof KhatmIndexRouteImport
+    '/fihrist': {
+      id: '/fihrist'
+      path: '/fihrist'
+      fullPath: '/fihrist'
+      preLoaderRoute: typeof FihristRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/games/': {
-      id: '/games/'
-      path: '/'
-      fullPath: '/games/'
-      preLoaderRoute: typeof GamesIndexRouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/alifba/': {
-      id: '/alifba/'
-      path: '/alifba'
-      fullPath: '/alifba/'
-      preLoaderRoute: typeof AlifbaIndexRouteImport
+    '/games': {
+      id: '/games'
+      path: '/games'
+      fullPath: '/games'
+      preLoaderRoute: typeof GamesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tafsir/$verseKey': {
-      id: '/tafsir/$verseKey'
-      path: '/tafsir/$verseKey'
-      fullPath: '/tafsir/$verseKey'
-      preLoaderRoute: typeof TafsirVerseKeyRouteImport
+    '/hifz': {
+      id: '/hifz'
+      path: '/hifz'
+      fullPath: '/hifz'
+      preLoaderRoute: typeof HifzRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/surah/$surahSlug': {
-      id: '/surah/$surahSlug'
-      path: '/surah/$surahSlug'
-      fullPath: '/surah/$surahSlug'
-      preLoaderRoute: typeof SurahSurahSlugRouteImport
+    '/mahfuz': {
+      id: '/mahfuz'
+      path: '/mahfuz'
+      fullPath: '/mahfuz'
+      preLoaderRoute: typeof MahfuzRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/profile/privacy': {
-      id: '/profile/privacy'
-      path: '/profile/privacy'
-      fullPath: '/profile/privacy'
-      preLoaderRoute: typeof ProfilePrivacyRouteImport
+    '/notes': {
+      id: '/notes'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof NotesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/page/$pageNumber': {
-      id: '/page/$pageNumber'
-      path: '/page/$pageNumber'
-      fullPath: '/page/$pageNumber'
-      preLoaderRoute: typeof PagePageNumberRouteImport
+    '/premium': {
+      id: '/premium'
+      path: '/premium'
+      fullPath: '/premium'
+      preLoaderRoute: typeof PremiumRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/meclis/$code': {
-      id: '/meclis/$code'
-      path: '/meclis/$code'
-      fullPath: '/meclis/$code'
-      preLoaderRoute: typeof MeclisCodeRouteImport
+    '/promo': {
+      id: '/promo'
+      path: '/promo'
+      fullPath: '/promo'
+      preLoaderRoute: typeof PromoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/khatm/$groupId': {
-      id: '/khatm/$groupId'
-      path: '/khatm/$groupId'
-      fullPath: '/khatm/$groupId'
-      preLoaderRoute: typeof KhatmGroupIdRouteImport
+    '/recite': {
+      id: '/recite'
+      path: '/recite'
+      fullPath: '/recite'
+      preLoaderRoute: typeof ReciteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/juz/$juzId': {
-      id: '/juz/$juzId'
-      path: '/juz/$juzId'
-      fullPath: '/juz/$juzId'
-      preLoaderRoute: typeof JuzJuzIdRouteImport
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/games/word-meaning': {
-      id: '/games/word-meaning'
-      path: '/word-meaning'
-      fullPath: '/games/word-meaning'
-      preLoaderRoute: typeof GamesWordMeaningRouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/games/word-match': {
-      id: '/games/word-match'
-      path: '/word-match'
-      fullPath: '/games/word-match'
-      preLoaderRoute: typeof GamesWordMatchRouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/games/verse-chain': {
-      id: '/games/verse-chain'
-      path: '/verse-chain'
-      fullPath: '/games/verse-chain'
-      preLoaderRoute: typeof GamesVerseChainRouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/games/surah-guess': {
-      id: '/games/surah-guess'
-      path: '/surah-guess'
-      fullPath: '/games/surah-guess'
-      preLoaderRoute: typeof GamesSurahGuessRouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/games/scoreboard': {
-      id: '/games/scoreboard'
-      path: '/scoreboard'
-      fullPath: '/games/scoreboard'
-      preLoaderRoute: typeof GamesScoreboardRouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/games/kelime-tahmini': {
-      id: '/games/kelime-tahmini'
-      path: '/kelime-tahmini'
-      fullPath: '/games/kelime-tahmini'
-      preLoaderRoute: typeof GamesKelimeTahminiRouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/games/hexagon': {
-      id: '/games/hexagon'
-      path: '/hexagon'
-      fullPath: '/games/hexagon'
-      preLoaderRoute: typeof GamesHexagonRouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/games/fill-blank': {
-      id: '/games/fill-blank'
-      path: '/fill-blank'
-      fullPath: '/games/fill-blank'
-      preLoaderRoute: typeof GamesFillBlankRouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/games/ayah-2048': {
-      id: '/games/ayah-2048'
-      path: '/ayah-2048'
-      fullPath: '/games/ayah-2048'
-      preLoaderRoute: typeof GamesAyah2048RouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/auth/login': {
-      id: '/auth/login'
-      path: '/auth/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthLoginRouteImport
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/callback': {
-      id: '/auth/callback'
-      path: '/auth/callback'
-      fullPath: '/auth/callback'
-      preLoaderRoute: typeof AuthCallbackRouteImport
+    '/stats': {
+      id: '/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof StatsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/analyse/$verseKey': {
-      id: '/analyse/$verseKey'
-      path: '/analyse/$verseKey'
-      fullPath: '/analyse/$verseKey'
-      preLoaderRoute: typeof AnalyseVerseKeyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/alifba/letters': {
-      id: '/alifba/letters'
-      path: '/alifba/letters'
-      fullPath: '/alifba/letters'
-      preLoaderRoute: typeof AlifbaLettersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/alifba/games': {
-      id: '/alifba/games'
-      path: '/alifba/games'
-      fullPath: '/alifba/games'
-      preLoaderRoute: typeof AlifbaGamesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/alifba/exam': {
-      id: '/alifba/exam'
-      path: '/alifba/exam'
-      fullPath: '/alifba/exam'
-      preLoaderRoute: typeof AlifbaExamRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/alifba/$letterId': {
-      id: '/alifba/$letterId'
-      path: '/alifba/$letterId'
-      fullPath: '/alifba/$letterId'
-      preLoaderRoute: typeof AlifbaLetterIdRouteImport
+    '/tajweed': {
+      id: '/tajweed'
+      path: '/tajweed'
+      fullPath: '/tajweed'
+      preLoaderRoute: typeof TajweedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_context/disabled': {
@@ -1200,12 +1004,201 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContextDisabledRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/alifba/games/': {
-      id: '/alifba/games/'
+    '/alifba/': {
+      id: '/alifba/'
+      path: '/alifba'
+      fullPath: '/alifba/'
+      preLoaderRoute: typeof AlifbaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alifba/$letterId': {
+      id: '/alifba/$letterId'
+      path: '/alifba/$letterId'
+      fullPath: '/alifba/$letterId'
+      preLoaderRoute: typeof AlifbaLetterIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alifba/exam': {
+      id: '/alifba/exam'
+      path: '/alifba/exam'
+      fullPath: '/alifba/exam'
+      preLoaderRoute: typeof AlifbaExamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alifba/games': {
+      id: '/alifba/games'
+      path: '/alifba/games'
+      fullPath: '/alifba/games'
+      preLoaderRoute: typeof AlifbaGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alifba/letters': {
+      id: '/alifba/letters'
+      path: '/alifba/letters'
+      fullPath: '/alifba/letters'
+      preLoaderRoute: typeof AlifbaLettersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analyse/$verseKey': {
+      id: '/analyse/$verseKey'
+      path: '/analyse/$verseKey'
+      fullPath: '/analyse/$verseKey'
+      preLoaderRoute: typeof AnalyseVerseKeyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/games/': {
+      id: '/games/'
       path: '/'
-      fullPath: '/alifba/games/'
-      preLoaderRoute: typeof AlifbaGamesIndexRouteImport
-      parentRoute: typeof AlifbaGamesRoute
+      fullPath: '/games/'
+      preLoaderRoute: typeof GamesIndexRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/ayah-2048': {
+      id: '/games/ayah-2048'
+      path: '/ayah-2048'
+      fullPath: '/games/ayah-2048'
+      preLoaderRoute: typeof GamesAyah2048RouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/fill-blank': {
+      id: '/games/fill-blank'
+      path: '/fill-blank'
+      fullPath: '/games/fill-blank'
+      preLoaderRoute: typeof GamesFillBlankRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/hexagon': {
+      id: '/games/hexagon'
+      path: '/hexagon'
+      fullPath: '/games/hexagon'
+      preLoaderRoute: typeof GamesHexagonRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/kelime-tahmini': {
+      id: '/games/kelime-tahmini'
+      path: '/kelime-tahmini'
+      fullPath: '/games/kelime-tahmini'
+      preLoaderRoute: typeof GamesKelimeTahminiRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/scoreboard': {
+      id: '/games/scoreboard'
+      path: '/scoreboard'
+      fullPath: '/games/scoreboard'
+      preLoaderRoute: typeof GamesScoreboardRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/surah-guess': {
+      id: '/games/surah-guess'
+      path: '/surah-guess'
+      fullPath: '/games/surah-guess'
+      preLoaderRoute: typeof GamesSurahGuessRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/verse-chain': {
+      id: '/games/verse-chain'
+      path: '/verse-chain'
+      fullPath: '/games/verse-chain'
+      preLoaderRoute: typeof GamesVerseChainRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/word-match': {
+      id: '/games/word-match'
+      path: '/word-match'
+      fullPath: '/games/word-match'
+      preLoaderRoute: typeof GamesWordMatchRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/word-meaning': {
+      id: '/games/word-meaning'
+      path: '/word-meaning'
+      fullPath: '/games/word-meaning'
+      preLoaderRoute: typeof GamesWordMeaningRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/juz/$juzId': {
+      id: '/juz/$juzId'
+      path: '/juz/$juzId'
+      fullPath: '/juz/$juzId'
+      preLoaderRoute: typeof JuzJuzIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/khatm/': {
+      id: '/khatm/'
+      path: '/khatm'
+      fullPath: '/khatm/'
+      preLoaderRoute: typeof KhatmIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/khatm/$groupId': {
+      id: '/khatm/$groupId'
+      path: '/khatm/$groupId'
+      fullPath: '/khatm/$groupId'
+      preLoaderRoute: typeof KhatmGroupIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meclis/': {
+      id: '/meclis/'
+      path: '/meclis'
+      fullPath: '/meclis/'
+      preLoaderRoute: typeof MeclisIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meclis/$code': {
+      id: '/meclis/$code'
+      path: '/meclis/$code'
+      fullPath: '/meclis/$code'
+      preLoaderRoute: typeof MeclisCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/page/$pageNumber': {
+      id: '/page/$pageNumber'
+      path: '/page/$pageNumber'
+      fullPath: '/page/$pageNumber'
+      preLoaderRoute: typeof PagePageNumberRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile/': {
+      id: '/profile/'
+      path: '/profile'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof ProfileIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile/privacy': {
+      id: '/profile/privacy'
+      path: '/profile/privacy'
+      fullPath: '/profile/privacy'
+      preLoaderRoute: typeof ProfilePrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/surah/$surahSlug': {
+      id: '/surah/$surahSlug'
+      path: '/surah/$surahSlug'
+      fullPath: '/surah/$surahSlug'
+      preLoaderRoute: typeof SurahSurahSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tafsir/$verseKey': {
+      id: '/tafsir/$verseKey'
+      path: '/tafsir/$verseKey'
+      fullPath: '/tafsir/$verseKey'
+      preLoaderRoute: typeof TafsirVerseKeyRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/alifba/exam/': {
       id: '/alifba/exam/'
@@ -1214,88 +1207,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AlifbaExamIndexRouteImport
       parentRoute: typeof AlifbaExamRoute
     }
-    '/api/v1/translation-sources': {
-      id: '/api/v1/translation-sources'
-      path: '/api/v1/translation-sources'
-      fullPath: '/api/v1/translation-sources'
-      preLoaderRoute: typeof ApiV1TranslationSourcesRouteImport
-      parentRoute: typeof rootRouteImport
+    '/alifba/exam/$stepId': {
+      id: '/alifba/exam/$stepId'
+      path: '/$stepId'
+      fullPath: '/alifba/exam/$stepId'
+      preLoaderRoute: typeof AlifbaExamStepIdRouteImport
+      parentRoute: typeof AlifbaExamRoute
     }
-    '/api/v1/sync': {
-      id: '/api/v1/sync'
-      path: '/api/v1/sync'
-      fullPath: '/api/v1/sync'
-      preLoaderRoute: typeof ApiV1SyncRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/v1/surahs': {
-      id: '/api/v1/surahs'
-      path: '/api/v1/surahs'
-      fullPath: '/api/v1/surahs'
-      preLoaderRoute: typeof ApiV1SurahsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/v1/search': {
-      id: '/api/v1/search'
-      path: '/api/v1/search'
-      fullPath: '/api/v1/search'
-      preLoaderRoute: typeof ApiV1SearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/v1/daily-verse': {
-      id: '/api/v1/daily-verse'
-      path: '/api/v1/daily-verse'
-      fullPath: '/api/v1/daily-verse'
-      preLoaderRoute: typeof ApiV1DailyVerseRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/alifba/step/$stepId': {
-      id: '/alifba/step/$stepId'
-      path: '/alifba/step/$stepId'
-      fullPath: '/alifba/step/$stepId'
-      preLoaderRoute: typeof AlifbaStepStepIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/alifba/quiz/voice': {
-      id: '/alifba/quiz/voice'
-      path: '/alifba/quiz/voice'
-      fullPath: '/alifba/quiz/voice'
-      preLoaderRoute: typeof AlifbaQuizVoiceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/alifba/quiz/forms': {
-      id: '/alifba/quiz/forms'
-      path: '/alifba/quiz/forms'
-      fullPath: '/alifba/quiz/forms'
-      preLoaderRoute: typeof AlifbaQuizFormsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/alifba/games/word': {
-      id: '/alifba/games/word'
-      path: '/word'
-      fullPath: '/alifba/games/word'
-      preLoaderRoute: typeof AlifbaGamesWordRouteImport
-      parentRoute: typeof AlifbaGamesRoute
-    }
-    '/alifba/games/speed': {
-      id: '/alifba/games/speed'
-      path: '/speed'
-      fullPath: '/alifba/games/speed'
-      preLoaderRoute: typeof AlifbaGamesSpeedRouteImport
-      parentRoute: typeof AlifbaGamesRoute
-    }
-    '/alifba/games/memory': {
-      id: '/alifba/games/memory'
-      path: '/memory'
-      fullPath: '/alifba/games/memory'
-      preLoaderRoute: typeof AlifbaGamesMemoryRouteImport
+    '/alifba/games/': {
+      id: '/alifba/games/'
+      path: '/'
+      fullPath: '/alifba/games/'
+      preLoaderRoute: typeof AlifbaGamesIndexRouteImport
       parentRoute: typeof AlifbaGamesRoute
     }
     '/alifba/games/fill': {
@@ -1305,25 +1228,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AlifbaGamesFillRouteImport
       parentRoute: typeof AlifbaGamesRoute
     }
-    '/alifba/exam/$stepId': {
-      id: '/alifba/exam/$stepId'
-      path: '/$stepId'
-      fullPath: '/alifba/exam/$stepId'
-      preLoaderRoute: typeof AlifbaExamStepIdRouteImport
-      parentRoute: typeof AlifbaExamRoute
+    '/alifba/games/memory': {
+      id: '/alifba/games/memory'
+      path: '/memory'
+      fullPath: '/alifba/games/memory'
+      preLoaderRoute: typeof AlifbaGamesMemoryRouteImport
+      parentRoute: typeof AlifbaGamesRoute
     }
-    '/api/v1/surahs/$surahId': {
-      id: '/api/v1/surahs/$surahId'
-      path: '/$surahId'
-      fullPath: '/api/v1/surahs/$surahId'
-      preLoaderRoute: typeof ApiV1SurahsSurahIdRouteImport
-      parentRoute: typeof ApiV1SurahsRoute
+    '/alifba/games/speed': {
+      id: '/alifba/games/speed'
+      path: '/speed'
+      fullPath: '/alifba/games/speed'
+      preLoaderRoute: typeof AlifbaGamesSpeedRouteImport
+      parentRoute: typeof AlifbaGamesRoute
     }
-    '/api/v1/pages/$pageNumber': {
-      id: '/api/v1/pages/$pageNumber'
-      path: '/api/v1/pages/$pageNumber'
-      fullPath: '/api/v1/pages/$pageNumber'
-      preLoaderRoute: typeof ApiV1PagesPageNumberRouteImport
+    '/alifba/games/word': {
+      id: '/alifba/games/word'
+      path: '/word'
+      fullPath: '/alifba/games/word'
+      preLoaderRoute: typeof AlifbaGamesWordRouteImport
+      parentRoute: typeof AlifbaGamesRoute
+    }
+    '/alifba/quiz/forms': {
+      id: '/alifba/quiz/forms'
+      path: '/alifba/quiz/forms'
+      fullPath: '/alifba/quiz/forms'
+      preLoaderRoute: typeof AlifbaQuizFormsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alifba/quiz/voice': {
+      id: '/alifba/quiz/voice'
+      path: '/alifba/quiz/voice'
+      fullPath: '/alifba/quiz/voice'
+      preLoaderRoute: typeof AlifbaQuizVoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alifba/step/$stepId': {
+      id: '/alifba/step/$stepId'
+      path: '/alifba/step/$stepId'
+      fullPath: '/alifba/step/$stepId'
+      preLoaderRoute: typeof AlifbaStepStepIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/daily-verse': {
+      id: '/api/v1/daily-verse'
+      path: '/api/v1/daily-verse'
+      fullPath: '/api/v1/daily-verse'
+      preLoaderRoute: typeof ApiV1DailyVerseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/search': {
+      id: '/api/v1/search'
+      path: '/api/v1/search'
+      fullPath: '/api/v1/search'
+      preLoaderRoute: typeof ApiV1SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/surahs': {
+      id: '/api/v1/surahs'
+      path: '/api/v1/surahs'
+      fullPath: '/api/v1/surahs'
+      preLoaderRoute: typeof ApiV1SurahsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/sync': {
+      id: '/api/v1/sync'
+      path: '/api/v1/sync'
+      fullPath: '/api/v1/sync'
+      preLoaderRoute: typeof ApiV1SyncRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/translation-sources': {
+      id: '/api/v1/translation-sources'
+      path: '/api/v1/translation-sources'
+      fullPath: '/api/v1/translation-sources'
+      preLoaderRoute: typeof ApiV1TranslationSourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/games/question': {
+      id: '/api/v1/games/question'
+      path: '/api/v1/games/question'
+      fullPath: '/api/v1/games/question'
+      preLoaderRoute: typeof ApiV1GamesQuestionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/games/scores': {
@@ -1333,12 +1326,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiV1GamesScoresRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/v1/games/question': {
-      id: '/api/v1/games/question'
-      path: '/api/v1/games/question'
-      fullPath: '/api/v1/games/question'
-      preLoaderRoute: typeof ApiV1GamesQuestionRouteImport
+    '/api/v1/pages/$pageNumber': {
+      id: '/api/v1/pages/$pageNumber'
+      path: '/api/v1/pages/$pageNumber'
+      fullPath: '/api/v1/pages/$pageNumber'
+      preLoaderRoute: typeof ApiV1PagesPageNumberRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/surahs/$surahId': {
+      id: '/api/v1/surahs/$surahId'
+      path: '/$surahId'
+      fullPath: '/api/v1/surahs/$surahId'
+      preLoaderRoute: typeof ApiV1SurahsSurahIdRouteImport
+      parentRoute: typeof ApiV1SurahsRoute
     }
     '/api/v1/surahs/$surahId/ayahs': {
       id: '/api/v1/surahs/$surahId/ayahs'

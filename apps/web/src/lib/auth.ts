@@ -36,4 +36,5 @@ export const auth = betterAuth({
   plugins: [tanstackStartCookies(), bearer()],
 });
 
-export type Session = typeof auth.$Infer.Session;
+/** Public client session view; session tokens and IP information remain server-only. */
+export type Session = { user: Pick<typeof auth.$Infer.Session.user, "id" | "name" | "email" | "image"> };

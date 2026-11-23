@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { getRandomVerseForGame } from "~/lib/game-service";
 import { OPTION_COUNT } from "~/lib/game-scoring";
 import type { MeclisGameState } from "./MeclisGamePlay";
+import { VerseWithGap } from "~/components/quran/VerseWithGap";
 
 interface Verse {
   ayahId: number;
@@ -74,17 +75,11 @@ export function MeclisFillBlank({ difficulty, scoreCorrect, scoreWrong, finished
         {verse.surahName} {verse.verseNum}
       </div>
       <p className="text-2xl leading-loose text-center mb-4" dir="rtl" lang="ar" style={{ fontFamily: "var(--font-arabic)" }}>
-        {verse.words.map((w, i) => (
-          <span key={i}>
-            {i === verse.blankIndex ? (
-              <span className="inline-block px-3 mx-1 rounded-md border-b-2 border-dashed border-[var(--mu-accent)] text-[var(--mu-accent)]">
-                {picked ? picked : "_____"}
-              </span>
-            ) : (
-              <span> {w} </span>
-            )}
+        <VerseWithGap words={verse.words} blankIndex={verse.blankIndex} gap={
+          <span className="inline-block px-3 mx-1 rounded-md border-b-2 border-dashed border-[var(--mu-accent)] text-[var(--mu-accent)]">
+            {picked ? verse.words[verse.blankIndex] : "_____"}
           </span>
-        ))}
+        } />
       </p>
 
       <div className="grid grid-cols-2 gap-2">

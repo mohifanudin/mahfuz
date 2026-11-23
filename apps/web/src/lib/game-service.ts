@@ -73,8 +73,7 @@ export const getRandomVerseForGame = createServerFn({ method: "POST" })
       const correctWord = words[blankIndex];
 
       // Seçenekler: doğru kelime + ayetten (numOptions-1) farklı kelime
-      const distractors = words
-        .filter((_, i) => i !== blankIndex)
+      const distractors = [...new Set(words.filter((w, i) => i !== blankIndex && w !== correctWord))]
         .sort(() => Math.random() - 0.5)
         .slice(0, numOptions - 1);
 
@@ -149,10 +148,8 @@ export const getWordConstructionQuestion = createServerFn({ method: "POST" })
     // Leading sınıfı U+06D6-U+06DC secavend aralığını dışlar; secavend
     // sadece bir önceki harfin diakritiği olarak yakalanır, kendi başına
     // "harf" olarak sayılmaz (splitWords sonrası NBSP ile ayrılmış olabilir).
-    const splitArabicLetters = (word: string): string[] => {
-      const re = /[\u0600-\u06D5\u06DD-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF][\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]*/g;
-      return Array.from(word.matchAll(re), (m) => m[0]);
-    };
+    const segmenter = new Intl.Segmenter("ar", { granularity: "grapheme" });
+    const splitArabicLetters = (word: string): string[] => Array.from(segmenter.segment(word), s => s.segment);
 
     for (let attempt = 0; attempt < 8; attempt++) {
       const [ayah] = await db
@@ -170,7 +167,7 @@ export const getWordConstructionQuestion = createServerFn({ method: "POST" })
       // Uygun uzunlukta kelime bul
       const candidates = words
         .map((w, i) => ({ word: w, index: i, letters: splitArabicLetters(w) }))
-        .filter((c) => c.letters.length >= minLen && c.letters.length <= maxLen);
+        .filter((c) => c.letters.length >= minLen && c.letters.length <= maxLen && c.letters.every(l => /^\p{L}/u.test(l)) && c.letters.join("") === c.word);
 
       if (candidates.length === 0) continue;
 

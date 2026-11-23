@@ -74,7 +74,7 @@
   --mushaf-inner-shadow: rgba(0, 0, 0, 0.03);
 
   /* Arapca tipografi (mushaf okuyucu, --mu-ff-ar'dan ayri scale). */
-  --font-arabic: "Scheherazade New", serif;
+  --font-arabic: "KFGQPCUthmanicScriptHAFS", "Scheherazade New", "Amiri Quran", serif;
   --font-size-arabic: clamp(1.5rem, 3vw, 2.2rem);
   --line-height-arabic: 2.8;
   --font-size-translation: 0.95rem;

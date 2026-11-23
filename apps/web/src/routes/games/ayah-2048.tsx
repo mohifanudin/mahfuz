@@ -6,6 +6,8 @@
 
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useCallback, useEffect, useRef, useMemo } from "react";
+import { useRoundCountdown } from "~/hooks/useRoundCountdown";
+import { GameCountdown } from "~/components/GameCountdown";
 import { GAME_THEMES, gameBgStyle } from "~/lib/game-themes";
 import { useTranslation } from "~/hooks/useTranslation";
 import { submitScore, GAME_TITLES } from "~/lib/score-service";
@@ -351,6 +353,8 @@ function GameScreen({
   const [gameState, setGameState] = useState<GameState>(() =>
     createGame(gridSize, spawnValues),
   );
+  const countdown = useRoundCountdown(180, !gameState.over);
+  useEffect(() => { if (countdown.expired && !gameState.over) setGameState(s => ({ ...s, over: true })); }, [countdown.expired, gameState.over]);
   const [discovered, setDiscovered] = useState<Set<number>>(() => loadDiscovered(mode.id));
   const [newlyDiscovered, setNewlyDiscovered] = useState<SurahInfo | null>(null);
 
@@ -358,15 +362,6 @@ function GameScreen({
   const trackTime = mode.id === "original";
   const [startedAt, setStartedAt] = useState<number>(() => Date.now());
   const [winDurationMs, setWinDurationMs] = useState<number | null>(null);
-  const [nowTick, setNowTick] = useState<number>(() => Date.now());
-
-  // Tick once per second while game is active and unwon, to update the displayed timer.
-  useEffect(() => {
-    if (!trackTime) return;
-    if (gameState.over || winDurationMs !== null) return;
-    const id = setInterval(() => setNowTick(Date.now()), 1000);
-    return () => clearInterval(id);
-  }, [trackTime, gameState.over, winDurationMs]);
 
   // Capture win timestamp the first time we hit the win condition.
   useEffect(() => {
@@ -420,7 +415,7 @@ function GameScreen({
 
   const handleMove = useCallback(
     (dir: Direction) => {
-      if (gameState.over) return;
+      if (gameState.over || countdown.expired) return;
       if (gameState.won && !keepPlaying) return;
 
       const next = move(gameState, dir, spawnValues, winTarget, surahMerge, surahScore);
@@ -428,7 +423,7 @@ function GameScreen({
       setGameState(next);
       checkDiscoveries(next.tiles);
     },
-    [gameState, keepPlaying, winTarget, spawnValues, checkDiscoveries],
+    [gameState, countdown.expired, keepPlaying, winTarget, spawnValues, checkDiscoveries],
   );
 
   // Keyboard
@@ -466,7 +461,7 @@ function GameScreen({
           gameId: "ayet-2048",
           score: totalScore,
           difficulty: mode.id,
-          durationMs: winDurationMs ?? undefined,
+          durationMs: winDurationMs ?? countdown.elapsedMs,
         },
       }).catch(() => {});
     }
@@ -485,7 +480,7 @@ function GameScreen({
           gameId: "ayet-2048",
           score: totalScore,
           difficulty: mode.id,
-          durationMs: winDurationMs ?? undefined,
+          durationMs: countdown.elapsedMs,
         },
       })
         .then((result) => {
@@ -493,7 +488,7 @@ function GameScreen({
             score: totalScore,
             mergeScore: gameState.score,
             timeBonus,
-            durationMs: winDurationMs,
+            durationMs: countdown.elapsedMs,
             discoveredCount: discovered.size,
             totalSurahs: sequence.length,
             highestSurah,
@@ -508,7 +503,7 @@ function GameScreen({
             score: totalScore,
             mergeScore: gameState.score,
             timeBonus,
-            durationMs: winDurationMs,
+            durationMs: countdown.elapsedMs,
             discoveredCount: discovered.size,
             totalSurahs: sequence.length,
             highestSurah,
@@ -522,6 +517,7 @@ function GameScreen({
   }, [gameState.over, gameState.score, gameState.tiles, scoreSaved, mode.id, sequence, discovered.size, onGameOver, totalScore, timeBonus, winDurationMs]);
 
   const restart = () => {
+    countdown.reset();
     setGameState(createGame(gridSize, spawnValues));
     setKeepPlaying(false);
     setScoreSaved(false);
@@ -529,7 +525,6 @@ function GameScreen({
     setNewlyDiscovered(null);
     setStartedAt(Date.now());
     setWinDurationMs(null);
-    setNowTick(Date.now());
   };
 
   // Fit grid to both width and height so the page never scrolls
@@ -545,18 +540,9 @@ function GameScreen({
   return (
     <div className="game-bg" style={{ ...gameBgStyle(THEME, "ayet-2048"), minHeight: 0, height: "calc(100dvh - 44px - 56px)", overflow: "hidden" }} {...swipeHandlers}>
       <div className="mx-auto max-w-md px-4 py-2 flex flex-col gap-2 h-full overflow-hidden">
+        <GameCountdown display={countdown.display} progress={countdown.progress} />
         {/* Score bar */}
         <div className="flex items-center justify-end gap-4">
-          {trackTime && (
-            <div className="text-right">
-              <div className="text-white/50 text-xs">{tx.time ?? "Süre"}</div>
-              <div className="text-white font-bold text-lg tabular-nums">
-                {formatDuration(
-                  winDurationMs !== null ? winDurationMs : Math.max(0, nowTick - startedAt),
-                )}
-              </div>
-            </div>
-          )}
           <div className="text-right">
             <div className="text-white/50 text-xs">{tx.score}</div>
             <div className="text-white font-bold text-lg tabular-nums">{totalScore}</div>

@@ -4,11 +4,13 @@
  */
 
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link, useRouter } from "@tanstack/react-router";
 import { signIn, signUp } from "~/lib/auth-client";
 import { useTranslation } from "~/hooks/useTranslation";
 import { LogoMeem } from "./LogoMeem";
 import { MuIcons } from "./icons";
+import { getAuthProviders } from "~/lib/auth-session";
 
 interface LoginPageProps {
   redirect?: string;
@@ -23,6 +25,8 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { data: providers, isPending } = useQuery({ queryKey: ["auth-providers"], queryFn: () => getAuthProviders(), staleTime: 60_000 });
+  const googleEnabled = providers?.google === true;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,6 +57,7 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
 
   const handleGoogle = async () => {
     setError("");
+    setLoading(true);
     try {
       const result = await signIn.social({ provider: "google", callbackURL: redirect || "/" });
       if (result?.error) {
@@ -60,22 +65,20 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
       }
     } catch {
       setError(t.auth.googleFailed);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="mu-sover" style={{ animation: "none", background: "var(--mu-bg)" }}>
-      <div className="mu-signin">
-        <div className="mu-signin-head">
-          <div style={{ marginBottom: 16 }}>
-            <LogoMeem size={52} />
-          </div>
-          <h2>{mode === "signin" ? "Selamat datang kembali!" : "Bergabung dengan Mahfuz"}</h2>
-          <p className="mu-muted" style={{ fontSize: 14, margin: 0, maxWidth: "34ch", marginLeft: "auto", marginRight: "auto" }}>
-            {mode === "signin"
-              ? "Simpan hafalan dan catatan belajarmu."
-              : "Buat akun bersama ayah, bunda, atau pendampingmu."}
-          </p>
+    <div className="auth-pro-shell">
+      <div className="auth-pro-card">
+        <div className="auth-pro-brand"><LogoMeem size={39} /><span>imtiyaz<small>digital studio</small></span></div>
+        <div className="auth-pro-art" aria-hidden="true"><span>✦</span><span>{MuIcons.book}</span><span>✧</span></div>
+        <div className="auth-pro-head">
+          <span className="auth-pro-kicker">MUROJAAH</span>
+          <h1>{mode === "signin" || googleEnabled ? "Ayo, lanjutkan belajar!" : "Mulai petualanganmu"}</h1>
+          <p>Hafalan, catatan, dan pencapaianmu tetap tersimpan.</p>
         </div>
 
         {error && (
@@ -84,16 +87,15 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
           </p>
         )}
 
-        {import.meta.env.VITE_GOOGLE_LOGIN_ENABLED === "true" && <div className="mu-signin-oauth">
-          <button type="button" className="mu-oauth" onClick={handleGoogle}>
+        {isPending ? <div className="auth-pro-loading" role="status">Memuat cara masuk…</div> : googleEnabled ? <div className="auth-pro-actions">
+          <button type="button" className="auth-pro-google" onClick={handleGoogle} disabled={loading}>
             {MuIcons.google}
-            <span>{t.auth.continueWithGoogle}</span>
+            <span>{loading ? "Menghubungkan…" : "Masuk dengan Google"}</span>
+            {MuIcons.arrowRight}
           </button>
-        </div>}
-
-        {import.meta.env.VITE_GOOGLE_LOGIN_ENABLED === "true" && <div className="mu-signin-or"><span>atau dengan email</span></div>}
-
-        <form className="mu-signin-form" onSubmit={handleSubmit}>
+          <p className="auth-pro-privacy">Anak-anak dapat menggunakan akun orang tua atau pendamping.</p>
+        </div> : <>
+        <form className="auth-pro-form" onSubmit={handleSubmit}>
           {mode === "signup" && (
             <label className="mu-field">
               <span>{t.auth.namePlaceholder}</span>
@@ -126,8 +128,7 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
           </label>
           <button
             type="submit"
-            className="mu-btn primary"
-            style={{ justifyContent: "center", marginTop: 8, width: "100%" }}
+            className="auth-pro-submit"
             disabled={loading}
           >
             {loading ? t.common.loading : mode === "signin" ? t.auth.login : t.auth.createAccount}
@@ -135,7 +136,7 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
           </button>
         </form>
 
-        <p className="mu-signin-alt">
+        <p className="auth-pro-alt">
           {mode === "signin" ? t.auth.noAccount : t.auth.hasAccount}
           <button
             type="button"
@@ -143,8 +144,9 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
           >
             {mode === "signin" ? t.auth.register : t.auth.login}
           </button>
-        </p>
-        <Link to="/" className="mu-btn ghost" style={{ justifyContent: "center", width: "100%" }}>Belajar tanpa akun</Link>
+        </p></>}
+        <Link to="/" className="auth-pro-guest">Belajar tanpa akun {MuIcons.chev}</Link>
+        <div className="auth-pro-note"><span>{MuIcons.lock}</span> Data belajarmu tetap privat.</div>
       </div>
     </div>
   );

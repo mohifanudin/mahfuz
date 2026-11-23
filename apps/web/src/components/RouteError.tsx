@@ -7,7 +7,7 @@
 import { Link, useRouter, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "~/hooks/useTranslation";
 
-export function RouteError({ error }: { error: Error }) {
+export function RouteError({ error }: { error: unknown }) {
   const router = useRouter();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -19,12 +19,12 @@ export function RouteError({ error }: { error: Error }) {
   }
 
   const title = t?.error?.generic ?? "Something went wrong";
-  const desc = error.message || (t?.error?.genericDesc ?? "An unexpected error occurred while loading the page.");
+  const desc = t?.error?.genericDesc ?? "Maaf, halaman belum dapat dimuat. Silakan coba kembali.";
   const retry = t?.error?.retry ?? "Try Again";
   const home = t?.error?.goHome ?? "Home";
   const report = t?.error?.report ?? "Report";
 
-  const shortError = error.message?.slice(0, 80) || "Unknown error";
+  const shortError = error instanceof Error ? error.name : "Error";
   const tweetText = `@theilgaz mahfuz.ilg.az${pathname} sayfasında hata oluştu:\n\n"${shortError}"`;
   const tweetUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
 

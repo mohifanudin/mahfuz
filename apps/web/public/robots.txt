@@ -1,4 +1,4 @@
-# Mahfuz - https://mahfuz.ilg.az
+# Murojaah - https://murojaah.imtiyaz.web.id
 User-agent: *
 Allow: /
 
@@ -24,4 +24,4 @@ Disallow: /api/
 # Skor tabloları
 Disallow: /games/scoreboard
 
-Sitemap: https://mahfuz.ilg.az/sitemap.xml
+Sitemap: https://murojaah.imtiyaz.web.id/sitemap.xml

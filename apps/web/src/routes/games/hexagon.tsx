@@ -16,6 +16,7 @@ import { GameScoreBar } from "~/components/GameScoreBar";
 import { GameOverCard } from "~/components/GameOverCard";
 import { GAME_THEMES, gameBgStyle } from "~/lib/game-themes";
 import { GameVerseLabel } from "~/components/GameVerseLabel";
+import { VerseWithGap } from "~/components/quran/VerseWithGap";
 import {
   calcCorrectPoints,
   calcWrongPenalty,
@@ -368,11 +369,11 @@ function GameScreen({
             lang="ar"
             style={{ fontFamily: "var(--font-arabic)", color: "var(--color-text-primary)" }}
           >
-            {question.words.map((w, i) => {
-              if (i === question.blankIndex) {
-                return (
+            <VerseWithGap words={question.words} blankIndex={question.blankIndex} gap={
+              isAnswered ? (
+                <span className="inline-block px-2 rounded-md" style={{ color: P, backgroundColor: `${P}15` }}>{question.words[question.blankIndex]}</span>
+              ) : (
                   <span
-                    key={i}
                     className="inline-flex flex-row-reverse gap-1 items-center align-middle mx-1"
                   >
                     {question.letters.map((_, li) => (
@@ -386,14 +387,8 @@ function GameScreen({
                       />
                     ))}
                   </span>
-                );
-              }
-              return (
-                <span key={i} className="mx-0.5">
-                  {w}
-                </span>
-              );
-            })}
+              )
+            } />
           </div>
         </div>
 

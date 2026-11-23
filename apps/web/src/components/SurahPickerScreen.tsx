@@ -17,6 +17,7 @@ import { getSurahName } from "~/lib/surah-names-i18n";
 import { GameMiniLeaderboard } from "~/components/GameMiniLeaderboard";
 import type { VerseFilter } from "~/lib/game-service";
 import type { Difficulty } from "~/lib/game-scoring";
+import { STARTING_TIME_MS } from "~/lib/game-scoring";
 
 type Mode = "all" | "hifz" | "studied" | "custom";
 
@@ -139,18 +140,24 @@ export function SurahPickerScreen({ gameImg, difficultyOnly, simpleDifficulty, g
     : t.surahPicker.modeCustomHint;
 
   const startDisabled = !difficultyOnly && ((mode === "custom" && selected.size === 0) || (mode === "studied" && studiedIds.length === 0));
+  const gameInfo: Record<string, [string, string, string]> = {
+    "verse-chain": [t.gamesHub.verseChainTitle, t.gamesHub.verseChainDesc, "🔗"],
+    "fill-blank": [t.gamesHub.fillBlankTitle, t.gamesHub.fillBlankDesc, "🧩"],
+    "hexagon": [t.gamesHub.hexagonTitle, t.gamesHub.hexagonDesc, "✨"],
+    "surah-guess": [t.gamesHub.surahGuessTitle, t.gamesHub.surahGuessDesc, "🎯"],
+    "word-meaning": [t.gamesHub.wordMeaningTitle, t.gamesHub.wordMeaningDesc, "💡"],
+    "word-match": [t.gamesHub.wordMatchTitle, t.gamesHub.wordMatchDesc, "🃏"],
+  };
+  const [gameTitle, gameDescription, gameIcon] = gameInfo[gameId ?? ""] ?? [t.nav.games, t.surahPicker.subtitle, "🎮"];
+  const timeSeconds = Math.round(STARTING_TIME_MS[difficulty] / 1000);
 
   return (
     <div className="mu-gamestart max-w-3xl mx-auto px-4 py-6 pb-20">
       {/* Oyun görseli */}
-      {gameImg && (
-        <div className="kid-welcome" style={{ width: "100%", padding: "20px", margin: "0 0 18px", gridTemplateColumns: "1fr auto" }}>
-          <div><p className="kid-kicker" style={{ margin: "0 0 8px" }}>{t.nav.games}</p><h2 className="text-xl font-bold">{gameId === "verse-chain" ? t.gamesHub.verseChainTitle : t.gameScoring.difficulty}</h2><p style={{ margin: "6px 0" }}>{gameId === "verse-chain" ? t.gamesHub.verseChainDesc : t.surahPicker.subtitle}</p></div>
-          <span className="kid-game-icon" style={{ background: "#FFFFFFB0" }} aria-hidden="true">{gameId === "verse-chain" ? "🔗" : "🎮"}</span>
-        </div>
-      )}
+      <div className="game-setup-hero"><span className="game-setup-icon" aria-hidden="true">{gameIcon}</span><div><p className="kid-kicker">✦ {t.nav.games}</p><h1>{gameTitle}</h1><p>{gameDescription}</p><span className="game-setup-duration">◷ {timeSeconds} detik · tantangan berwaktu</span></div></div>
 
       {/* Zorluk seçimi */}
+      <h2 className="game-setup-heading">Pilih tingkat kesulitan</h2>
       <div className="mb-5">
         <div className="flex rounded-lg border border-[var(--color-border)] overflow-hidden bg-[var(--color-surface)]">
           {(simpleDifficulty

@@ -67,15 +67,18 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   notFoundComponent: NotFound,
   errorComponent: RouteErrorFallback,
   pendingComponent: PendingIndicator,
-  head: () => ({
+  head: ({ matches }) => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "theme-color", content: "#F8FBFF" },
+      { property: "og:locale", content: "id_ID" },
+      { property: "og:url", content: `https://murojaah.imtiyaz.web.id${matches.at(-1)?.pathname ?? "/"}` },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
     ],
     links: [
+      { rel: "canonical", href: `https://murojaah.imtiyaz.web.id${matches.at(-1)?.pathname ?? "/"}` },
       { rel: "icon", href: "/icons/imtiyaz-logo.svg", type: "image/svg+xml" },
       { rel: "apple-touch-icon", href: "/icons/imtiyaz-180.png" },
       { rel: "manifest", href: "/manifest.json" },

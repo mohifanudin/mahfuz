@@ -72,16 +72,21 @@ export const AyahBlock = memo(function AyahBlock({
   const wordColors = colorizeWords ? COLOR_PALETTES[colorPaletteId].colors : null;
 
   // WBW modunda: kelime kartları; diğer modlarda: tooltip
-  const isWbwLayout = readingMode === "wbw" && wbwWords && wbwWords.length > 0;
-  const hasTooltip = readingMode === "verse" && wbwWords && wbwWords.length > 0;
+  const canonicalWords = useMemo(() => splitWords(textUthmani), [textUthmani]);
+  const wordsAligned = Boolean(wbwWords?.length && wbwWords.length === canonicalWords.length);
+  const isWbwLayout = readingMode === "wbw" && wordsAligned;
+  const hasTooltip = readingMode === "verse" && wordsAligned;
+  // External tajwid markup may use a different orthographic edition. Only
+  // apply its coloring when its underlying text exactly matches our Quran.
+  const verifiedTajweed = textTajweed && textTajweed.replace(/<\/?tajweed(?:\s+[^>]*)?>/g, "") === textUthmani ? textTajweed : undefined;
 
   // WBW modunda tajweed renklendirmesi: textTajweed'i kelimelere böl. Kelime
   // sayısı wbwWords ile eşleşmezse renklendirme kapanır (düz metin gösterilir).
   const wbwTajweedWords = useMemo(() => {
-    if (!isWbwLayout || !showTajweed || !textTajweed || colorizeWords) return null;
-    const parsed = parseTajweedWords(textTajweed);
+    if (!isWbwLayout || !showTajweed || !verifiedTajweed || colorizeWords) return null;
+    const parsed = parseTajweedWords(verifiedTajweed);
     return parsed.length === wbwWords!.length ? parsed : null;
-  }, [isWbwLayout, showTajweed, textTajweed, colorizeWords, wbwWords]);
+  }, [isWbwLayout, showTajweed, verifiedTajweed, colorizeWords, wbwWords]);
 
   // Tooltip state — verse modunda kelimeye tıklayınca
   const [tooltip, setTooltip] = useState<{ word: WbwWord; rect: DOMRect } | null>(null);
@@ -234,7 +239,7 @@ export const AyahBlock = memo(function AyahBlock({
                   color: wordColors && wordPosition !== w.position ? wordColors[i % wordColors.length] : undefined,
                 }}
               >
-                {wbwTajweedWords ? wbwTajweedWords[i] : w.textUthmani}
+                {wbwTajweedWords ? wbwTajweedWords[i] : canonicalWords[i]}
               </span>
               {w.transliteration && wbwTranslit !== "off" && (
                 <span
@@ -261,10 +266,10 @@ export const AyahBlock = memo(function AyahBlock({
         </div>
       ) : (
         /* Normal metin -- verse modunda kelimeye tiklayinca WordTooltip */
-        <div className="mu-v-ar relative" style={{ fontSize: `${arabicFontSize}rem` }}>
-          {showTajweed && textTajweed && !colorizeWords
-            ? parseTajweed(textTajweed, true)
-            : splitWords(textUthmani).map((word, i) => {
+        <div className="mu-v-ar relative" dir="rtl" lang="ar" style={{ fontSize: `${arabicFontSize}rem` }}>
+          {showTajweed && verifiedTajweed && !colorizeWords
+            ? parseTajweed(verifiedTajweed, true)
+            : canonicalWords.map((word, i) => {
                 const isActive = wordPosition === i + 1;
                 const wc = wordColors && !isActive ? wordColors[i % wordColors.length] : undefined;
                 const wbwWord = hasTooltip ? wbwWords![i] : undefined;

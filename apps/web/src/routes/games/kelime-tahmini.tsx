@@ -6,6 +6,8 @@
 
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useCallback, useEffect, useMemo } from "react";
+import { useRoundCountdown } from "~/hooks/useRoundCountdown";
+import { GameCountdown } from "~/components/GameCountdown";
 import { Link } from "@tanstack/react-router";
 import { GAME_THEMES, gameBgStyle } from "~/lib/game-themes";
 import { WORD_PAIRS, getLocalizedPair } from "~/lib/word-pairs";
@@ -311,11 +313,19 @@ function GameScreen({ t, mode, onBack }: { t: any; mode: "daily" | "free"; onBac
     return arr;
   });
   const [finished, setFinished] = useState(savedDaily?.finished ?? false);
+  const [ending, setEnding] = useState(false);
+  const countdown = useRoundCountdown(90, !finished && !ending);
   const [won, setWon] = useState(savedDaily?.won ?? false);
   const [shakeRow, setShakeRow] = useState(false);
   const [revealRow, setRevealRow] = useState(-1);
   const [copied, setCopied] = useState(false);
   const [leagueUp, setLeagueUp] = useState<{ from: League; to: League } | null>(null);
+  useEffect(() => {
+    if (!countdown.expired || finished || ending) return;
+    setFinished(true); setWon(false);
+    const stats = loadStats(); stats.played++; stats.currentStreak = 0; saveStats(stats);
+    if (mode === "daily") saveDaily({ day, guesses, finished: true, won: false });
+  }, [countdown.expired, finished, ending]);
 
   // Keyboard letter statuses
   const keyStatuses = useMemo(() => {
@@ -334,7 +344,7 @@ function GameScreen({ t, mode, onBack }: { t: any; mode: "daily" | "free"; onBac
   }, [guesses, targetLetters]);
 
   const handleKey = useCallback((letter: string) => {
-    if (finished) return;
+    if (finished || ending || countdown.expired) return;
     setCurrentInput((prev) => {
       const next = Array.from({ length: letterCount }, (_, i) => prev[i] ?? null);
       const emptyIdx = next.findIndex((l, i) => locked[i] === null && l === null);
@@ -342,10 +352,10 @@ function GameScreen({ t, mode, onBack }: { t: any; mode: "daily" | "free"; onBac
       next[emptyIdx] = letter;
       return next;
     });
-  }, [finished, locked, letterCount]);
+  }, [finished, ending, countdown.expired, locked, letterCount]);
 
   const handleBackspace = useCallback(() => {
-    if (finished) return;
+    if (finished || ending || countdown.expired) return;
     setCurrentInput((prev) => {
       const next = [...prev];
       for (let i = next.length - 1; i >= 0; i--) {
@@ -357,12 +367,12 @@ function GameScreen({ t, mode, onBack }: { t: any; mode: "daily" | "free"; onBac
       }
       return prev;
     });
-  }, [finished, locked]);
+  }, [finished, ending, countdown.expired, locked]);
 
   const handleSubmit = useCallback(() => {
     // Check all slots are filled
     const allFilled = currentInput.length === letterCount && currentInput.every((l) => l !== null && l !== undefined);
-    if (finished || !allFilled) {
+    if (finished || ending || countdown.expired || !allFilled) {
       if (!allFilled) {
         setShakeRow(true);
         setTimeout(() => setShakeRow(false), 500);
@@ -390,6 +400,7 @@ function GameScreen({ t, mode, onBack }: { t: any; mode: "daily" | "free"; onBac
     const isLastGuess = newGuesses.length >= MAX_GUESSES;
 
     if (isCorrect || isLastGuess) {
+      setEnding(true);
       setTimeout(() => {
         setFinished(true);
         setWon(isCorrect);
@@ -425,7 +436,7 @@ function GameScreen({ t, mode, onBack }: { t: any; mode: "daily" | "free"; onBac
     }
 
     setTimeout(() => setRevealRow(-1), letterCount * 300 + 200);
-  }, [finished, currentInput, letterCount, guesses, targetLetters, mode, day]);
+  }, [finished, ending, countdown.expired, currentInput, letterCount, guesses, targetLetters, mode, day]);
 
   // Share result
   const handleShare = useCallback(() => {
@@ -451,6 +462,7 @@ function GameScreen({ t, mode, onBack }: { t: any; mode: "daily" | "free"; onBac
   return (
     <div className="max-w-lg mx-auto px-2 flex flex-col overflow-hidden game-bg" style={{ ...gameBgStyle(THEME, "kelime-tahmini"), height: "calc(100dvh - 44px - 56px)" }}>
       {/* Day indicator + Hint */}
+      {!finished && <GameCountdown display={countdown.display} progress={countdown.progress} />}
       <div className="text-center py-3">
         {mode === "daily" && (
           <span className="text-xs font-medium mr-2" style={{ color: P }}>

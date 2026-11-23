@@ -16,6 +16,7 @@ import { GameScoreBar } from "~/components/GameScoreBar";
 import { GameOverCard } from "~/components/GameOverCard";
 import { GAME_THEMES, gameBgStyle } from "~/lib/game-themes";
 import { GameVerseLabel } from "~/components/GameVerseLabel";
+import { VerseWithGap } from "~/components/quran/VerseWithGap";
 import {
   OPTION_COUNT,
   calcCorrectPoints,
@@ -295,8 +296,7 @@ function GameScreen({
             }}
           />
           <div className="relative px-5 py-7 sm:px-8 sm:py-9 text-right leading-[2.8] text-[1.75rem] sm:text-[2.2rem]" dir="rtl" lang="ar" style={{ fontFamily: "var(--font-arabic)", color: "var(--color-text-primary)" }}>
-            {verse.words.map((w, i) => {
-              if (i === verse.blankIndex) {
+            <VerseWithGap words={verse.words} blankIndex={verse.blankIndex} gap={(() => {
                 const blankStyle =
                   gameState === "correct"
                     ? { borderColor: `${P}90`, backgroundColor: `${P}15`, color: P }
@@ -305,7 +305,6 @@ function GameScreen({
                       : { borderColor: `${P}50`, backgroundColor: "var(--mushaf-bg, #f8f4ec)" };
                 return (
                   <span
-                    key={i}
                     className={`inline-block mx-1 px-4 py-1 rounded-lg min-w-[72px] text-center align-middle font-semibold transition-all ${isAnswered ? "game-pop" : "game-pulse-glow"}`}
                     style={{
                       ...blankStyle,
@@ -314,12 +313,10 @@ function GameScreen({
                       ["--glow-color" as string]: THEME.glow,
                     }}
                   >
-                    {isAnswered ? verse.correctWord : "\u200C"}
+                    {isAnswered ? verse.words[verse.blankIndex] : "\u200C"}
                   </span>
                 );
-              }
-              return <span key={i} className="mx-0.5">{w}</span>;
-            })}
+            })()} />
           </div>
         </div>
 

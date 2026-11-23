@@ -23,9 +23,10 @@ export function Footer() {
       <div className="mu-foot-inner">
         <div className="mu-foot-brand" style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <LogoMeem size={24} />
-          <span className="mu-brand-latin">Murojaah · Imtiyaz</span>
+          <span className="mu-brand-latin">Murojaah · <a href="https://imtiyaz.web.id/" target="_blank" rel="noopener" title="Imtiyaz Digital Studio">Imtiyaz</a></span>
         </div>
         <p className="mu-foot-meta mu-muted">
+          <a href="https://tanzil.net/" target="_blank" rel="noopener noreferrer">Teks Al-Qur'an: Tanzil Project</a>{" · "}
           <Link
             to="/mahfuz"
             style={{ all: "unset", cursor: "pointer" }}

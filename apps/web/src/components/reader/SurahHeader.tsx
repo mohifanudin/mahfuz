@@ -6,6 +6,7 @@
 import { PlaySurahButton } from "./PlaySurahButton";
 import { getSurahName, getSurahMeaning } from "~/lib/surah-names-i18n";
 import { useLocaleStore } from "~/stores/locale.store";
+import { getUthmaniBismillah } from "~/lib/uthmani-text";
 
 interface SurahHeaderProps {
   surahId?: number;
@@ -78,7 +79,7 @@ export function SurahHeader({ surahId, nameArabic, nameSimple, nameTranslation, 
           dir="rtl"
           style={{ fontFamily: "var(--font-arabic)", fontSize: compact ? "clamp(1.2rem, 3.5vw, 2rem)" : "clamp(1.6rem, 4vw, 2.8rem)" }}
         >
-          بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ
+          {getUthmaniBismillah(surahId)}
         </p>
       )}
 

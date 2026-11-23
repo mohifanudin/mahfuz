@@ -5,6 +5,7 @@
 
 import type { MushafStyleConfig } from "~/lib/mushaf-styles";
 import { scallopedPath } from "~/lib/svg-helpers";
+import { getUthmaniBismillah } from "~/lib/uthmani-text";
 
 interface OrnamentalSurahHeaderProps {
   surahId: number;
@@ -31,6 +32,7 @@ export function OrnamentalSurahHeader({
       {/* Besmele (Tevbe harici, surahId=9) */}
       {showBismillah && surahId !== 9 && (
         <OrnamentalBismillah
+          surahId={surahId}
           variant={styleConfig.bismillahVariant}
           fontFamily={styleConfig.fontFamily}
         />
@@ -215,9 +217,11 @@ function SurahCartouche({
 // ── Ornamental Besmele ─────────────────────────────────
 
 function OrnamentalBismillah({
+  surahId,
   variant,
   fontFamily,
 }: {
+  surahId: number;
   variant: "ornate" | "text";
   fontFamily: string;
 }) {
@@ -234,7 +238,7 @@ function OrnamentalBismillah({
           opacity: 0.85,
         }}
       >
-        بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ
+        {getUthmaniBismillah(surahId)}
       </p>
     );
   }
@@ -256,7 +260,7 @@ function OrnamentalBismillah({
           opacity: 0.85,
         }}
       >
-        بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ
+        {getUthmaniBismillah(surahId)}
       </p>
       <div className="flex-1 flex flex-col gap-[2px]">
         <div className="h-[1px]" style={{ background: "var(--frame-primary)", opacity: 0.25 }} />
