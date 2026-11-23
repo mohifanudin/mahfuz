@@ -7248,8 +7248,10 @@ a:has(> .mu-roadmap-node):hover .mu-roadmap-node-content {
 .mu-btn { min-height: 42px; }
 .mu-nav-chip { min-height: 43px; font-weight: 600; }
 .kid-game-icon { width: 56px; height: 56px; display: grid; place-items: center; font-size: 27px; border-radius: 17px; }
+.kid-mobile-search { display: none; }
 
 @media (max-width: 767px) {
+  .kid-mobile-search { display: inline-grid; }
   .kid-quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .kid-quick { min-height: 112px; padding: 13px 15px; }
   .kid-welcome { margin-top: 14px; padding: 22px 18px 25px; }

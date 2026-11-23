@@ -22,6 +22,7 @@ export function TopBar({ session, onSearch, onSettings }: TopBarProps) {
       ? []
       : [{ name: "fihrist", path: "/fihrist", icon: MuIcons.book, label: t.nav?.fihrist ?? "Fihrist" }]),
     { name: "discover", path: "/discover", icon: MuIcons.compass, label: t.hub?.title ?? "Kesfet" },
+    { name: "games", path: "/games", icon: MuIcons.gameController, label: t.nav.games },
   ];
 
   const isActive = (itemPath: string) => {
@@ -72,6 +73,7 @@ export function TopBar({ session, onSearch, onSettings }: TopBarProps) {
 
         {/* Right actions */}
         <div className="mu-topright">
+          <button className="mu-icon-btn kid-mobile-search" aria-label={t.nav.search} title={t.nav.search} onClick={onSearch}>{MuIcons.search}</button>
           <button className="mu-icon-btn mu-icon-btn--settings" title={t.nav.settings} onClick={onSettings}>
             {MuIcons.settings}
           </button>
