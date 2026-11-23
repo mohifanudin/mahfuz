@@ -16,7 +16,7 @@
 import { surahIdFromSlug } from "./surah-slugs";
 import { getSurahName } from "./surah-names-i18n";
 
-const SITE = "Mahfuz";
+const SITE = "Murojaah";
 const SEP = " · ";
 const DEFAULT_DESC = "Teman mengaji, hafalan, dan permainan Al-Qur'an untuk anak-anak.";
 

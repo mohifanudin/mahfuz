@@ -33,10 +33,11 @@ export function TopBar({ session, onSearch, onSettings }: TopBarProps) {
   return (
     <header className="mu-topbar">
       <div className="mu-topbar-inner">
-        <Link to="/" className="mu-brand">
-          <LogoMeem size={36} />
+        <Link to="/" className="mu-brand imtiyaz-brand" aria-label="Imtiyaz Digital Studio — Beranda Murojaah">
+          <LogoMeem size={40} />
           <span className="mu-brand-wordmark">
-            <span className="mu-brand-latin">Mahfuz</span>
+            <span className="mu-brand-latin">imtiyaz</span>
+            <small>digital studio</small>
           </span>
         </Link>
 

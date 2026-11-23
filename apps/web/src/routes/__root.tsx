@@ -76,9 +76,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
     ],
     links: [
-      { rel: "icon", href: "/favicon.ico", sizes: "32x32" },
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-      { rel: "apple-touch-icon", href: "/icons/apple-touch-icon.png" },
+      { rel: "icon", href: "/icons/imtiyaz-logo.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/icons/imtiyaz-180.png" },
       { rel: "manifest", href: "/manifest.json" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
@@ -230,7 +229,7 @@ function AppHeader() {
           {isHome ? (
             <div className="flex items-center gap-1.5 shrink-0">
               <MahfuzLogo size={22} />
-              <span className="text-sm font-semibold">Mahfuz</span>
+              <span className="text-sm font-semibold">imtiyaz</span>
             </div>
           ) : (
             <Link to="/" className="flex items-center shrink-0 hover:opacity-70 transition-opacity">
@@ -484,7 +483,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 
     // Use static favicon
     const iconLink = document.querySelector<HTMLLinkElement>('link[rel="icon"][type="image/svg+xml"]');
-    if (iconLink) iconLink.href = "/favicon.svg";
+    if (iconLink) iconLink.href = "/icons/imtiyaz-logo.svg";
 
     // Sync browser chrome color
     document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((m) => { m.content = bg; });

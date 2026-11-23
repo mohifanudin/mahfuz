@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Murojaah oleh Imtiyaz</title>
+  <rect width="64" height="64" rx="12" fill="#f6f8ff"/>
+  <g transform="rotate(-12 32 32)">
+    <rect x="15" y="15" width="13" height="36" rx="5" fill="#3455d9"/>
+    <rect x="35" y="11" width="13" height="27" rx="5" fill="#a28bed"/>
+  </g>
+</svg>

@@ -23,7 +23,7 @@ export function Footer() {
       <div className="mu-foot-inner">
         <div className="mu-foot-brand" style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <LogoMeem size={24} />
-          <span className="mu-brand-latin">Mahfuz</span>
+          <span className="mu-brand-latin">Murojaah · Imtiyaz</span>
         </div>
         <p className="mu-foot-meta mu-muted">
           <Link

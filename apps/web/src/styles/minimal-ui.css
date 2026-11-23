@@ -7274,3 +7274,13 @@ a:has(> .mu-roadmap-node):hover .mu-roadmap-node-content {
 }
 @media (max-width: 360px) { .kid-welcome { grid-template-columns: minmax(0, 1fr); } .kid-welcome-art { display: none; } }
 @media (prefers-reduced-motion: reduce) { .kid-welcome-cta, .kid-quick { transition: none; } }
+
+/* Official Imtiyaz wordmark, including on compact phone screens. */
+.imtiyaz-brand { gap: 5px; color: #24304b; flex-shrink: 0; }
+.imtiyaz-brand .mu-brand-wordmark { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.imtiyaz-brand .mu-brand-latin { font-family: Inter, system-ui, sans-serif; font-size: 24px; line-height: .95; letter-spacing: -1px; font-weight: 800; }
+.imtiyaz-brand small { font-family: Inter, system-ui, sans-serif; color: #52617d; font-size: 8px; font-weight: 700; line-height: 1; letter-spacing: 1.1px; text-transform: uppercase; white-space: nowrap; }
+@media (max-width: 768px) {
+  .imtiyaz-brand .mu-brand-latin { font-size: 21px; font-weight: 800; }
+  .imtiyaz-brand small { font-size: 7px; }
+}

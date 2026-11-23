@@ -1,5 +1,5 @@
 /**
- * Mahfuz logo -- green squircle with white Meem.
+ * Imtiyaz Digital Studio brand mark.
  */
 
 interface MahfuzLogoProps {
@@ -12,8 +12,8 @@ export function MahfuzLogo({ className, size }: MahfuzLogoProps) {
 
   return (
     <img
-      src="/icons/meem-logo.svg"
-      alt="Mahfuz"
+      src="/icons/imtiyaz-logo.svg"
+      alt="Imtiyaz Digital Studio"
       className={className}
       width={s}
       height={s}

@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 
-const CACHE_VERSION = "20260424";
+const CACHE_VERSION = "20261123-imtiyaz";
 const CACHE_NAME = `mahfuz-${CACHE_VERSION}`;
 const STATIC_ASSETS = ["/", "/manifest.json"];
 const MAX_CACHE_ITEMS = 500;

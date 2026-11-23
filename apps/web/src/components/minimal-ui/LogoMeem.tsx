@@ -1,5 +1,5 @@
 /**
- * Meem (م) logo mark -- green squircle with white Meem.
+ * Imtiyaz Digital Studio's official brand mark.
  */
 
 interface LogoMeemProps {
@@ -13,7 +13,7 @@ export function LogoMeem({ size = 38 }: LogoMeemProps) {
       style={{ width: size, height: size, display: "inline-flex", alignItems: "center", justifyContent: "center" }}
     >
       <img
-        src="/icons/meem-logo.svg"
+        src="/icons/imtiyaz-logo.svg"
         alt=""
         aria-hidden="true"
         width={size}
