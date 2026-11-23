@@ -145,7 +145,7 @@ function FeaturedSurah() {
 
 function DailyVerseSection() {
   return (
-    <section className="mx-auto w-full max-w-2xl px-4 pb-12 text-center">
+    <section className="home-daily-section">
       <DailyVerseCard />
     </section>
   );

@@ -41,7 +41,6 @@ export function useGameTimer(difficulty: Difficulty): GameTimerReturn {
   const [remainingMs, setRemainingMs] = useState(startingMs);
   const [running, setRunning] = useState(false);
   const lastTickRef = useRef(0);
-  const rafRef = useRef(0);
 
   const tick = useCallback(() => {
     const now = performance.now();
@@ -53,14 +52,13 @@ export function useGameTimer(difficulty: Difficulty): GameTimerReturn {
       return next <= 0 ? 0 : next;
     });
 
-    rafRef.current = requestAnimationFrame(tick);
   }, []);
 
   useEffect(() => {
     if (running && remainingMs > 0) {
       lastTickRef.current = performance.now();
-      rafRef.current = requestAnimationFrame(tick);
-      return () => cancelAnimationFrame(rafRef.current);
+      const interval = window.setInterval(tick, 150);
+      return () => window.clearInterval(interval);
     }
   }, [running, remainingMs > 0, tick]);
 

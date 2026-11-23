@@ -27,6 +27,7 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
   const [loading, setLoading] = useState(false);
   const { data: providers, isPending } = useQuery({ queryKey: ["auth-providers"], queryFn: () => getAuthProviders(), staleTime: 60_000 });
   const googleEnabled = providers?.google === true;
+  const safeRedirect = redirect?.startsWith("/") && !redirect.startsWith("//") ? redirect : "/";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +48,7 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
         }
       }
       await router.invalidate();
-      router.navigate({ to: redirect || "/" });
+      router.navigate({ to: safeRedirect });
     } catch {
       setError(t.auth.genericError);
     } finally {
@@ -59,7 +60,7 @@ export function LoginPageMinimal({ redirect }: LoginPageProps) {
     setError("");
     setLoading(true);
     try {
-      const result = await signIn.social({ provider: "google", callbackURL: redirect || "/" });
+      const result = await signIn.social({ provider: "google", callbackURL: safeRedirect });
       if (result?.error) {
         setError(t.auth.googleFailed);
       }

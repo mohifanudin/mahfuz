@@ -70,7 +70,7 @@ export function DailyVerseCard() {
           <button
             type="button"
             onClick={() => {
-              const text = `${verse.textUthmani}\n\n${translationText ?? ""}\n\n${surah ? getSurahName(surah.id, locale) : ""} ${verse.ayahNumber} - Mahfuz\nmahfuz.ilg.az`;
+              const text = `${verse.textUthmani}\n\n${translationText ?? ""}\n\n${surah ? getSurahName(surah.id, locale) : ""} ${verse.ayahNumber} - Murojaah\nhttps://murojaah.imtiyaz.web.id`;
               if (navigator.share) {
                 navigator.share({ text });
               } else {

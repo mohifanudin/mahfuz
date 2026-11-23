@@ -7289,6 +7289,12 @@ a:has(> .mu-roadmap-node):hover .mu-roadmap-node-content {
 .mu-v-ar, .mu-omv-text, [lang="ar"] { letter-spacing: normal; word-spacing: .06em; }
 
 /* Home: cohesive, touch-friendly section cards instead of loose chip rows. */
+.mu-home .mu-feature { width:min(100% - 32px,720px);margin:0 auto 15px; padding:24px 18px; border:1px solid #e0e9ee; border-radius:25px; background:linear-gradient(135deg,#fff,#f0faf7); box-shadow:0 8px 26px #243b4a08; }
+.mu-home .mu-feature .mu-eyebrow { margin:0 0 10px;color:#087e88; }
+.mu-home .mu-feat-title{font-family:var(--mu-ff-ui);font-size:clamp(20px,4vw,26px);font-weight:750; }
+.mu-home .mu-feat-arabic{font-size:clamp(32px,7vw,48px);line-height:1.6; }
+.mu-home .mu-rule { display:none; }
+.home-daily-section{width:min(100% - 32px,720px);margin:0 auto 18px;text-align:center;}.home-daily-section .mu-today-card{padding:22px 18px;border-radius:24px;}
 .home-shelves-pro { width:min(100% - 32px, 720px); margin:0 auto; padding:12px 0 44px; display:flex; flex-direction:column; gap:16px; }
 .home-shelves-intro { padding:0 3px 8px; }
 .home-shelves-intro h2 { font:800 clamp(21px,4.2vw,28px)/1.15 var(--mu-ff-ui); color:var(--mu-ink); margin:8px 0 5px; letter-spacing:-.035em; }

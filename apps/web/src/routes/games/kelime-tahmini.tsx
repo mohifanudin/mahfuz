@@ -172,14 +172,7 @@ function MenuScreen({ t, onSelectMode }: { t: any; onSelectMode: (m: "daily" | "
   return (
     <div className="max-w-lg mx-auto px-4 py-8 pb-24 game-bg" style={gameBgStyle(THEME, "kelime-tahmini")}>
       {/* Title */}
-      <div className="text-center mb-8">
-        <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-1">
-          {t.kelimeTahmini.daily}
-        </h1>
-        <p className="text-sm text-[var(--color-text-secondary)]">
-          {t.gamesHub.kelimeTahminiDesc}
-        </p>
-      </div>
+      <div className="game-setup-hero"><span className="game-setup-icon" aria-hidden="true">💡</span><div><p className="kid-kicker">✦ Bermain</p><h1>Tebak kata</h1><p>{t.gamesHub.kelimeTahminiDesc}</p><span className="game-setup-duration">◷ 90 detik · tantangan berwaktu</span></div></div>
 
       {/* Daily card */}
       <button
@@ -552,7 +545,7 @@ function GameScreen({ t, mode, onBack }: { t: any; mode: "daily" | "free"; onBac
             </div>
           ) : (
             <div className="px-4 py-2.5 rounded-xl border mb-2" style={{ backgroundColor: "rgba(220,38,38,0.10)", borderColor: "rgba(239,68,68,0.3)" }}>
-              <p className="text-sm font-semibold mb-1" style={{ color: "#f87171" }}>{t.kelimeTahmini.lose}</p>
+              <p className="text-sm font-semibold mb-1" style={{ color: "#b94049" }}>{countdown.expired ? "Waktu habis!" : t.kelimeTahmini.lose}</p>
               <p className="text-2xl font-bold text-[var(--color-text-primary)]" dir="rtl" style={{ fontFamily: "var(--font-arabic)" }}>
                 {pair.arabic}
               </p>
